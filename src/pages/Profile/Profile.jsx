@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../../context/AppContext';
 import { LogOut, Gift, ShoppingBag, MapPin, Calendar, DollarSign } from 'lucide-react';
 import './Profile.css';
 

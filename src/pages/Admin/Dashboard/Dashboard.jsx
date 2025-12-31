@@ -1,23 +1,51 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { useApp } from '../../context/AppContext';
+import { useApp } from '../../../context/AppContext';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { DollarSign, ShoppingCart, Package, Users, TrendingUp, Award, RefreshCw } from 'lucide-react';
+import { DollarSign, ShoppingCart, Package, Users, TrendingUp, Award, RefreshCw, AlertCircle } from 'lucide-react';
 import './Dashboard.css';
 
+/**
+ * Admin Dashboard Component
+ * Displays sales analytics, order statistics, and product information
+ * 
+ * Features:
+ * - Real-time statistics from context (products, orders)
+ * - Auto-refresh every 5 seconds
+ * - Manual refresh button
+ * - Revenue trends, order status distribution
+ * - Top selling products and stock by category
+ * 
+ * @component
+ */
 function Dashboard() {
-  const { products, orders, loyaltyPoints } = useApp();
+  const { products, orders, loyaltyPoints, fetchOrders, fetchProducts } = useApp();
   const [refreshKey, setRefreshKey] = useState(0);
+  const [debugInfo, setDebugInfo] = useState('');
 
   // Auto-refresh data every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setRefreshKey(prev => prev + 1);
+      fetchOrders();
+      fetchProducts();
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [fetchOrders, fetchProducts]);
+
+  // Log data changes for debugging
+  useEffect(() => {
+    setDebugInfo(`Products: ${products.length}, Orders: ${orders.length}`);
+    console.log('Dashboard Data Updated:', {
+      productsCount: products.length,
+      ordersCount: orders.length,
+      products: products,
+      orders: orders
+    });
+  }, [products, orders]);
 
   const handleManualRefresh = () => {
     setRefreshKey(prev => prev + 1);
+    fetchOrders();
+    fetchProducts();
   };
 
   const stats = useMemo(() => {
@@ -137,6 +165,22 @@ function Dashboard() {
           Refresh
         </button>
       </div>
+
+      {/* Debug Info */}
+      {debugInfo && (
+        <div className="alert alert-info d-flex align-items-center gap-2 mb-4" role="alert">
+          <AlertCircle size={18} />
+          <small>{debugInfo}</small>
+        </div>
+      )}
+
+      {/* No Data Warning */}
+      {orders.length === 0 && (
+        <div className="alert alert-warning d-flex align-items-center gap-2 mb-4" role="alert">
+          <AlertCircle size={18} />
+          <small>No orders found. Make sure JSON Server is running and data is loaded.</small>
+        </div>
+      )}
 
       {/* Stats Cards */}
       <div className="row g-4 mb-5">

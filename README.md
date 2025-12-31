@@ -1,34 +1,63 @@
 # Shop Sphere - Modern E-Commerce Platform
 
-A complete omnichannel e-commerce application with customer portal and admin dashboard built with React, Bootstrap, and Material UI.
+A complete omnichannel e-commerce application with customer portal and admin dashboard built with React, Vite, Bootstrap, and JSON Server.
 
-## ✨ Quick Start
+## ⚡ Ultra-Quick Start
 
 ```bash
 # Install dependencies
-npm install
+npm install --legacy-peer-deps
 
-# Start development server
-npm run dev
+# Start everything (Recommended)
+npm run dev:full
 
-# Build for production
-npm run build
+# This starts:
+# - JSON Server (backend mock) on http://localhost:3001
+# - React app (frontend) on http://localhost:5173
 ```
-
-The app will open at `http://localhost:5173`
 
 ## 🎯 Quick Links
 
-- **Customer Portal**: Browse products, manage cart, track orders, view loyalty points
-- **Admin Portal**: Dashboard analytics, inventory management, order fulfillment
-- **Demo Admin**: `admin@shop.com` / `admin123`
+### Admin Portal
+- **URL**: http://localhost:5173/admin
+- **Email**: admin@shop.com
+- **Password**: admin123
+- **Access**: Dashboard, Orders, Products Management
+
+### Customer Portal
+- **URL**: http://localhost:5173
+- **Test Accounts**:
+  - john@example.com / john@123
+  - sarah@example.com / sarah@456
+  - mike@example.com / mike@789
+- **Or**: Create your own account at `/signup`
+
+## 🔐 Authentication System
+
+### ✨ Features
+✅ Real customer authentication (validates against database)  
+✅ Proper signup/registration with validation  
+✅ Duplicate email detection  
+✅ Password strength requirements (6+ chars with number/special char)  
+✅ Auto-login after signup  
+✅ Session persistence with localStorage  
+✅ Role-based access (admin vs customer)  
+
+### Test the System
+1. Go to `/login` - login with test accounts
+2. Go to `/signup` - create your own account
+3. Try invalid credentials - see error handling
+4. Logout and verify session clears
+
+**Learn More**: See `AUTHENTICATION_GUIDE.md`
 
 ## 📋 Features
 
 ### 👥 Customer Features
-✅ Product search and filtering  
+✅ Secure authentication & registration  
+✅ Product search, filter, and sorting  
 ✅ Shopping cart management  
-✅ Secure checkout  
+✅ Secure checkout process  
 ✅ Order tracking with real-time updates  
 ✅ User profile with order history  
 ✅ Loyalty points system (1 point per $10)  
@@ -46,8 +75,10 @@ The app will open at `http://localhost:5173`
 ## 🛠️ Tech Stack
 
 - **React 19.2** - UI library
-- **Vite** - Build tool
+- **Vite** - Build tool and dev server
 - **Bootstrap 5.3** - CSS framework
+- **Axios** - HTTP client
+- **JSON Server** - Mock API backend
 - **Material UI** - Component library
 - **Recharts** - Charts and analytics
 - **React Router v6** - Navigation

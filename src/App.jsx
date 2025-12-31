@@ -4,19 +4,19 @@ import { AppProvider } from './context/AppContext';
 import CustomNavbar from './components/Navbar';
 
 // Customer Pages
-import Home from './pages/Home';
-import ProductDetail from './pages/ProductDetail';
-import Cart from './pages/Cart';
-import Profile from './pages/Profile';
+import Home from './pages/Home/Home';
+import ProductDetail from './pages/Product/ProductDetail';
+import Cart from './pages/Cart/Cart';
+import Profile from './pages/Profile/Profile';
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
-import OrderTracking from './pages/OrderTracking';
+import OrderTracking from './pages/OrderTracking/OrderTracking';
 
 // Admin Pages
 import AdminLayout from './pages/Admin/AdminLayout';
-import Dashboard from './pages/Admin/Dashboard';
-import ProductManager from './pages/Admin/ProductManager';
-import OrderFulfillment from './pages/Admin/OrderFulfillment';
+import Dashboard from './pages/Admin/Dashboard/Dashboard';
+import ProductManager from './pages/Admin/InventoryManagement/ProductManager';
+import OrderFulfillment from './pages/Admin/OrderFulfillment/OrderFulfillment';
 
 import './App.css';
 

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { useApp } from '../../context/AppContext';
+import { useApp } from '../../../context/AppContext';
 import { Plus, Edit, Trash2, Search, AlertCircle } from 'lucide-react';
 import './ProductManager.css';
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useApp } from '../context/AppContext';
+import { useApp } from '../../context/AppContext';
 import { ArrowLeft, MapPin, Phone, Mail, CheckCircle, Clock, AlertCircle } from 'lucide-react';
 import './OrderTracking.css';
 

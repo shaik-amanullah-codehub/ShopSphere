@@ -1,0 +1,202 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Wireless Headphones",
+      "price": 199.99,
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
+      "description": "Premium noise-cancelling wireless headphones with 30-hour battery life",
+      "category": "Electronics",
+      "stock": 15,
+      "rating": 4.8,
+      "createdAt": "2025-01-01T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Smart Watch",
+      "price": 149.99,
+      "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
+      "description": "Advanced fitness tracking smart watch with heart rate monitor",
+      "category": "Electronics",
+      "stock": 25,
+      "rating": 4.6,
+      "createdAt": "2025-01-01T00:00:00Z"
+    },
+    {
+      "id": 3,
+      "name": "USB-C Cable",
+      "price": 12.99,
+      "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
+      "description": "Fast charging USB-C cable with data transfer capability",
+      "category": "Accessories",
+      "stock": 100,
+      "rating": 4.5,
+      "createdAt": "2025-01-01T00:00:00Z"
+    },
+    {
+      "id": 4,
+      "name": "Wireless Mouse",
+      "price": 45.99,
+      "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop",
+      "description": "Ergonomic wireless mouse with precision tracking",
+      "category": "Electronics",
+      "stock": 30,
+      "rating": 4.7,
+      "createdAt": "2025-01-01T00:00:00Z"
+    },
+    {
+      "id": 5,
+      "name": "Phone Stand",
+      "price": 19.99,
+      "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&h=500&fit=crop",
+      "description": "Adjustable phone stand for desk and tabletop use",
+      "category": "Accessories",
+      "stock": 50,
+      "rating": 4.4,
+      "createdAt": "2025-01-01T00:00:00Z"
+    },
+    {
+      "id": 6,
+      "name": "Phone Case",
+      "price": 24.99,
+      "image": "https://images.unsplash.com/photo-1592286927505-1def25115558?w=500&h=500&fit=crop",
+      "description": "Protective phone case with impact resistance",
+      "category": "Accessories",
+      "stock": 80,
+      "rating": 4.6,
+      "createdAt": "2025-01-01T00:00:00Z"
+    },
+    {
+      "id": 7,
+      "name": "Screen Protector",
+      "price": 9.99,
+      "image": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&h=500&fit=crop",
+      "description": "Tempered glass screen protector for all devices",
+      "category": "Accessories",
+      "stock": 120,
+      "rating": 4.5,
+      "createdAt": "2025-01-01T00:00:00Z"
+    },
+    {
+      "id": 8,
+      "name": "USB Hub",
+      "price": 39.99,
+      "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
+      "description": "7-port USB hub with fast charging capability",
+      "category": "Electronics",
+      "stock": 45,
+      "rating": 4.7,
+      "createdAt": "2025-01-01T00:00:00Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-1767168150331",
+      "userId": 5,
+      "items": [
+        {
+          "id": 3,
+          "name": "USB-C Cable",
+          "price": 12.99,
+          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
+          "description": "Fast charging USB-C cable with data transfer capability",
+          "category": "Accessories",
+          "stock": 100,
+          "rating": 4.5,
+          "createdAt": "2025-01-01T00:00:00Z",
+          "quantity": 1
+        }
+      ],
+      "total": 24.019199999999998,
+      "status": "delivered",
+      "trackingStatus": "Picked & Packed",
+      "createdAt": "2025-12-31T08:02:30.331Z",
+      "updatedAt": "2025-12-31T09:19:17.974Z",
+      "shippingAddress": {
+        "fullName": "Shaik Aman",
+        "email": "aman1@gmail.com",
+        "address": "pune cts",
+        "city": "pune",
+        "state": "Maharashtra",
+        "zipCode": "522228",
+        "phone": "07670975808"
+      },
+      "paymentMethod": "card"
+    },
+    {
+      "id": "ORD-1767168332694",
+      "userId": 5,
+      "items": [
+        {
+          "id": 2,
+          "name": "Smart Watch",
+          "price": 149.99,
+          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
+          "description": "Advanced fitness tracking smart watch with heart rate monitor",
+          "category": "Electronics",
+          "stock": 25,
+          "rating": 4.6,
+          "createdAt": "2025-01-01T00:00:00Z",
+          "quantity": 1
+        }
+      ],
+      "total": 161.9892,
+      "status": "pending",
+      "trackingStatus": "Order Placed",
+      "createdAt": "2025-12-31T08:05:32.694Z",
+      "updatedAt": "2025-12-31T08:05:32.694Z",
+      "shippingAddress": {
+        "fullName": "Shaik Aman",
+        "email": "aman1@gmail.com",
+        "address": "pune cts",
+        "city": "pune",
+        "state": "Maharashtra",
+        "zipCode": "522228",
+        "phone": "07670975808"
+      },
+      "paymentMethod": "card"
+    }
+  ],
+  "customers": [
+    {
+      "id": 1,
+      "email": "admin@shop.com",
+      "password": "admin123",
+      "name": "Admin User",
+      "role": "admin",
+      "createdAt": "2025-01-01T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "email": "john@example.com",
+      "password": "john@123",
+      "name": "John Doe",
+      "role": "customer",
+      "createdAt": "2025-01-05T10:30:00Z"
+    },
+    {
+      "id": 3,
+      "email": "sarah@example.com",
+      "password": "sarah@456",
+      "name": "Sarah Smith",
+      "role": "customer",
+      "createdAt": "2025-01-10T14:20:00Z"
+    },
+    {
+      "id": 4,
+      "email": "mike@example.com",
+      "password": "mike@789",
+      "name": "Mike Johnson",
+      "role": "customer",
+      "createdAt": "2025-01-15T08:45:00Z"
+    },
+    {
+      "email": "aman1@gmail.com",
+      "password": "aman123",
+      "name": "Shaik Aman",
+      "role": "customer",
+      "createdAt": "2025-12-31T08:02:04.345Z",
+      "id": 5
+    }
+  ]
+}
