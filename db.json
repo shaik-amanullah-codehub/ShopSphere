@@ -155,6 +155,51 @@
         "phone": "07670975808"
       },
       "paymentMethod": "card"
+    },
+    {
+      "id": "ORD-1767176330680",
+      "userId": 1767004798085,
+      "items": [
+        {
+          "id": 3,
+          "name": "USB-C Cable",
+          "price": 12.99,
+          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
+          "description": "Fast charging USB-C cable with data transfer capability",
+          "category": "Accessories",
+          "stock": 100,
+          "rating": 4.5,
+          "createdAt": "2025-01-01T00:00:00Z",
+          "quantity": 1
+        },
+        {
+          "id": 2,
+          "name": "Smart Watch",
+          "price": 149.99,
+          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
+          "description": "Advanced fitness tracking smart watch with heart rate monitor",
+          "category": "Electronics",
+          "stock": 25,
+          "rating": 4.6,
+          "createdAt": "2025-01-01T00:00:00Z",
+          "quantity": 1
+        }
+      ],
+      "total": 176.0184,
+      "status": "pending",
+      "trackingStatus": "Order Placed",
+      "createdAt": "2025-12-31T10:18:50.680Z",
+      "updatedAt": "2025-12-31T10:18:50.680Z",
+      "shippingAddress": {
+        "fullName": "jaibabu",
+        "email": "jaibabu@gmail.com",
+        "address": "adsfghjkl;'",
+        "city": "fdghjkl;",
+        "state": "sdfghjkl",
+        "zipCode": "1234567890",
+        "phone": "01234567890"
+      },
+      "paymentMethod": "paypal"
     }
   ],
   "customers": [
