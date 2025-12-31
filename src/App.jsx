@@ -1,0 +1,74 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AppProvider } from './context/AppContext';
+import CustomNavbar from './components/Navbar';
+
+// Customer Pages
+import Home from './pages/Home';
+import ProductDetail from './pages/ProductDetail';
+import Cart from './pages/Cart';
+import Profile from './pages/Profile';
+import Login from './pages/Auth/Login';
+import Signup from './pages/Auth/Signup';
+import OrderTracking from './pages/OrderTracking';
+
+// Admin Pages
+import AdminLayout from './pages/Admin/AdminLayout';
+import Dashboard from './pages/Admin/Dashboard';
+import ProductManager from './pages/Admin/ProductManager';
+import OrderFulfillment from './pages/Admin/OrderFulfillment';
+
+import './App.css';
+
+function App() {
+  return (
+    <Router>
+      <AppProvider>
+        <CustomNavbar />
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+
+          {/* Customer Routes */}
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/order/:orderId" element={<OrderTracking />} />
+
+          {/* Admin Routes */}
+          <Route
+            path="/admin"
+            element={
+              <AdminLayout>
+                <Dashboard />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path="/admin/inventory"
+            element={
+              <AdminLayout>
+                <ProductManager />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path="/admin/orders"
+            element={
+              <AdminLayout>
+                <OrderFulfillment />
+              </AdminLayout>
+            }
+          />
+
+          {/* Catch all */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </AppProvider>
+    </Router>
+  );
+}
+
+export default App;

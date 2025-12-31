@@ -1,0 +1,36 @@
+.cart-page {
+  min-height: 100vh;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-preview {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.success-message {
+  padding: 40px;
+  text-align: center;
+}
+
+.sticky-top {
+  z-index: 10;
+}
+
+@media (max-width: 992px) {
+  .sticky-top {
+    position: static;
+    margin-top: 20px;
+  }
+}
