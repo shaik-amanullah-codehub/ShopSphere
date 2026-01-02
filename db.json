@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Wireless Headphones",
-      "price": 199.99,
+      "price": 200.5,
       "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
       "description": "Premium noise-cancelling wireless headphones with 30-hour battery life",
       "category": "Electronics",
@@ -14,7 +14,7 @@
     {
       "id": 2,
       "name": "Smart Watch",
-      "price": 149.99,
+      "price": 150,
       "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
       "description": "Advanced fitness tracking smart watch with heart rate monitor",
       "category": "Electronics",
