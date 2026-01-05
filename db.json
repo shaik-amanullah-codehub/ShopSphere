@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Wireless Headphones",
-      "price": 200.5,
+      "price": 1200,
       "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
       "description": "Premium noise-cancelling wireless headphones with 30-hour battery life",
       "category": "Electronics",
@@ -14,7 +14,7 @@
     {
       "id": 2,
       "name": "Smart Watch",
-      "price": 150,
+      "price": 3500,
       "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
       "description": "Advanced fitness tracking smart watch with heart rate monitor",
       "category": "Electronics",
@@ -25,8 +25,8 @@
     {
       "id": 3,
       "name": "USB-C Cable",
-      "price": 12.99,
-      "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
+      "price": 250,
+      "image": "https://plus.unsplash.com/premium_photo-1669261149433-febd56c05327?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dXNiJTIwYyUyMGNhYmxlfGVufDB8fDB8fHww?w=400&h=400&fit=crop",
       "description": "Fast charging USB-C cable with data transfer capability",
       "category": "Accessories",
       "stock": 100,
@@ -36,7 +36,7 @@
     {
       "id": 4,
       "name": "Wireless Mouse",
-      "price": 45.99,
+      "price": 600,
       "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop",
       "description": "Ergonomic wireless mouse with precision tracking",
       "category": "Electronics",
@@ -47,8 +47,8 @@
     {
       "id": 5,
       "name": "Phone Stand",
-      "price": 19.99,
-      "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&h=500&fit=crop",
+      "price": 200,
+      "image": "https://tse1.mm.bing.net/th/id/OIP.0Wnuj8Th6698Fq23cW-RiwHaHa?w=174&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
       "description": "Adjustable phone stand for desk and tabletop use",
       "category": "Accessories",
       "stock": 50,
@@ -58,7 +58,7 @@
     {
       "id": 6,
       "name": "Phone Case",
-      "price": 24.99,
+      "price": 250,
       "image": "https://images.unsplash.com/photo-1592286927505-1def25115558?w=500&h=500&fit=crop",
       "description": "Protective phone case with impact resistance",
       "category": "Accessories",
@@ -67,26 +67,45 @@
       "createdAt": "2025-01-01T00:00:00Z"
     },
     {
-      "id": 7,
-      "name": "Screen Protector",
-      "price": 9.99,
-      "image": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&h=500&fit=crop",
-      "description": "Tempered glass screen protector for all devices",
-      "category": "Accessories",
-      "stock": 120,
-      "rating": 4.5,
-      "createdAt": "2025-01-01T00:00:00Z"
-    },
-    {
       "id": 8,
       "name": "USB Hub",
-      "price": 39.99,
-      "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
+      "price": 1000,
+      "image": "https://images.unsplash.com/photo-1760376789478-c1023d2dc007?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dXNiJTIwaHVifGVufDB8fDB8fHww",
       "description": "7-port USB hub with fast charging capability",
       "category": "Electronics",
       "stock": 45,
       "rating": 4.7,
       "createdAt": "2025-01-01T00:00:00Z"
+    },
+    {
+      "name": "White T-shirt",
+      "price": 550,
+      "description": "Premium White Cotton Round Neck T-shirt for Men",
+      "category": "Apparel",
+      "stock": 25,
+      "image": "https://plus.unsplash.com/premium_photo-1718913936342-eaafff98834b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dCUyMHNoaXJ0fGVufDB8fDB8fHww",
+      "rating": 4.5,
+      "id": 9
+    },
+    {
+      "name": "Sneakers",
+      "price": 2500,
+      "description": "Puma White Sneakers ",
+      "category": "Apparel",
+      "stock": 30,
+      "image": "https://images.unsplash.com/photo-1608229751021-ed4bd8677753?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTA0fHxzaG9lc3xlbnwwfHwwfHx8MA%3D%3D",
+      "rating": 4.5,
+      "id": 10
+    },
+    {
+      "name": "Black Heels",
+      "price": 2500,
+      "description": "Black Leather peep toe heeled shoes",
+      "category": "Apparel",
+      "stock": 20,
+      "image": "https://images.unsplash.com/photo-1596702874230-b5706dfb5bc7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGhlZWxzfGVufDB8fDB8fHww",
+      "rating": 4.5,
+      "id": 11
     }
   ],
   "orders": [
