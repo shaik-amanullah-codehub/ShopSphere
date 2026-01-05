@@ -157,40 +157,7 @@
       "paymentMethod": "card"
     },
     {
-      "id": "ORD-1767329503652",
-      "userId": 6,
-      "items": [
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 2
-        }
-      ],
-      "total": 38.0484,
-      "status": "shipped",
-      "trackingStatus": "Shipped",
-      "createdAt": "2026-01-02T04:51:43.652Z",
-      "updatedAt": "2026-01-02T04:52:52.685Z",
-      "shippingAddress": {
-        "fullName": "Dinesh Uppu",
-        "email": "uppudinesh197@gmail.com",
-        "address": "asdfyguijkm",
-        "city": "esrty765e",
-        "state": "tres",
-        "zipCode": "4567",
-        "phone": "23456789"
-      },
-      "paymentMethod": "paypal"
-    },
-    {
-      "id": "ORD-1767330401980",
+      "id": "ORD-1767602747486",
       "userId": 6,
       "items": [
         {
@@ -206,196 +173,63 @@
           "quantity": 1
         }
       ],
-      "total": 161.9892,
+      "total": 164.989,
+      "status": "pending",
+      "trackingStatus": "Ready for Pickup",
+      "createdAt": "2026-01-05T08:45:47.486Z",
+      "updatedAt": "2026-01-05T12:34:56.436Z",
+      "shippingAddress": {
+        "id": 1,
+        "name": "TechHaven Downtown",
+        "address": "12, MG Road, Central District, Mumbai - 400001",
+        "distance": "1.2 km"
+      },
+      "paymentMethod": "upi"
+    },
+    {
+      "id": "ORD-1767603056980",
+      "userId": 6,
+      "items": [
+        {
+          "id": 3,
+          "name": "USB-C Cable",
+          "price": 12.99,
+          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
+          "description": "Fast charging USB-C cable with data transfer capability",
+          "category": "Accessories",
+          "stock": 100,
+          "rating": 4.5,
+          "createdAt": "2025-01-01T00:00:00Z",
+          "quantity": 1
+        },
+        {
+          "id": 2,
+          "name": "Smart Watch",
+          "price": 149.99,
+          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
+          "description": "Advanced fitness tracking smart watch with heart rate monitor",
+          "category": "Electronics",
+          "stock": 25,
+          "rating": 4.6,
+          "createdAt": "2025-01-01T00:00:00Z",
+          "quantity": 1
+        }
+      ],
+      "total": 179.27800000000002,
       "status": "delivered",
       "trackingStatus": "Delivered",
-      "createdAt": "2026-01-02T05:06:41.980Z",
-      "updatedAt": "2026-01-02T13:16:34.695Z",
+      "createdAt": "2026-01-05T08:50:56.980Z",
+      "updatedAt": "2026-01-05T12:42:35.159Z",
       "shippingAddress": {
-        "fullName": "Dinesh Uppu",
-        "email": "uppudinesh197@gmail.com",
-        "address": "asdfyguijkm",
-        "city": "esrty765e",
-        "state": "tres",
-        "zipCode": "4567",
-        "phone": "23456789"
-      },
-      "paymentMethod": "card"
-    },
-    {
-      "id": "ORD-1767347362723",
-      "userId": 1,
-      "items": [
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 4,
-          "name": "Wireless Mouse",
-          "price": 45.99,
-          "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop",
-          "description": "Ergonomic wireless mouse with precision tracking",
-          "category": "Electronics",
-          "stock": 30,
-          "rating": 4.7,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 114.878,
-      "status": "shipped",
-      "trackingStatus": "Shipped",
-      "createdAt": "2026-01-02T09:49:22.723Z",
-      "updatedAt": "2026-01-02T13:17:12.220Z",
-      "shippingAddress": {
-        "name": "Admin User",
-        "line1": "trew",
-        "city": "ds",
-        "state": "erfdsa",
-        "pincode": "234"
+        "id": 2,
+        "name": "TechHaven West",
+        "address": "Shop 45, Infinity Mall, Andheri West, Mumbai - 400053",
+        "distance": "5.8 km"
       },
       "paymentMethod": "upi"
     },
     {
-      "id": "ORD-1767347462705",
-      "userId": 1,
-      "items": [
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 2
-        },
-        {
-          "id": 4,
-          "name": "Wireless Mouse",
-          "price": 45.99,
-          "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop",
-          "description": "Ergonomic wireless mouse with precision tracking",
-          "category": "Electronics",
-          "stock": 30,
-          "rating": 4.7,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 129.167,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T09:51:02.705Z",
-      "updatedAt": "2026-01-02T09:51:02.705Z",
-      "shippingAddress": {
-        "name": "Admin User",
-        "line1": "drrf",
-        "city": "jhre",
-        "state": "kjhgfd",
-        "pincode": "3456"
-      },
-      "paymentMethod": "upi"
-    },
-    {
-      "id": "ORD-1767347999482",
-      "userId": 1,
-      "items": [
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 64.289,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T09:59:59.482Z",
-      "updatedAt": "2026-01-02T09:59:59.482Z",
-      "shippingAddress": {
-        "name": "Admin User",
-        "line1": "asdfyguijkm",
-        "city": "esrty765e",
-        "state": "tres",
-        "pincode": "4567"
-      },
-      "paymentMethod": "upi"
-    },
-    {
-      "id": "ORD-1767348450854",
-      "userId": 6,
-      "items": [
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 2
-        },
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 4,
-          "name": "Wireless Mouse",
-          "price": 45.99,
-          "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop",
-          "description": "Ergonomic wireless mouse with precision tracking",
-          "category": "Electronics",
-          "stock": 30,
-          "rating": 4.7,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 294.156,
-      "status": "delivered",
-      "trackingStatus": "Delivered",
-      "createdAt": "2026-01-02T10:07:30.854Z",
-      "updatedAt": "2026-01-02T13:16:50.048Z",
-      "shippingAddress": {
-        "name": "Dinesh Uppu",
-        "line1": "asdfyguijkm",
-        "city": "esrty765e",
-        "state": "tres",
-        "pincode": "4567"
-      },
-      "paymentMethod": "upi"
-    },
-    {
-      "id": "ORD-1767349819707",
+      "id": "ORD-1767613870993",
       "userId": 6,
       "items": [
         {
@@ -408,25 +242,29 @@
           "stock": 25,
           "rating": 4.6,
           "createdAt": "2025-01-01T00:00:00Z",
+          "quantity": 2
+        },
+        {
+          "id": 3,
+          "name": "USB-C Cable",
+          "price": 12.99,
+          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
+          "description": "Fast charging USB-C cable with data transfer capability",
+          "category": "Accessories",
+          "stock": 100,
+          "rating": 4.5,
+          "createdAt": "2025-01-01T00:00:00Z",
           "quantity": 1
         }
       ],
-      "total": 214.989,
+      "total": 344.26700000000005,
       "status": "pending",
       "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T10:30:19.707Z",
-      "updatedAt": "2026-01-02T10:30:19.707Z",
-      "shippingAddress": {
-        "name": "Dinesh Uppu",
-        "line1": "asdfyguijkm",
-        "city": "esrty765e",
-        "state": "tres",
-        "pincode": "4567"
-      },
-      "paymentMethod": "upi"
+      "createdAt": "2026-01-05T11:51:10.993Z",
+      "updatedAt": "2026-01-05T11:51:10.994Z"
     },
     {
-      "id": "ORD-1767356717404",
+      "id": "ORD-1767613907251",
       "userId": 6,
       "items": [
         {
@@ -445,61 +283,34 @@
       "total": 14.289,
       "status": "pending",
       "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T12:25:17.404Z",
-      "updatedAt": "2026-01-02T12:25:17.404Z",
-      "shippingAddress": {
-        "name": "Dinesh Uppu",
-        "line1": "asdfyguijkm",
-        "city": "esrty765e",
-        "state": "tres",
-        "pincode": "4567"
-      },
-      "paymentMethod": "upi"
+      "createdAt": "2026-01-05T11:51:47.251Z",
+      "updatedAt": "2026-01-05T11:51:47.251Z"
     },
     {
-      "id": "ORD-1767357958188",
+      "id": "ORD-1767613934375",
       "userId": 6,
       "items": [
         {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
+          "id": 3,
+          "name": "USB-C Cable",
+          "price": 12.99,
+          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
+          "description": "Fast charging USB-C cable with data transfer capability",
+          "category": "Accessories",
+          "stock": 100,
+          "rating": 4.5,
           "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 2
-        },
-        {
-          "id": 4,
-          "name": "Wireless Mouse",
-          "price": 45.99,
-          "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop",
-          "description": "Ergonomic wireless mouse with precision tracking",
-          "category": "Electronics",
-          "stock": 30,
-          "rating": 4.7,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
+          "quantity": 3
         }
       ],
-      "total": 380.567,
+      "total": 42.867,
       "status": "pending",
       "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T12:45:58.188Z",
-      "updatedAt": "2026-01-02T12:45:58.188Z",
-      "shippingAddress": {
-        "id": 1,
-        "name": "TechHaven Downtown",
-        "address": "12, MG Road, Central District, Mumbai - 400001",
-        "distance": "1.2 km"
-      },
-      "paymentMethod": "upi"
+      "createdAt": "2026-01-05T11:52:14.375Z",
+      "updatedAt": "2026-01-05T11:52:14.375Z"
     },
     {
-      "id": "ORD-1767359299995",
+      "id": "ORD-1767614080014",
       "userId": 6,
       "items": [
         {
@@ -518,218 +329,11 @@
       "total": 164.989,
       "status": "pending",
       "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T13:08:19.995Z",
-      "updatedAt": "2026-01-02T13:08:19.995Z",
-      "shippingAddress": {
-        "id": 1,
-        "name": "TechHaven Downtown",
-        "address": "12, MG Road, Central District, Mumbai - 400001",
-        "distance": "1.2 km"
-      },
-      "paymentMethod": "upi"
+      "createdAt": "2026-01-05T11:54:40.014Z",
+      "updatedAt": "2026-01-05T11:54:40.014Z"
     },
     {
-      "id": "ORD-1767359390003",
-      "userId": 6,
-      "items": [
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 1,
-          "name": "Wireless Headphones",
-          "price": 199.99,
-          "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
-          "description": "Premium noise-cancelling wireless headphones with 30-hour battery life ",
-          "category": "Electronics",
-          "stock": 15,
-          "rating": 4.8,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 384.978,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T13:09:50.003Z",
-      "updatedAt": "2026-01-02T13:09:50.003Z",
-      "shippingAddress": {
-        "id": 1,
-        "name": "TechHaven Downtown",
-        "address": "12, MG Road, Central District, Mumbai - 400001",
-        "distance": "1.2 km"
-      },
-      "paymentMethod": "upi"
-    },
-    {
-      "id": "ORD-1767359481529",
-      "userId": 6,
-      "items": [
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 4,
-          "name": "Wireless Mouse",
-          "price": 45.99,
-          "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop",
-          "description": "Ergonomic wireless mouse with precision tracking",
-          "category": "Electronics",
-          "stock": 30,
-          "rating": 4.7,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 114.878,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T13:11:21.529Z",
-      "updatedAt": "2026-01-02T13:11:21.529Z",
-      "shippingAddress": {
-        "name": "Dinesh Uppu",
-        "line1": "asdfyguijkm",
-        "city": "esrty765e",
-        "state": "tres",
-        "pincode": "4567"
-      },
-      "paymentMethod": "upi"
-    },
-    {
-      "id": "ORD-1767359504759",
-      "userId": 6,
-      "items": [
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 14.289,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T13:11:44.759Z",
-      "updatedAt": "2026-01-02T13:11:44.759Z",
-      "shippingAddress": {
-        "id": 1,
-        "name": "TechHaven Downtown",
-        "address": "12, MG Road, Central District, Mumbai - 400001",
-        "distance": "1.2 km"
-      },
-      "paymentMethod": "cod"
-    },
-    {
-      "id": "ORD-1767374443602",
-      "userId": 6,
-      "items": [
-        {
-          "id": 6,
-          "name": "Phone Case",
-          "price": 24.99,
-          "image": "https://images.unsplash.com/photo-1592286927505-1def25115558?w=500&h=500&fit=crop",
-          "description": "Protective phone case with impact resistance",
-          "category": "Accessories",
-          "stock": 80,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 7,
-          "name": "Screen Protector",
-          "price": 9.99,
-          "image": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&h=500&fit=crop",
-          "description": "Tempered glass screen protector for all devices",
-          "category": "Accessories",
-          "stock": 120,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 38.477999999999994,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T17:20:43.602Z",
-      "updatedAt": "2026-01-02T17:20:43.602Z",
-      "shippingAddress": {
-        "id": 1,
-        "name": "TechHaven Downtown",
-        "address": "12, MG Road, Central District, Mumbai - 400001",
-        "distance": "1.2 km"
-      },
-      "paymentMethod": "upi"
-    },
-    {
-      "id": "ORD-1767374480399",
-      "userId": 6,
-      "items": [
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 229.27800000000002,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T17:21:20.399Z",
-      "updatedAt": "2026-01-02T17:21:20.399Z",
-      "shippingAddress": {
-        "name": "Dinesh Uppu",
-        "line1": "asdfyguijkm",
-        "city": "esrty765e",
-        "state": "tres",
-        "pincode": "4567"
-      },
-      "paymentMethod": "card"
-    },
-    {
-      "id": "ORD-1767374836784",
+      "id": "ORD-1767614255627",
       "userId": 6,
       "items": [
         {
@@ -760,142 +364,31 @@
       "total": 64.878,
       "status": "pending",
       "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T17:27:16.784Z",
-      "updatedAt": "2026-01-02T17:27:16.784Z",
-      "shippingAddress": {
-        "id": 2,
-        "name": "TechHaven West",
-        "address": "Shop 45, Infinity Mall, Andheri West, Mumbai - 400053",
-        "distance": "5.8 km"
-      },
-      "paymentMethod": "upi"
+      "createdAt": "2026-01-05T11:57:35.627Z",
+      "updatedAt": "2026-01-05T11:57:35.627Z"
     },
     {
-      "id": "ORD-1767374860019",
+      "id": "ORD-1767614287393",
       "userId": 6,
       "items": [
         {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
+          "id": 4,
+          "name": "Wireless Mouse",
+          "price": 45.99,
+          "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop",
+          "description": "Ergonomic wireless mouse with precision tracking",
           "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
+          "stock": 30,
+          "rating": 4.7,
           "createdAt": "2025-01-01T00:00:00Z",
           "quantity": 1
         }
       ],
-      "total": 229.27800000000002,
+      "total": 50.589,
       "status": "pending",
       "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T17:27:40.019Z",
-      "updatedAt": "2026-01-02T17:27:40.019Z",
-      "shippingAddress": {
-        "name": "Dinesh Uppu",
-        "line1": "asdfyguijkm",
-        "city": "esrty765e",
-        "state": "tres",
-        "pincode": "4567"
-      },
-      "paymentMethod": "upi"
-    },
-    {
-      "id": "ORD-1767376223749",
-      "userId": 6,
-      "items": [
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 179.27800000000002,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T17:50:23.749Z",
-      "updatedAt": "2026-01-02T17:50:23.749Z",
-      "shippingAddress": {
-        "id": 1,
-        "name": "TechHaven Downtown",
-        "address": "12, MG Road, Central District, Mumbai - 400001",
-        "distance": "1.2 km"
-      },
-      "paymentMethod": "upi"
-    },
-    {
-      "id": "ORD-1767379945202",
-      "userId": 6,
-      "items": [
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 1,
-          "name": "Wireless Headphones",
-          "price": 199.99,
-          "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
-          "description": "Premium noise-cancelling wireless headphones with 30-hour battery life ",
-          "category": "Electronics",
-          "stock": 15,
-          "rating": 4.8,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 384.978,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T18:52:25.202Z",
-      "updatedAt": "2026-01-02T18:52:25.202Z",
-      "shippingAddress": {
-        "id": 2,
-        "name": "TechHaven West",
-        "address": "Shop 45, Infinity Mall, Andheri West, Mumbai - 400053",
-        "distance": "5.8 km"
-      },
-      "paymentMethod": "upi"
+      "createdAt": "2026-01-05T11:58:07.393Z",
+      "updatedAt": "2026-01-05T11:58:07.393Z"
     }
   ],
   "customers": [
@@ -943,8 +436,9 @@
       "email": "uppudinesh197@gmail.com",
       "password": "Dinesh@9858",
       "name": "Dinesh Uppu",
+      "mobileNumber": "9603166971",
       "role": "customer",
-      "createdAt": "2026-01-02T04:51:14.311Z",
+      "createdAt": "2026-01-05T08:47:42.776Z",
       "id": 6
     }
   ]

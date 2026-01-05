@@ -192,14 +192,14 @@ function OrderTracking() {
                 </h5>
                 <div className="address-box bg-light p-3 rounded">
                   <p className="fw-bold mb-2">
-                    {order.shippingAddress.fullName}
+                    {order.shippingAddress?.fullName || order.shippingAddress?.name || 'Unknown Recipient'}
                   </p>
                   <p className="mb-1 text-secondary small">
-                    {order.shippingAddress.address}
+                    {order.shippingAddress?.address || order.shippingAddress?.line1 || 'Address not available'}
                   </p>
                   <p className="mb-2 text-secondary small">
-                    {order.shippingAddress.city}, {order.shippingAddress.state}{' '}
-                    {order.shippingAddress.zipCode}
+                    {order.shippingAddress?.city || ''}{order.shippingAddress?.city && ', '}{order.shippingAddress?.state || ''}{' '}
+                    {order.shippingAddress?.zipCode || ''}
                   </p>
                 </div>
               </div>

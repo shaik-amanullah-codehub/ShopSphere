@@ -1,6 +1,6 @@
 /**
  * App Context Module
- * 
+ *
  * Global state management for the entire application.
  * Handles:
  * - User authentication and profile management
@@ -8,15 +8,21 @@
  * - Shopping cart operations
  * - Order management and tracking
  * - Loyalty points system
- * 
+ *
  * State is synchronized with localStorage for persistence
  * and uses Axios to communicate with backend/JSON Server.
- * 
+ *
  * @module context/AppContext
  */
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { productAPI, orderAPI, authAPI, handleApiError } from '../services/api';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
+import { productAPI, orderAPI, authAPI, handleApiError } from "../services/api";
 // Create the context
 const AppContext = createContext();
 
@@ -24,15 +30,16 @@ const AppContext = createContext();
  * localStorage keys for consistent data persistence
  */
 const STORAGE_KEYS = {
-  CURRENT_USER: 'currentUser',
-  CART: 'cart',
-  LOYALTY_POINTS: 'loyaltyPoints',
+  CURRENT_USER: "currentUser",
+  CART: "cart",
+  LOYALTY_POINTS: "loyaltyPoints",
+  MOBILE_NUMBER: "mobileNumber",
 };
 
 /**
  * AppProvider Component
  * Wraps the entire application and provides global state
- * 
+ *
  * @component
  * @param {Object} props - Component props
  * @param {React.ReactNode} props.children - Child components
@@ -55,7 +62,14 @@ export const AppProvider = ({ children }) => {
   const [ordersLoading, setOrdersLoading] = useState(false);
 
   // ===== LOYALTY STATE =====
-  const [loyaltyPoints, setLoyaltyPoints] = useState(0);
+  const [loyaltyPoints, setLoyaltyPoints] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.LOYALTY_POINTS);
+      return saved ? JSON.parse(saved) : 0;
+    } catch (err) {
+      return 0;
+    }
+  });
 
   /**
    * Initialize app: Load user from localStorage and fetch products
@@ -74,12 +88,11 @@ export const AppProvider = ({ children }) => {
     } catch (err) {
       const apiError = handleApiError(err);
       setError(apiError.message);
-      console.error('Failed to fetch products:', apiError);
+      console.error("Failed to fetch products:", apiError);
     } finally {
       setProductsLoading(false);
     }
   }, []);
-
 
   useEffect(() => {
     // Load persisted user and cart data
@@ -98,7 +111,7 @@ export const AppProvider = ({ children }) => {
         setLoyaltyPoints(JSON.parse(savedPoints));
       }
     } catch (err) {
-      console.error('Error loading from localStorage:', err);
+      console.error("Error loading from localStorage:", err);
     }
 
     // Fetch products on app initialization
@@ -112,7 +125,7 @@ export const AppProvider = ({ children }) => {
     try {
       localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
     } catch (err) {
-      console.error('Error saving cart to localStorage:', err);
+      console.error("Error saving cart to localStorage:", err);
     }
   }, [cart]);
 
@@ -121,9 +134,12 @@ export const AppProvider = ({ children }) => {
    */
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEYS.LOYALTY_POINTS, JSON.stringify(loyaltyPoints));
+      localStorage.setItem(
+        STORAGE_KEYS.LOYALTY_POINTS,
+        JSON.stringify(loyaltyPoints)
+      );
     } catch (err) {
-      console.error('Error saving loyalty points to localStorage:', err);
+      console.error("Error saving loyalty points to localStorage:", err);
     }
   }, [loyaltyPoints]);
 
@@ -133,12 +149,15 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     try {
       if (currentUser) {
-        localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(currentUser));
+        localStorage.setItem(
+          STORAGE_KEYS.CURRENT_USER,
+          JSON.stringify(currentUser)
+        );
       } else {
         localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
       }
     } catch (err) {
-      console.error('Error saving user to localStorage:', err);
+      console.error("Error saving user to localStorage:", err);
     }
   }, [currentUser]);
 
@@ -151,16 +170,17 @@ export const AppProvider = ({ children }) => {
       // Call fetch orders when user changes
       setOrdersLoading(true);
       setError(null);
-      
+
       (async () => {
         try {
-          const params = currentUser?.role === 'admin' ? {} : { userId: currentUser?.id };
+          const params =
+            currentUser?.role === "admin" ? {} : { userId: currentUser?.id };
           const response = await orderAPI.getAllOrders(params);
           setOrders(response.data);
         } catch (err) {
           const apiError = handleApiError(err);
           setError(apiError.message);
-          console.error('Failed to fetch orders:', apiError);
+          console.error("Failed to fetch orders:", apiError);
         } finally {
           setOrdersLoading(false);
         }
@@ -175,69 +195,83 @@ export const AppProvider = ({ children }) => {
    * @param {number} productId - Product ID
    * @returns {Object|null} Product object or null if not found
    */
-  const getProductById = useCallback((productId) => {
-    return products.find(p => p.id === productId);
-  }, [products]);
+  const getProductById = useCallback(
+    (productId) => {
+      return products.find((p) => p.id === productId);
+    },
+    [products]
+  );
 
   /**
    * Add new product (Admin only)
    * @param {Object} productData - New product details
    */
-  const addProduct = useCallback(async (productData) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await productAPI.createProduct(productData);
-      setProducts([...products, response.data]);
-      return response.data;
-    } catch (err) {
-      const apiError = handleApiError(err);
-      setError(apiError.message);
-      throw apiError;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [products]);
+  const addProduct = useCallback(
+    async (productData) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await productAPI.createProduct(productData);
+        setProducts([...products, response.data]);
+        return response.data;
+      } catch (err) {
+        const apiError = handleApiError(err);
+        setError(apiError.message);
+        throw apiError;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [products]
+  );
 
   /**
    * Update existing product (Admin only)
    * @param {number} productId - Product ID to update
    * @param {Object} updates - Updated product data
    */
-  const updateProduct = useCallback(async (productId, updates) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await productAPI.updateProduct(productId, updates);
-      setProducts(products.map(p => p.id === productId ? response.data : p));
-      return response.data;
-    } catch (err) {
-      const apiError = handleApiError(err);
-      setError(apiError.message);
-      throw apiError;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [products]);
+  const updateProduct = useCallback(
+    async (productId, updates) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await productAPI.updateProduct(productId, updates);
+        setProducts(
+          products.map((p) => (p.id === productId ? response.data : p))
+        );
+        return response.data;
+      } catch (err) {
+        const apiError = handleApiError(err);
+        setError(apiError.message);
+        throw apiError;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [products]
+  );
 
   /**
    * Delete product (Admin only)
    * @param {number} productId - Product ID to delete
    */
-  const deleteProduct = useCallback(async (productId) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      await productAPI.deleteProduct(productId);
-      setProducts(products.filter(p => p.id !== productId));
-    } catch (err) {
-      const apiError = handleApiError(err);
-      setError(apiError.message);
-      throw apiError;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [products]);
+  const deleteProduct = useCallback(
+    async (productId) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        await productAPI.deleteProduct(productId);
+        setProducts(products.filter((p) => p.id !== productId));
+      } catch (err) {
+        const apiError = handleApiError(err);
+        setError(apiError.message);
+        throw apiError;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [products]
+  );
 
   // ===== AUTHENTICATION METHODS =====
 
@@ -259,11 +293,11 @@ export const AppProvider = ({ children }) => {
 
       // Find customer with matching email and password
       const customer = customers.find(
-        c => c.email === email && c.password === password
+        (c) => c.email === email && c.password === password
       );
 
       if (!customer) {
-        throw new Error('Invalid email or password');
+        throw new Error("Invalid email or password");
       }
 
       // Authentication successful - set current user
@@ -271,19 +305,22 @@ export const AppProvider = ({ children }) => {
         id: customer.id,
         email: customer.email,
         name: customer.name,
-        role: customer.role || 'customer',
-        createdAt: customer.createdAt
+        mobileNumber: customer.mobileNumber,
+        role: customer.role || "customer",
+        createdAt: customer.createdAt,
       };
 
       setCurrentUser(userData);
 
       // Store auth info in localStorage for persistence
-      localStorage.setItem('authToken', `token_${customer.id}`);
+      localStorage.setItem("authToken", `token_${customer.id}`);
 
       return userData;
     } catch (err) {
       const apiError = handleApiError(err);
-      setError(apiError.message || 'Login failed. Please check your credentials.');
+      setError(
+        apiError.message || "Login failed. Please check your credentials."
+      );
       throw apiError;
     } finally {
       setIsLoading(false);
@@ -302,7 +339,7 @@ export const AppProvider = ({ children }) => {
     localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
     localStorage.removeItem(STORAGE_KEYS.CART);
     localStorage.removeItem(STORAGE_KEYS.LOYALTY_POINTS);
-    localStorage.removeItem('authToken');
+    localStorage.removeItem("authToken");
   }, []);
 
   /**
@@ -312,6 +349,7 @@ export const AppProvider = ({ children }) => {
    * @param {string} userData.email - Customer email
    * @param {string} userData.password - Customer password
    * @param {string} userData.name - Customer name
+   * @param {string} userData.mobi
    * @returns {Object} Created user data
    * @throws {Error} If email already exists or validation fails
    */
@@ -321,20 +359,22 @@ export const AppProvider = ({ children }) => {
     try {
       // Validate input
       if (!userData.email || !userData.password || !userData.name) {
-        throw new Error('Email, password, and name are required');
+        throw new Error("Email, password, and name are required");
       }
 
       if (userData.password.length < 6) {
-        throw new Error('Password must be at least 6 characters');
+        throw new Error("Password must be at least 6 characters");
       }
 
       // Check if email already exists
       const response = await authAPI.getAllCustomers();
       const customers = response.data || [];
-      const emailExists = customers.some(c => c.email === userData.email);
+      const emailExists = customers.some((c) => c.email === userData.email);
 
       if (emailExists) {
-        throw new Error('Email already registered. Please use a different email or login.');
+        throw new Error(
+          "Email already registered. Please use a different email or login."
+        );
       }
 
       // Create new customer
@@ -342,8 +382,9 @@ export const AppProvider = ({ children }) => {
         email: userData.email,
         password: userData.password,
         name: userData.name,
-        role: 'customer',
-        createdAt: new Date().toISOString()
+        mobileNumber: userData.mobileNumber,
+        role: "customer",
+        createdAt: new Date().toISOString(),
       };
 
       // Save to database via API
@@ -355,17 +396,18 @@ export const AppProvider = ({ children }) => {
         id: createdUser.id,
         email: createdUser.email,
         name: createdUser.name,
-        role: createdUser.role || 'customer',
-        createdAt: createdUser.createdAt
+        mobileNumber: createdUser.mobileNumber,
+        role: createdUser.role || "customer",
+        createdAt: createdUser.createdAt,
       };
 
       setCurrentUser(loginData);
-      localStorage.setItem('authToken', `token_${createdUser.id}`);
+      localStorage.setItem("authToken", `token_${createdUser.id}`);
 
       return loginData;
     } catch (err) {
       const apiError = handleApiError(err);
-      setError(apiError.message || 'Signup failed. Please try again.');
+      setError(apiError.message || "Signup failed. Please try again.");
       throw apiError;
     } finally {
       setIsLoading(false);
@@ -380,11 +422,11 @@ export const AppProvider = ({ children }) => {
    * @param {number} quantity - Quantity to add (default: 1)
    */
   const addToCart = useCallback((product, quantity = 1) => {
-    setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.id === product.id);
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((item) => item.id === product.id);
       if (existingItem) {
         // Product already in cart: increase quantity
-        return prevCart.map(item =>
+        return prevCart.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + quantity }
             : item
@@ -400,7 +442,7 @@ export const AppProvider = ({ children }) => {
    * @param {number} productId - Product ID to remove
    */
   const removeFromCart = useCallback((productId) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== productId));
+    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
   }, []);
 
   /**
@@ -408,17 +450,20 @@ export const AppProvider = ({ children }) => {
    * @param {number} productId - Product ID
    * @param {number} quantity - New quantity
    */
-  const updateCartQuantity = useCallback((productId, quantity) => {
-    if (quantity <= 0) {
-      removeFromCart(productId);
-    } else {
-      setCart(prevCart =>
-        prevCart.map(item =>
-          item.id === productId ? { ...item, quantity } : item
-        )
-      );
-    }
-  }, [removeFromCart]);
+  const updateCartQuantity = useCallback(
+    (productId, quantity) => {
+      if (quantity <= 0) {
+        removeFromCart(productId);
+      } else {
+        setCart((prevCart) =>
+          prevCart.map((item) =>
+            item.id === productId ? { ...item, quantity } : item
+          )
+        );
+      }
+    },
+    [removeFromCart]
+  );
 
   /**
    * Clear entire cart
@@ -436,7 +481,8 @@ export const AppProvider = ({ children }) => {
     setOrdersLoading(true);
     setError(null);
     try {
-      const params = currentUser?.role === 'admin' ? {} : { userId: currentUser?.id };
+      const params =
+        currentUser?.role === "admin" ? {} : { userId: currentUser?.id };
       const response = await orderAPI.getAllOrders(params);
       setOrders(response.data);
     } catch (err) {
@@ -453,41 +499,44 @@ export const AppProvider = ({ children }) => {
    * @param {Object} orderData - Order details including items, total, shipping address
    * @returns {Object} Created order
    */
-  const placeOrder = useCallback(async (orderData) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const newOrder = {
-        id: `ORD-${Date.now()}`,
-        userId: currentUser?.id,
-        items: cart,
-        total: orderData.total,
-        status: 'pending',
-        trackingStatus: 'Order Placed',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        shippingAddress: orderData.shippingAddress,
-        paymentMethod: orderData.paymentMethod
-      };
+  const placeOrder = useCallback(
+    async (orderData) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const newOrder = {
+          id: `ORD-${Date.now()}`,
+          userId: currentUser?.id,
+          items: cart,
+          total: orderData.total,
+          status: "pending",
+          trackingStatus: "Order Placed",
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          shippingAddress: orderData.shippingAddress,
+          paymentMethod: orderData.paymentMethod,
+        };
 
-      // Save order to API
-      const response = await orderAPI.createOrder(newOrder);
+        // Save order to API
+        const response = await orderAPI.createOrder(newOrder);
 
-      // Update local state
-      setOrders(prevOrders => [...prevOrders, response.data]);
-      const points = Math.floor(orderData.total / 10); // 1 point per $10
-      setLoyaltyPoints(prevPoints => prevPoints + points);
-      setCart([]);
+        // Update local state
+        setOrders((prevOrders) => [...prevOrders, response.data]);
+        const points = Math.floor(orderData.total / 10); // 1 point per $10
+        setLoyaltyPoints((prevPoints) => prevPoints + points);
+        setCart([]);
 
-      return response.data;
-    } catch (err) {
-      const apiError = handleApiError(err);
-      setError(apiError.message);
-      throw apiError;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [currentUser, cart]);
+        return response.data;
+      } catch (err) {
+        const apiError = handleApiError(err);
+        setError(apiError.message);
+        throw apiError;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [currentUser, cart]
+  );
 
   /**
    * Update order status (Admin only)
@@ -495,43 +544,49 @@ export const AppProvider = ({ children }) => {
    * @param {string} newStatus - New order status
    * @param {string} trackingStatus - Updated tracking status
    */
-  const updateOrderStatus = useCallback(async (orderId, newStatus, trackingStatus) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const orderToUpdate = orders.find(o => o.id === orderId);
-      if (!orderToUpdate) throw new Error('Order not found');
+  const updateOrderStatus = useCallback(
+    async (orderId, newStatus, trackingStatus) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const orderToUpdate = orders.find((o) => o.id === orderId);
+        if (!orderToUpdate) throw new Error("Order not found");
 
-      const updatedOrder = {
-        ...orderToUpdate,
-        status: newStatus,
-        trackingStatus: trackingStatus || orderToUpdate.trackingStatus,
-        updatedAt: new Date().toISOString()
-      };
+        const updatedOrder = {
+          ...orderToUpdate,
+          status: newStatus,
+          trackingStatus: trackingStatus || orderToUpdate.trackingStatus,
+          updatedAt: new Date().toISOString(),
+        };
 
-      const response = await orderAPI.updateOrder(orderId, updatedOrder);
-      setOrders(prevOrders =>
-        prevOrders.map(o => o.id === orderId ? response.data : o)
-      );
+        const response = await orderAPI.updateOrder(orderId, updatedOrder);
+        setOrders((prevOrders) =>
+          prevOrders.map((o) => (o.id === orderId ? response.data : o))
+        );
 
-      return response.data;
-    } catch (err) {
-      const apiError = handleApiError(err);
-      setError(apiError.message);
-      throw apiError;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [orders]);
+        return response.data;
+      } catch (err) {
+        const apiError = handleApiError(err);
+        setError(apiError.message);
+        throw apiError;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [orders]
+  );
 
   /**
    * Get single order by ID
    * @param {number} orderId - Order ID
    * @returns {Object|null} Order object or null
    */
-  const getOrderById = useCallback((orderId) => {
-    return orders.find(o => o.id === orderId);
-  }, [orders]);
+  const getOrderById = useCallback(
+    (orderId) => {
+      return orders.find((o) => o.id === orderId);
+    },
+    [orders]
+  );
 
   // ===== CONTEXT VALUE =====
   const value = {
@@ -573,11 +628,7 @@ export const AppProvider = ({ children }) => {
     logout,
   };
 
-  return (
-    <AppContext.Provider value={value}>
-      {children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 
 /**
@@ -589,7 +640,7 @@ export const AppProvider = ({ children }) => {
 export const useApp = () => {
   const context = useContext(AppContext);
   if (!context) {
-    throw new Error('useApp must be used within AppProvider');
+    throw new Error("useApp must be used within AppProvider");
   }
   return context;
 };
