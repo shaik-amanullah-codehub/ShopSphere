@@ -1,383 +1,437 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
-import { Trash2, ArrowLeft, CheckCircle } from 'lucide-react';
-import './Cart.css';
+// --- IMPORTS ---
+import React, { useState, useEffect } from 'react'; // Import React core, 'useState' for managing local variables, 'useEffect' for side effects like calculations.
+import { useNavigate } from 'react-router-dom';     // Import hook to navigate between pages (e.g., go back or go to home).
+import { useApp } from '../../context/AppContext';  // Import custom hook to access global state (Cart data, User data) from the Context API.
+import { Trash2, ArrowLeft, CheckCircle, Truck, Store, MapPin } from 'lucide-react'; // Import specific icons for UI elements (Trash bin, Arrows, etc.).
+import './Cart.css';                                // Import the CSS file to style this specific component.
 
-function Cart() {
-  const navigate = useNavigate();
-  const { cart, removeFromCart, updateCartQuantity, placeOrder, currentUser } = useApp();
-  const [shippingInfo, setShippingInfo] = useState({
-    fullName: currentUser?.name || '',
-    email: currentUser?.email || '',
-    address: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    phone: ''
-  });
-  const [paymentMethod, setPaymentMethod] = useState('card');
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [orderPlaced, setOrderPlaced] = useState(false);
+// --- CONSTANTS & MOCK DATA ---
+// Define image URLs for payment logos to be used in the UI later.
+const gpayIcon = "https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg";
+const phonepeIcon = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/PhonePe_Logo.svg/1200px-PhonePe_Logo.svg.png";
+const paytmIcon = "https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg";
+const bhimIcon = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/1200px-UPI-Logo-vector.svg.png";
 
-  if (!currentUser) {
-    return (
-      <div className="container py-5 text-center">
-        <h2 className="mb-3">Please login to proceed</h2>
-        <button className="btn btn-primary" onClick={() => navigate('/login')}>
-          Go to Login
-        </button>
+// Mock data array simulating a database response for nearby physical store locations.
+const NEARBY_STORES = [
+  { id: 1, name: 'TechHaven Downtown', address: '12, MG Road, Central District, Mumbai - 400001', distance: '1.2 km' },
+  { id: 2, name: 'TechHaven West', address: 'Shop 45, Infinity Mall, Andheri West, Mumbai - 400053', distance: '5.8 km' },
+  { id: 3, name: 'TechHaven Express', address: 'Plot 88, Phoenix Marketcity, Kurla, Mumbai - 400070', distance: '8.4 km' },
+];
+
+// --- SUB-COMPONENTS ---
+
+// Component 1: DeliveryModeSelector
+// Receives 'mode' (current state) and 'setMode' (updater function) as props to toggle between Online/Store pickup.
+const DeliveryModeSelector = ({ mode, setMode }) => (
+  <div className="cart-card fade-in">                 {/* Container with a fade-in animation class */}
+    <h3 className="card-title">Select Delivery Mode</h3>
+    <div className="mode-grid">                       {/* CSS Grid container to layout the two options side-by-side */}
+      
+      {/* Option 1: Online Delivery */}
+      <div 
+        className={`mode-card ${mode === 'online' ? 'selected' : ''}`} // Conditional class: adds 'selected' styling if mode is 'online'.
+        onClick={() => setMode('online')}             // On click, update parent state to 'online'.
+      >
+        <div className="mode-icon"><Truck size={24} /></div> {/* Render Truck icon */}
+        <div className="mode-info">
+          <span className="mode-title">Online Delivery</span>
+          <span className="mode-desc">Delivered to your doorstep</span>
+        </div>
+        <div className="radio-circle"></div>          {/* Visual indicator looking like a radio button */}
       </div>
-    );
-  }
 
-  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const tax = subtotal * 0.08;
-  const shipping = subtotal > 50 ? 0 : 9.99;
-  const total = subtotal + tax + shipping;
+      {/* Option 2: Store Pickup */}
+      <div 
+        className={`mode-card ${mode === 'store' ? 'selected' : ''}`} // Conditional class: adds 'selected' styling if mode is 'store'.
+        onClick={() => setMode('store')}              // On click, update parent state to 'store'.
+      >
+        <div className="mode-icon"><Store size={24} /></div> {/* Render Store icon */}
+        <div className="mode-info">
+          <span className="mode-title">Visit Store</span>
+          <span className="mode-desc">Pick up from nearby shop</span>
+        </div>
+        <div className="radio-circle"></div>
+      </div>
+    </div>
+  </div>
+);
 
-  const handleInputChange = (e) => {
-    setShippingInfo({
-      ...shippingInfo,
-      [e.target.name]: e.target.value
-    });
-  };
+// Component 2: StorePickupSelector
+// Used when user selects "Visit Store". Receives selected ID and setter function.
+const StorePickupSelector = ({ selectedStore, setSelectedStore }) => (
+  <div className="cart-card fade-in">
+    <h3 className="card-title">Select Store for Pickup</h3>
+    <div className="store-list">
+      {NEARBY_STORES.map(store => (                   // Loop through the mock store data to create a list item for each.
+        <div 
+          key={store.id}                              // React needs a unique key for list performance.
+          className={`store-item ${selectedStore === store.id ? 'active' : ''}`} // Add 'active' class if this store is the one currently selected.
+          onClick={() => setSelectedStore(store.id)}  // Update state with this specific store's ID when clicked.
+        >
+          <div className="store-icon"><MapPin size={20} /></div> {/* Location pin icon */}
+          <div className="store-details">
+            <span className="store-name">{store.name}</span>
+            <span className="store-address">{store.address}</span>
+            <span className="store-distance">{store.distance} away</span>
+          </div>
+          <div className="radio-circle-small"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
 
-  const handlePlaceOrder = () => {
-    if (!shippingInfo.fullName || !shippingInfo.address || !shippingInfo.city || !shippingInfo.zipCode) {
-      alert('Please fill all shipping information');
+// Component 3: AddressForm
+// Used when user selects "Online Delivery". Binds inputs to the 'address' state object.
+const AddressForm = ({ address, setAddress }) => (
+  <div className="cart-card fade-in">
+    <h3 className="card-title">Shipping Address</h3>
+    <div className="form-grid">
+      <input 
+        className="form-input" 
+        placeholder="Full Name" 
+        value={address.name}                          // Controlled input: value comes from state.
+        onChange={e => setAddress({ ...address, name: e.target.value })} // Update only the 'name' property, keep other address fields intact using spread syntax (...).
+      />
+      <input 
+        className="form-input" 
+        placeholder="Address Line 1" 
+        value={address.line1} 
+        onChange={e => setAddress({ ...address, line1: e.target.value })} // Update 'line1' property.
+      />
+      <div className="form-row">                      {/* container to show City and State on the same line */}
+        <input 
+          className="form-input" 
+          placeholder="City" 
+          value={address.city} 
+          onChange={e => setAddress({ ...address, city: e.target.value })} 
+        />
+        <input 
+          className="form-input" 
+          placeholder="State" 
+          value={address.state} 
+          onChange={e => setAddress({ ...address, state: e.target.value })} 
+        />
+      </div>
+      <input 
+        className="form-input" 
+        placeholder="PIN Code" 
+        value={address.pincode} 
+        onChange={e => setAddress({ ...address, pincode: e.target.value })} 
+      />
+    </div>
+  </div>
+);
+
+// Component 4: PaymentForm
+// Handles payment method selection and Card input fields.
+const PaymentForm = ({ payment, setPayment }) => (
+  <div className="cart-card fade-in" style={{ animationDelay: '0.1s' }}> {/* Stagger animation slightly for visual effect */}
+    <h3 className="card-title">Payment Method</h3>
+    <div className="payment-options">
+      {['card', 'upi', 'cod'].map(method => (         // Loop through available payment strings to generate buttons dynamically.
+        <button 
+          key={method}
+          type="button" 
+          className={`payment-btn ${payment.method === method ? 'active' : ''}`} // Highlight the currently selected button.
+          onClick={() => setPayment({ ...payment, method: method })} // Switch payment method in state.
+        >
+          {method.toUpperCase()}                      {/* Display method in Uppercase (CARD, UPI, COD) */}
+        </button>
+      ))}
+    </div>
+
+    {/* Conditional Rendering: Only show Credit Card inputs if 'card' is selected */}
+    {payment.method === 'card' && (
+      <div className="card-details slide-down">       {/* Slide down animation wrapper */}
+        <input 
+          className="form-input" 
+          placeholder="Name on Card" 
+          value={payment.nameOnCard} 
+          onChange={e => setPayment({ ...payment, nameOnCard: e.target.value })} 
+        />
+        <input 
+          className="form-input" 
+          placeholder="Card Number" 
+          maxLength="16"                              // Limit input length for standard card numbers.
+          value={payment.cardNumber} 
+          onChange={e => setPayment({ ...payment, cardNumber: e.target.value })} 
+        />
+        <div className="form-row">
+          <input 
+            className="form-input" 
+            placeholder="MM/YY" 
+            maxLength="5"
+            value={payment.expiry} 
+            onChange={e => setPayment({ ...payment, expiry: e.target.value })} 
+          />
+          <input 
+            className="form-input" 
+            placeholder="CVV" 
+            maxLength="3"
+            type="password"                           // Mask characters for security (dots instead of text).
+            value={payment.cvv} 
+            onChange={e => setPayment({ ...payment, cvv: e.target.value })} 
+          />
+        </div>
+      </div>
+    )}
+  </div>
+);
+
+// --- MAIN COMPONENT ---
+
+export default function Cart() {
+  const navigate = useNavigate();                     // Hook to move user to different pages.
+  const { cart, removeFromCart, placeOrder, currentUser } = useApp(); // Destructure global state: getting cart items and functions from AppContext.
+
+  // --- STATE DECLARATIONS ---
+  const [deliveryMethod, setDeliveryMethod] = useState('online'); // Tracks if user wants 'online' or 'store'.
+  const [selectedStoreId, setSelectedStoreId] = useState(null);   // Tracks which store ID is selected (if in store mode).
+  
+  // State for address form. Pre-fills 'name' if a currentUser exists in context.
+  const [address, setAddress] = useState({ 
+    name: currentUser?.name || '', 
+    line1: '', 
+    city: '', 
+    state: '', 
+    pincode: '' 
+  });
+  
+  // State for payment details.
+  const [payment, setPayment] = useState({ method: 'card', nameOnCard: '', cardNumber: '', expiry: '', cvv: '' });
+  
+  const [status, setStatus] = useState(null);         // Tracks UI status: 'loading', 'error', or null.
+  const [showUpiSelector, setShowUpiSelector] = useState(false); // Controls visibility of the UPI Modal.
+  const [orderSuccess, setOrderSuccess] = useState(false); // Flag to switch view to "Thank You" screen upon completion.
+  const [totals, setTotals] = useState({ subtotal: 0, tax: 0, total: 0 }); // Stores calculated prices.
+
+  // Mock UPI Apps Data
+  const UPI_APPS = [
+    { id: 'gpay', name: 'Google Pay', icon: gpayIcon },
+    { id: 'phonepe', name: 'PhonePe', icon: phonepeIcon },
+    { id: 'paytm', name: 'Paytm', icon: paytmIcon },
+    { id: 'bhim', name: 'BHIM', icon: bhimIcon }
+  ];
+
+  // Helper function to format numbers into Indian Currency (e.g., ₹1,200.00).
+  const formatCurrency = (val) => 
+    new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(val);
+
+  // --- EFFECT: CALCULATE TOTALS ---
+  useEffect(() => {
+    // 1. Calculate Subtotal: (Price * Quantity) for all items in cart.
+    const sub = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    
+    // 2. Calculate Tax: 10% of subtotal.
+    const tax = sub * 0.10;
+    
+    // 3. Calculate Shipping Logic: 
+    let shipping = 0;
+    if (deliveryMethod === 'online') {
+        shipping = sub > 500 ? 0 : 50;                // Free shipping if order > 500, else 50.
+    }
+    // If deliveryMethod is 'store', shipping remains 0.
+
+    // Update state with calculated values.
+    setTotals({ subtotal: sub, tax, shipping, total: sub + tax + shipping });
+  }, [cart, deliveryMethod]);                         // Dependency Array: Re-run this logic whenever 'cart' or 'deliveryMethod' changes.
+
+  // --- HANDLER: VALIDATE & START PAYMENT ---
+  const handleConfirmPayment = () => {
+    // 1. Validation for Online Delivery
+    if (deliveryMethod === 'online') {
+      if (!address.name || !address.line1 || !address.pincode) {
+        setStatus({ type: 'error', text: 'Please fill in the shipping address.' }); // Show error if fields empty.
+        return;                                       // Stop execution.
+      }
+    } else {
+      // 1. Validation for Store Pickup
+      if (!selectedStoreId) {
+        setStatus({ type: 'error', text: 'Please select a store for pickup.' }); // Show error if no store selected.
+        return;
+      }
+    }
+
+    // 2. Check Payment Type
+    if (payment.method === 'upi') {
+      setShowUpiSelector(true);                       // If UPI, open the Modal instead of finishing immediately.
       return;
     }
-    setShowConfirm(true);
+
+    // 3. If valid and not UPI, process order.
+    processOrder();
   };
 
-  const confirmOrder = () => {
-    const order = placeOrder({
-      total,
-      shippingAddress: shippingInfo,
-      paymentMethod
-    });
-    
-    // Force localStorage update
-    const updatedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
-    updatedOrders.push(order);
-    localStorage.setItem('orders', JSON.stringify(updatedOrders));
-    
-    setOrderPlaced(true);
-    setShowConfirm(false);
+  // --- HANDLER: SIMULATE API CALL ---
+  const processOrder = (viaApp = null) => {
+    const msg = viaApp ? `Processing via ${viaApp}...` : 'Processing payment...'; // Set loading text.
+    setStatus({ type: 'loading', text: msg });        // Show loading badge.
+    setShowUpiSelector(false);                        // Close modal if open.
+
+    // Simulate network delay (1.5 seconds)
     setTimeout(() => {
-      navigate(`/order/${order.id}`);
-    }, 2000);
+      // Construct final order object to save/send to backend.
+      const orderDetails = {
+        total: totals.total,
+        deliveryMethod,
+        shippingAddress: deliveryMethod === 'online' ? address : NEARBY_STORES.find(s => s.id === selectedStoreId),
+        paymentMethod: payment.method,
+        items: cart
+      };
+
+      if (placeOrder) placeOrder(orderDetails);       // Call the context function to empty cart/save order.
+      
+      setStatus(null);                                // Remove loading badge.
+      setOrderSuccess(true);                          // Trigger Success View render.
+    }, 1500);
   };
 
-  if (orderPlaced) {
+  // Helper component to handle broken images safely.
+  const SafeImage = ({ src, alt, fallbackText }) => {
+    const [hasError, setHasError] = useState(false);  // Track if image failed to load.
+    if (hasError) return <div className="icon-fallback">{fallbackText}</div>; // Show text if error.
+    return <img src={src} alt={alt} onError={() => setHasError(true)} />; // Set error flag on load failure.
+  };
+
+  // --- RENDER: SUCCESS VIEW ---
+  if (orderSuccess) {
     return (
-      <div className="container py-5 text-center">
-        <div className="success-message">
-          <CheckCircle size={64} className="text-success mb-3" />
-          <h2 className="mb-3">Order Placed Successfully!</h2>
-          <p className="lead text-secondary mb-4">
-            Your order has been placed. You'll receive a confirmation email shortly.
+      <div className="cart-container success-view">
+        <div className="success-card fade-in">
+          <div className="success-icon-container"><CheckCircle size={64} color="#10b981" /></div>
+          <h2>{payment.method === 'cod' ? 'Order Placed!' : 'Payment Confirmed!'}</h2>
+          <p>
+            {/* Show different message based on delivery method */}
+            {deliveryMethod === 'store' 
+              ? "Your order is ready. Please visit the selected store for pickup." 
+              : "Your order has been placed and will be delivered soon."}
           </p>
-          <button className="btn btn-primary" onClick={() => navigate('/')}>
-            Continue Shopping
-          </button>
+          <button className="primary-btn" onClick={() => navigate('/')}>Continue Shopping</button> {/* Go to Home */}
         </div>
       </div>
     );
   }
 
-  if (cart.length === 0) {
-    return (
-      <div className="container py-5">
-        <div className="text-center">
-          <h2 className="mb-3">Your cart is empty</h2>
-          <button
-            className="btn btn-primary d-inline-flex align-items-center gap-2"
-            onClick={() => navigate('/')}
-          >
-            <ArrowLeft size={20} />
-            Continue Shopping
-          </button>
-        </div>
-      </div>
-    );
-  }
-
+  // --- RENDER: MAIN CHECKOUT VIEW ---
   return (
-    <div className="cart-page py-5 bg-light">
-      <div className="container">
-        <h1 className="fw-bold mb-4">Shopping Cart</h1>
+    <div className="cart-container">
+      <header className="cart-header">
+        <button onClick={() => navigate(-1)} className="back-btn"> {/* Navigate back in history */}
+            <ArrowLeft size={20} /><span>Back</span>
+        </button>
+        <h1>Checkout</h1>
+      </header>
 
-        <div className="row g-4">
-          {/* Cart Items */}
-          <div className="col-lg-8">
-            <div className="card shadow-sm border-0 mb-4">
-              <div className="card-body">
-                <h5 className="fw-bold mb-4">Cart Items ({cart.length})</h5>
-                <div className="table-responsive">
-                  <table className="table table-hover mb-0">
-                    <thead>
-                      <tr className="border-bottom">
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {cart.map(item => (
-                        <tr key={item.id} className="align-middle">
-                          <td>
-                            <div className="d-flex align-items-center">
-                              <img
-                                src={item.image}
-                                alt={item.name}
-                                style={{
-                                  width: '50px',
-                                  height: '50px',
-                                  objectFit: 'cover',
-                                  borderRadius: '8px',
-                                  marginRight: '10px'
-                                }}
-                              />
-                              <div>
-                                <p className="mb-1 fw-bold">{item.name}</p>
-                                <small className="text-secondary">{item.category}</small>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="fw-bold">${item.price.toFixed(2)}</td>
-                          <td>
-                            <select
-                              style={{ width: '70px' }}
-                              value={item.quantity}
-                              onChange={(e) =>
-                                updateCartQuantity(item.id, parseInt(e.target.value))
-                              }
-                              className="form-select"
-                            >
-                              {[...Array(item.stock)].map((_, i) => (
-                                <option key={i + 1} value={i + 1}>
-                                  {i + 1}
-                                </option>
-                              ))}
-                            </select>
-                          </td>
-                          <td className="fw-bold">
-                            ${(item.price * item.quantity).toFixed(2)}
-                          </td>
-                          <td>
-                            <button
-                              className="btn btn-outline-danger btn-sm d-flex align-items-center gap-2"
-                              onClick={() => removeFromCart(item.id)}
-                            >
-                              <Trash2 size={16} />
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="cart-layout">                   {/* Grid layout for Main Content + Sidebar */}
+        <div className="cart-main">
+          
+          {/* 1. Render Delivery Mode Selector */}
+          <DeliveryModeSelector mode={deliveryMethod} setMode={setDeliveryMethod} />
 
-          {/* Summary and Checkout */}
-          <div className="col-lg-4">
-            {/* Order Summary */}
-            <div className="card shadow-sm border-0 mb-4 sticky-top" style={{ top: '20px' }}>
-              <div className="card-body">
-                <h5 className="fw-bold mb-4">Order Summary</h5>
-                <div className="summary-row">
-                  <span>Subtotal:</span>
-                  <strong>${subtotal.toFixed(2)}</strong>
-                </div>
-                <div className="summary-row">
-                  <span>Tax (8%):</span>
-                  <strong>${tax.toFixed(2)}</strong>
-                </div>
-                <div className="summary-row">
-                  <span>Shipping:</span>
-                  <strong className={shipping === 0 ? 'text-success' : ''}>
-                    {shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}
-                  </strong>
-                </div>
-                {shipping === 0 && (
-                  <span className="badge bg-success mb-3 d-block">
-                    ✓ Free Shipping Applied
-                  </span>
-                )}
-                <div className="summary-row border-top pt-3">
-                  <strong>Total:</strong>
-                  <strong className="h5 text-primary">${total.toFixed(2)}</strong>
-                </div>
-              </div>
-            </div>
+          {/* 2. Conditionally Render Address Form OR Store Selector based on mode */}
+          {deliveryMethod === 'online' ? (
+            <AddressForm address={address} setAddress={setAddress} />
+          ) : (
+            <StorePickupSelector selectedStore={selectedStoreId} setSelectedStore={setSelectedStoreId} />
+          )}
 
-            {/* Shipping Information */}
-            <div className="card shadow-sm border-0">
-              <div className="card-body">
-                <h5 className="fw-bold mb-4">Shipping Information</h5>
-                <form>
-                  <div className="mb-3">
-                    <label className="form-label">Full Name</label>
-                    <input
-                      type="text"
-                      name="fullName"
-                      value={shippingInfo.fullName}
-                      onChange={handleInputChange}
-                      className="form-control py-2"
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Email</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={shippingInfo.email}
-                      onChange={handleInputChange}
-                      className="form-control py-2"
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Phone</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={shippingInfo.phone}
-                      onChange={handleInputChange}
-                      className="form-control py-2"
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Address</label>
-                    <input
-                      type="text"
-                      name="address"
-                      value={shippingInfo.address}
-                      onChange={handleInputChange}
-                      className="form-control py-2"
-                    />
-                  </div>
-                  <div className="row">
-                    <div className="col-sm-6">
-                      <div className="mb-3">
-                        <label className="form-label">City</label>
-                        <input
-                          type="text"
-                          name="city"
-                          value={shippingInfo.city}
-                          onChange={handleInputChange}
-                          className="form-control py-2"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-sm-6">
-                      <div className="mb-3">
-                        <label className="form-label">State</label>
-                        <input
-                          type="text"
-                          name="state"
-                          value={shippingInfo.state}
-                          onChange={handleInputChange}
-                          className="form-control py-2"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Zip Code</label>
-                    <input
-                      type="text"
-                      name="zipCode"
-                      value={shippingInfo.zipCode}
-                      onChange={handleInputChange}
-                      className="form-control py-2"
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">Payment Method</label>
-                    <div>
-                      <div className="form-check mb-2">
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          name="payment"
-                          value="card"
-                          checked={paymentMethod === 'card'}
-                          onChange={(e) => setPaymentMethod(e.target.value)}
-                          id="paymentCard"
-                        />
-                        <label className="form-check-label" htmlFor="paymentCard">
-                          Credit/Debit Card
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          name="payment"
-                          value="paypal"
-                          checked={paymentMethod === 'paypal'}
-                          onChange={(e) => setPaymentMethod(e.target.value)}
-                          id="paymentPaypal"
-                        />
-                        <label className="form-check-label" htmlFor="paymentPaypal">
-                          PayPal
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="btn btn-primary w-100 py-2 fw-bold"
-                    onClick={handlePlaceOrder}
-                  >
-                    Place Order
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
+          {/* 3. Render Payment Form */}
+          <PaymentForm payment={payment} setPayment={setPayment} />
+        
         </div>
+
+        {/* SIDEBAR: ORDER SUMMARY */}
+        <aside className="cart-sidebar">
+          <div className="cart-card summary-card sticky"> {/* 'Sticky' keeps it visible while scrolling */}
+            <h3 className="card-title">Order Summary</h3>
+            
+            {/* Check if cart is empty */}
+            {cart.length === 0 ? (
+              <div className="empty-state">
+                <p>Your cart is empty.</p>
+                <button className="text-btn" onClick={() => navigate('/')}>Shop Now</button>
+              </div>
+            ) : (
+              <div className="order-items">
+                {/* Map through cart items to display them */}
+                {cart.map(item => (
+                  <div key={item.id} className="summary-item">
+                    <div className="item-info">
+                        <span className="item-name">{item.name}</span>
+                        <div className="qty-controls"><span className="text-muted">Qty: {item.quantity}</span></div>
+                    </div>
+                    <div className="item-actions">
+                        <span className="item-price">{formatCurrency(item.price * item.quantity)}</span>
+                        {/* Button to remove item from global cart state */}
+                        <button className="btn-icon-danger" onClick={() => removeFromCart(item.id)}>
+                            <Trash2 size={16} />
+                        </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="divider"></div>
+            
+            {/* TOTALS SECTION */}
+            <div className="totals">
+              <div className="row">
+                <span>Subtotal</span>
+                <span>{formatCurrency(totals.subtotal)}</span>
+              </div>
+              <div className="row">
+                <span>Tax (10%)</span>
+                <span>{formatCurrency(totals.tax)}</span>
+              </div>
+              <div className="row">
+                <span>Shipping ({deliveryMethod === 'store' ? 'Pickup' : 'Delivery'})</span>
+                {/* Conditionally style text if free shipping */}
+                <span className={totals.shipping === 0 ? 'text-success' : ''}>
+                    {totals.shipping === 0 ? 'Free' : formatCurrency(totals.shipping)}
+                </span>
+              </div>
+              <div className="row total">
+                <span>Total</span>
+                <span>{formatCurrency(totals.total)}</span>
+              </div>
+            </div>
+
+            {/* CHECKOUT BUTTON */}
+            <button 
+              className="primary-btn checkout-btn"
+              onClick={handleConfirmPayment}          // Trigger validation/payment logic.
+              disabled={cart.length === 0}            // Disable button if cart is empty.
+            >
+              {/* Dynamic button text based on payment method */}
+              {payment.method === 'cod' ? 'Place Order' : 'Confirm Payment'}
+            </button>
+            
+            {/* Status Badge: Shows error or loading messages */}
+            {status && <div className={`status-badge ${status.type}`}>{status.text}</div>}
+          </div>
+        </aside>
       </div>
 
-      {/* Confirmation Modal */}
-      {showConfirm && (
-        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Confirm Order</h5>
-                <button type="button" className="btn-close" onClick={() => setShowConfirm(false)}></button>
-              </div>
-              <div className="modal-body">
-                <p>Are you sure you want to place this order?</p>
-                <div className="summary-preview">
-                  <p><strong>Total Amount:</strong> ${total.toFixed(2)}</p>
-                  <p><strong>Shipping to:</strong> {shippingInfo.address}, {shippingInfo.city}</p>
-                  <p><strong>Payment Method:</strong> {paymentMethod === 'card' ? 'Credit/Debit Card' : 'PayPal'}</p>
-                </div>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => setShowConfirm(false)}>
-                  Cancel
+      {/* UPI MODAL: Only shows if 'showUpiSelector' is true */}
+      {showUpiSelector && (
+        <div className="modal-backdrop" onClick={() => setShowUpiSelector(false)}> {/* Close modal if clicking background */}
+          <div className="modal-content" onClick={e => e.stopPropagation()}>       {/* Prevent click inside modal from closing it */}
+            <h3>Select UPI App</h3>
+            <div className="upi-grid">
+              {UPI_APPS.map(app => (
+                <button key={app.id} className="upi-item" onClick={() => processOrder(app.name)}>
+                  <SafeImage src={app.icon} alt={app.name} fallbackText={app.name[0]} />
+                  <span>{app.name}</span>
                 </button>
-                <button type="button" className="btn btn-primary" onClick={confirmOrder}>
-                  Confirm Order
-                </button>
-              </div>
+              ))}
             </div>
+            <button className="text-btn" onClick={() => setShowUpiSelector(false)}>Cancel</button>
           </div>
         </div>
       )}
     </div>
   );
 }
-
-export default Cart;
