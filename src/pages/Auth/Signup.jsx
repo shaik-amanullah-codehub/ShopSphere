@@ -1,37 +1,38 @@
 /**
  * Signup Component
- * 
+ *
  * Handles customer registration with:
  * - Form validation (email format, password strength)
  * - Duplicate email detection
  * - Auto-login after successful signup
  * - Comprehensive error handling
- * 
+ *
  * @component
  * @returns {React.ReactElement} Signup form page
  */
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
-import './Auth.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useApp } from "../../context/AppContext";
+import "./Auth.css";
 
 function Signup() {
   const navigate = useNavigate();
   const { signup, currentUser, isLoading, error: contextError } = useApp();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    mobileNumber: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Redirect if already logged in
   if (currentUser) {
-    navigate('/');
+    navigate("/");
     return null;
   }
 
@@ -41,7 +42,7 @@ function Signup() {
    */
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError(''); // Clear error on input change
+    setError(""); // Clear error on input change
   };
 
   /**
@@ -49,36 +50,40 @@ function Signup() {
    * @returns {string|null} Error message if validation fails, null if valid
    */
   const validateForm = () => {
-    const { name, email, password, confirmPassword } = formData;
+    const { name, email, password, confirmPassword, mobileNumber } = formData;
 
     // Required fields check
-    if (!name || !email || !password || !confirmPassword) {
-      return 'Please fill in all fields';
+    if (!name || !email || !password || !confirmPassword || !mobileNumber) {
+      return "Please fill in all fields";
     }
 
     // Name validation
     if (name.trim().length < 2) {
-      return 'Name must be at least 2 characters';
+      return "Name must be at least 2 characters";
     }
 
     // Email validation
-    if (!email.includes('@') || !email.includes('.')) {
-      return 'Please enter a valid email address';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return "Please enter a valid email address";
     }
 
     // Password validation
     if (password.length < 6) {
-      return 'Password must be at least 6 characters';
+      return "Password must be at least 6 characters";
     }
 
     // Password match validation
     if (password !== confirmPassword) {
-      return 'Passwords do not match';
+      return "Passwords do not match";
     }
 
     // Password strength (at least one number or special character)
     if (!/[0-9!@#$%^&*]/.test(password)) {
-      return 'Password should contain at least one number or special character';
+      return "Password should contain at least one number or special character";
+    }
+    //mobile validation (must contains only number and length should be equal to 10)
+    if (!/[0-9]/.test(mobileNumber) && mobileNumber.length == 10) {
+      return "Enter a vaild 10 Digit mobile number";
     }
 
     return null;
@@ -91,7 +96,7 @@ function Signup() {
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     // Validate form
     const validationError = validateForm();
@@ -105,15 +110,16 @@ function Signup() {
       // This creates account and auto-logs in
       await signup({
         name: formData.name.trim(),
+        mobileNumber: formData.mobileNumber.trim(),
         email: formData.email.trim().toLowerCase(),
-        password: formData.password
+        password: formData.password,
       });
 
       // Redirect to home page (auto-login happened)
-      navigate('/');
+      navigate("/");
     } catch (err) {
       // Error is caught and displayed
-      setError(err.message || 'Signup failed. Please try again.');
+      setError(err.message || "Signup failed. Please try again.");
     }
   };
 
@@ -126,27 +132,35 @@ function Signup() {
               <div className="card-body p-5">
                 {/* Header */}
                 <h2 className="text-center mb-4 fw-bold">Shop Sphere</h2>
-                <h4 className="text-center text-secondary mb-4">Create Account</h4>
+                <h4 className="text-center text-secondary mb-4">
+                  Create Account
+                </h4>
 
                 {/* Error Messages */}
                 {error && (
-                  <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                  <div
+                    className="alert alert-danger alert-dismissible fade show"
+                    role="alert"
+                  >
                     {error}
                     <button
                       type="button"
                       className="btn-close"
-                      onClick={() => setError('')}
+                      onClick={() => setError("")}
                     ></button>
                   </div>
                 )}
 
                 {contextError && (
-                  <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                  <div
+                    className="alert alert-danger alert-dismissible fade show"
+                    role="alert"
+                  >
                     {contextError}
                     <button
                       type="button"
                       className="btn-close"
-                      onClick={() => setError('')}
+                      onClick={() => setError("")}
                     ></button>
                   </div>
                 )}
@@ -166,9 +180,7 @@ function Signup() {
                       disabled={isLoading}
                       required
                     />
-                    <small className="text-muted">
-                      At least 2 characters
-                    </small>
+                    <small className="text-muted">At least 2 characters</small>
                   </div>
 
                   {/* Email Field */}
@@ -188,13 +200,29 @@ function Signup() {
                       Use a valid email address
                     </small>
                   </div>
+                  <div className="mb-3">
+                    <label className="form-label fw-bold">Mobile Number</label>
+                    <input
+                      type="text"
+                      name="mobileNumber"
+                      value={formData.mobileNumber}
+                      onChange={handleChange}
+                      placeholder="Enter your mobile number"
+                      className="form-control py-2"
+                      disabled={isLoading}
+                      required
+                    />
+                    <small className="text-muted">
+                      Enter a valid mobile number
+                    </small>
+                  </div>
 
                   {/* Password Field */}
                   <div className="mb-3">
                     <label className="form-label fw-bold">Password</label>
                     <div className="input-group">
                       <input
-                        type={showPassword ? 'text' : 'password'}
+                        type={showPassword ? "text" : "password"}
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
@@ -209,7 +237,7 @@ function Signup() {
                         onClick={() => setShowPassword(!showPassword)}
                         disabled={isLoading}
                       >
-                        {showPassword ? 'Hide' : 'Show'}
+                        {showPassword ? "Hide" : "Show"}
                       </button>
                     </div>
                     <small className="text-muted">
@@ -219,10 +247,12 @@ function Signup() {
 
                   {/* Confirm Password Field */}
                   <div className="mb-4">
-                    <label className="form-label fw-bold">Confirm Password</label>
+                    <label className="form-label fw-bold">
+                      Confirm Password
+                    </label>
                     <div className="input-group">
                       <input
-                        type={showConfirmPassword ? 'text' : 'password'}
+                        type={showConfirmPassword ? "text" : "password"}
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleChange}
@@ -234,10 +264,12 @@ function Signup() {
                       <button
                         type="button"
                         className="btn btn-outline-secondary"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
                         disabled={isLoading}
                       >
-                        {showConfirmPassword ? 'Hide' : 'Show'}
+                        {showConfirmPassword ? "Hide" : "Show"}
                       </button>
                     </div>
                   </div>
@@ -248,13 +280,13 @@ function Signup() {
                     className="btn btn-primary w-100 py-2 fw-bold mb-3"
                     disabled={isLoading}
                   >
-                    {isLoading ? 'Creating Account...' : 'Sign Up'}
+                    {isLoading ? "Creating Account..." : "Sign Up"}
                   </button>
                 </form>
 
                 {/* Login Link */}
                 <p className="text-center text-secondary">
-                  Already have an account?{' '}
+                  Already have an account?{" "}
                   <a href="/login" className="text-primary fw-bold">
                     Login here
                   </a>
@@ -264,8 +296,14 @@ function Signup() {
                 <div className="alert alert-info mt-3" role="alert">
                   <small className="fw-bold">Password Requirements:</small>
                   <ul className="mb-0 mt-2 ps-3">
-                    <li><small>At least 6 characters</small></li>
-                    <li><small>Include a number (0-9) or special character (!@#$%^&*)</small></li>
+                    <li>
+                      <small>At least 6 characters</small>
+                    </li>
+                    <li>
+                      <small>
+                        Include a number (0-9) or special character (!@#$%^&*)
+                      </small>
+                    </li>
                   </ul>
                 </div>
               </div>
