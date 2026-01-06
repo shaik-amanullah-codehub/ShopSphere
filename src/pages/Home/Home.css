@@ -1,94 +1,187 @@
-.home-page {
-  background: #f8f9fa;
+/* --- GLOBAL THEME --- */
+:root {
+  --primary: #6366f1;
+  --dark: #0f172a;
+  --light-bg: #f8fafc;
+  --white: #ffffff;
 }
 
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background-color: var(--light-bg);
+}
+
+/* --- HERO SECTION --- */
 .hero-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(45,27,105,0.6) 100%), 
+              url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT067sNLA6n9Fp6eGIiPimSVlsCI1XkRcyrNA&s&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center;
+  min-height: 550px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   color: white;
-  padding: 60px 0;
+  padding: 80px 20px;
+  border-radius: 0 0 40px 40px;
+  margin-bottom: 50px;
 }
 
-.hero-section .text-gradient {
-  background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.text-gradient {
+  background: linear-gradient(135deg, #ffd89b 0%, #ffffff 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-family: 'Calibri', sans-serif !important;
+  font-size: 8rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -3px;
+  display: inline-block;
+  filter: drop-shadow(0 4px 15px rgba(0,0,0,0.6));
 }
 
-.min-vh-50 {
-  min-height: 50vh;
+.hero-section p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  opacity: 0.9;
 }
 
-.hero-image img {
-  animation: float 6s ease-in-out infinite;
+.btn-main {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 16px 35px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 25px;
+  transition: 0.3s;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+/* --- CONTAINER & 4-COLUMN GRID --- */
+.home-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 30px 60px;
 }
 
-.products-section {
-  background: white;
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+@media (min-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
 }
 
 .product-card {
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #eef2f6;
   transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-container { position: relative; height: 220px; background: #f1f5f9; }
+.image-container img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- ICON & BUTTON VISIBILITY FORCE --- */
+.card-actions { 
+  display: flex; 
+  gap: 10px; 
+  align-items: center; 
+  height: 44px; 
+  margin-top: 15px; 
+}
+
+.quantity-controls {
+  flex: 1;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background: #f1f5f9 !important;
   border-radius: 12px;
-  overflow: hidden;
+  padding: 4px;
+  height: 44px;
 }
 
-.product-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1) !important;
-}
-
-.product-image-container {
-  position: relative;
-  overflow: hidden;
-  height: 250px;
-}
-
-.product-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.product-card:hover .product-image {
-  transform: scale(1.1);
-}
-
-.stock-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.w-fit {
-  width: fit-content;
-}
-
-.filters-section {
-  background: #f5f7fa;
-  border-radius: 12px;
-}
-
-.filters-section .form-label {
-  color: #333;
-  font-size: 0.95rem;
-}
-
-.filters-section .form-control,
-.filters-section .form-select {
+.qty-btn {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  background: white !important;
+  border: 1px solid #e2e8f0 !important;
   border-radius: 8px;
-  border: 1px solid #ddd;
-  transition: all 0.3s ease;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.filters-section .form-control:focus,
-.filters-section .form-select:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+.add-cart-btn {
+  flex: 1;
+  background: var(--dark);
+  color: white;
+  border-radius: 12px;
+  height: 44px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px;
+  cursor: pointer;
 }
+
+.wishlist-btn {
+  width: 56px !important;
+  height: 44px !important;
+  min-width: 56px !important;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0 !important;
+  background: white !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer;
+}
+
+/* Force all SVGs inside these buttons to be visible and sized correctly */
+.qty-btn svg, 
+.wishlist-btn svg, 
+.add-cart-btn svg {
+  width: 18px !important;
+  height: 18px !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  flex-shrink: 0 !important;
+  pointer-events: none !important;
+}
+
+.wishlist-btn.active {
+  background: #fff1f2 !important;
+  border-color: #ff4d4d !important;
+}
+
+/* RIBS & INFO (Standard styles) */
+.category-ribbon { position: absolute; top: 12px; left: 12px; background: rgba(255, 255, 255, 0.95); padding: 4px 10px; border-radius: 30px; font-size: 0.65rem; font-weight: 700; }
+.stock-ribbon { position: absolute; bottom: 12px; right: 12px; padding: 4px 10px; border-radius: 8px; font-size: 0.65rem; font-weight: 700; background: #ccfbf1; color: #0d9488; }
+.stock-ribbon.low { background: #fef3c7; color: #d97706; }
+.stock-ribbon.out { background: #fee2e2; color: #dc2626; }
+.card-info { padding: 15px; flex-grow: 1; }
+.card-info h3 { font-size: 1rem; color: var(--dark); margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.price { font-size: 1.25rem; font-weight: 800; color: var(--primary); margin: 8px 0; }

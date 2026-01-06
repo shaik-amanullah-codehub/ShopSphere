@@ -288,7 +288,7 @@ function ProductManager() {
       {/* Add/Edit Modal */}
       {showModal && (
         <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <div className="modal-dialog modal-dialog-centered small-modal">
+          <div className="modal-dialog modal-xl modal-dialog-centered">
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">

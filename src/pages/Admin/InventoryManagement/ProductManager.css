@@ -10,6 +10,11 @@
   background: #ffffff;
 }
 
+.modal-body{
+  text-align: left;
+  font-weight: 600;
+}
+
 /* Outer card wrapper: subtle thicker border to define outer layer */
 .card.border-0.shadow-sm {
   border: 2px solid #e5e7eb;
@@ -84,6 +89,53 @@
 /* Slightly reduce footer spacing to fit better */
 .small-modal .modal-footer {
   padding: 0.75rem 1rem;
+}
+
+/* Inventory modal: larger, centered, square-like shape */
+.inventory-page .modal-dialog.modal-xl.modal-dialog-centered {
+  display: flex;
+  align-items: left;
+  justify-content: center;
+  min-height: calc(100vh - 2rem);
+}
+
+.inventory-page .modal-dialog.modal-xl .modal-content {
+  width: 68vw;
+  max-width: 700px;
+  aspect-ratio: 1 / 1; /* keep roughly square */
+  max-height: 88vh;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.inventory-page .modal-dialog.modal-xl .modal-body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 1.25rem 1.5rem;
+}
+
+.inventory-page .modal-dialog.modal-xl .modal-header,
+.inventory-page .modal-dialog.modal-xl .modal-footer {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+/* Ensure modal titles are left-aligned in Inventory modals */
+.inventory-page .modal-dialog .modal-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.inventory-page .modal-dialog .modal-title {
+  flex: 1 1 auto;
+  text-align: left;
+  margin: 0;
+}
+
+.inventory-page .modal-dialog .btn-close {
+  margin-left: auto;
 }
 
 /* Simple heading style for Inventory Management */
