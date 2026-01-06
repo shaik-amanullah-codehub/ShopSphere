@@ -5,7 +5,7 @@
       "name": "Wireless Headphones",
       "price": 199.99,
       "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
-      "description": "Premium noise-cancelling wireless headphones with 30-hour battery life",
+      "description": "Premium noise-cancelling wireless headphones with 30-hour battery life ",
       "category": "Electronics",
       "stock": 15,
       "rating": 4.8,
@@ -91,119 +91,8 @@
   ],
   "orders": [
     {
-      "id": "ORD-1767168150331",
-      "userId": 5,
-      "items": [
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 24.019199999999998,
-      "status": "delivered",
-      "trackingStatus": "Picked & Packed",
-      "createdAt": "2025-12-31T08:02:30.331Z",
-      "updatedAt": "2025-12-31T09:19:17.974Z",
-      "shippingAddress": {
-        "fullName": "Shaik Aman",
-        "email": "aman1@gmail.com",
-        "address": "pune cts",
-        "city": "pune",
-        "state": "Maharashtra",
-        "zipCode": "522228",
-        "phone": "07670975808"
-      },
-      "paymentMethod": "card"
-    },
-    {
-      "id": "ORD-1767168332694",
-      "userId": 5,
-      "items": [
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 161.9892,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2025-12-31T08:05:32.694Z",
-      "updatedAt": "2025-12-31T08:05:32.694Z",
-      "shippingAddress": {
-        "fullName": "Shaik Aman",
-        "email": "aman1@gmail.com",
-        "address": "pune cts",
-        "city": "pune",
-        "state": "Maharashtra",
-        "zipCode": "522228",
-        "phone": "07670975808"
-      },
-      "paymentMethod": "card"
-    },
-    {
-      "id": "ORD-1767176330680",
-      "userId": 1767004798085,
-      "items": [
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 176.0184,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2025-12-31T10:18:50.680Z",
-      "updatedAt": "2025-12-31T10:18:50.680Z",
-      "shippingAddress": {
-        "fullName": "jaibabu",
-        "email": "jaibabu@gmail.com",
-        "address": "adsfghjkl;'",
-        "city": "fdghjkl;",
-        "state": "sdfghjkl",
-        "zipCode": "1234567890",
-        "phone": "01234567890"
-      },
-      "paymentMethod": "paypal"
-    },
-    {
-      "id": "ORD-1767327269853",
-      "userId": 6,
+      "id": "ORD-1767678372846",
+      "userId": 13,
       "items": [
         {
           "id": 3,
@@ -230,128 +119,14 @@
           "quantity": 1
         },
         {
-          "id": 4,
-          "name": "Wireless Mouse",
-          "price": 45.99,
-          "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop",
-          "description": "Ergonomic wireless mouse with precision tracking",
-          "category": "Electronics",
-          "stock": 30,
-          "rating": 4.7,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 225.68760000000003,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T04:14:29.853Z",
-      "updatedAt": "2026-01-02T04:14:29.853Z",
-      "shippingAddress": {
-        "fullName": "Bharath Kumar",
-        "email": "bharathkumar@gmail.com",
-        "address": "adsfghjkl;'",
-        "city": "fdghjkl;",
-        "state": "sdfghjkl",
-        "zipCode": "1234567890",
-        "phone": "01234567890"
-      },
-      "paymentMethod": "paypal"
-    },
-    {
-      "id": "ORD-1767332961505",
-      "userId": 8,
-      "items": [
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
+          "id": 6,
+          "name": "Phone Case",
+          "price": 24.99,
+          "image": "https://images.unsplash.com/photo-1592286927505-1def25115558?w=500&h=500&fit=crop",
+          "description": "Protective phone case with impact resistance",
+          "category": "Accessories",
+          "stock": 80,
           "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 4,
-          "name": "Wireless Mouse",
-          "price": 45.99,
-          "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop",
-          "description": "Ergonomic wireless mouse with precision tracking",
-          "category": "Electronics",
-          "stock": 30,
-          "rating": 4.7,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 225.68760000000003,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T05:49:21.505Z",
-      "updatedAt": "2026-01-02T05:49:21.505Z",
-      "shippingAddress": {
-        "fullName": "bob",
-        "email": "bob@gmail.com",
-        "address": "adsfghjkl;'",
-        "city": "fdghjkl;",
-        "state": "sdfghjkl",
-        "zipCode": "1234567890",
-        "phone": "01234567890"
-      },
-      "paymentMethod": "paypal"
-    },
-    {
-      "id": "ORD-1767333737836",
-      "userId": 9,
-      "items": [
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 7,
-          "name": "Screen Protector",
-          "price": 9.99,
-          "image": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&h=500&fit=crop",
-          "description": "Tempered glass screen protector for all devices",
-          "category": "Accessories",
-          "stock": 120,
-          "rating": 4.5,
           "createdAt": "2025-01-01T00:00:00Z",
           "quantity": 1
         },
@@ -368,25 +143,22 @@
           "quantity": 1
         }
       ],
-      "total": 229.99680000000004,
+      "total": 250.75600000000003,
       "status": "pending",
       "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T06:02:17.836Z",
-      "updatedAt": "2026-01-02T06:02:17.836Z",
+      "createdAt": "2026-01-06T05:46:12.846Z",
+      "updatedAt": "2026-01-06T05:46:12.846Z",
       "shippingAddress": {
-        "fullName": "venu",
-        "email": "venu@gmail.com",
-        "address": "adsfghjkl;'",
-        "city": "fdghjkl;",
-        "state": "sdfghjkl",
-        "zipCode": "1234567890",
-        "phone": "01234567890"
+        "id": 1,
+        "name": "TechHaven Downtown",
+        "address": "12, MG Road, Central District, Mumbai - 400001",
+        "distance": "1.2 km"
       },
-      "paymentMethod": "paypal"
+      "paymentMethod": "cod"
     },
     {
-      "id": "ORD-1767342656102",
-      "userId": 8,
+      "id": "ORD-1767679112951",
+      "userId": 14,
       "items": [
         {
           "id": 2,
@@ -398,7 +170,7 @@
           "stock": 25,
           "rating": 4.6,
           "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
+          "quantity": 2
         },
         {
           "id": 3,
@@ -409,63 +181,6 @@
           "category": "Accessories",
           "stock": 100,
           "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 1,
-          "name": "Wireless Headphones",
-          "price": 199.99,
-          "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
-          "description": "Premium noise-cancelling wireless headphones with 30-hour battery life",
-          "category": "Electronics",
-          "stock": 15,
-          "rating": 4.8,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 392.0076,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T08:30:56.102Z",
-      "updatedAt": "2026-01-02T08:30:56.103Z",
-      "shippingAddress": {
-        "fullName": "bob",
-        "email": "bob@gmail.com",
-        "address": "adsfghjkl;'",
-        "city": "fdghjkl;",
-        "state": "sdfghjkl",
-        "zipCode": "1234567890",
-        "phone": "01234567890"
-      },
-      "paymentMethod": "paypal"
-    },
-    {
-      "id": "ORD-1767343295290",
-      "userId": 11,
-      "items": [
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
           "createdAt": "2025-01-01T00:00:00Z",
           "quantity": 1
         },
@@ -482,21 +197,49 @@
           "quantity": 1
         }
       ],
-      "total": 225.68760000000003,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-02T08:41:35.290Z",
-      "updatedAt": "2026-01-02T08:41:35.290Z",
+      "total": 444.85600000000005,
+      "status": "delivered",
+      "trackingStatus": "Delivered",
+      "createdAt": "2026-01-06T05:58:32.951Z",
+      "updatedAt": "2026-01-06T06:03:51.915Z",
       "shippingAddress": {
-        "fullName": "iswarya",
-        "email": "ishu@gmail.com",
-        "address": "adsfghjkl;'",
-        "city": "fdghjkl;",
-        "state": "sdfghjkl",
-        "zipCode": "1234567890",
-        "phone": "01234567890"
+        "name": "bob",
+        "line1": "13/b,Krishna reddy nagar,kurnool,Andhra Pradesh",
+        "city": "Kurnool",
+        "state": "AndhraPradesh",
+        "pincode": "518003"
       },
-      "paymentMethod": "paypal"
+      "paymentMethod": "cod"
+    },
+    {
+      "id": "ORD-1767679331003",
+      "userId": 14,
+      "items": [
+        {
+          "id": 3,
+          "name": "USB-C Cable",
+          "price": 12.99,
+          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
+          "description": "Fast charging USB-C cable with data transfer capability",
+          "category": "Accessories",
+          "stock": 100,
+          "rating": 4.5,
+          "createdAt": "2025-01-01T00:00:00Z",
+          "quantity": 1
+        }
+      ],
+      "total": 14.289,
+      "status": "shipped",
+      "trackingStatus": "Out for Delivery",
+      "createdAt": "2026-01-06T06:02:11.003Z",
+      "updatedAt": "2026-01-06T06:03:41.582Z",
+      "shippingAddress": {
+        "id": 3,
+        "name": "TechHaven Express",
+        "address": "Plot 88, Phoenix Marketcity, Kurla, Mumbai - 400070",
+        "distance": "8.4 km"
+      },
+      "paymentMethod": "cod"
     }
   ],
   "customers": [
@@ -541,65 +284,87 @@
       "id": 5
     },
     {
-      "email": "bharathkumar@gmail.com",
-      "password": "Bharath@77",
-      "name": "Bharath Kumar",
+      "email": "uppudinesh197@gmail.com",
+      "password": "Dinesh@9858",
+      "name": "Dinesh Uppu",
       "role": "customer",
-      "createdAt": "2026-01-02T04:00:41.811Z",
+      "createdAt": "2026-01-02T04:51:14.311Z",
       "id": 6
     },
     {
-      "email": "harsha@gmail.coom",
-      "password": "Harsha@77",
-      "name": "Harsha",
-      "role": "customer",
-      "createdAt": "2026-01-02T04:30:52.981Z",
-      "id": 7
-    },
-    {
       "email": "bob@gmail.com",
-      "password": "Bharath@77",
+      "password": "bob123",
       "name": "bob",
       "mobileNumber": "7893939141",
       "role": "customer",
-      "createdAt": "2026-01-02T04:38:13.330Z",
+      "createdAt": "2026-01-05T08:41:35.030Z",
+      "id": 7
+    },
+    {
+      "loyaltyPoints": 27,
       "id": 8
     },
     {
-      "email": "venu@gmail.com",
-      "password": "Venu@123",
-      "name": "venu",
-      "mobileNumber": "7893939141",
-      "role": "customer",
-      "createdAt": "2026-01-02T05:10:20.308Z",
+      "loyaltyPoints": 37,
       "id": 9
     },
     {
-      "email": "hello@gmail.com",
-      "password": "hello@123",
-      "name": "hello",
-      "mobileNumber": "7897891234",
-      "role": "customer",
-      "createdAt": "2026-01-02T05:15:03.038Z",
+      "loyaltyPoints": 49,
       "id": 10
     },
     {
-      "email": "ishu@gmail.com",
-      "password": "Ishu@123",
-      "name": "iswarya",
-      "mobileNumber": "8317529863",
-      "role": "customer",
-      "createdAt": "2026-01-02T05:27:23.507Z",
+      "loyaltyPoints": 22,
       "id": 11
     },
     {
+      "name": "venu",
+      "mobileNumber": "1234567890",
+      "email": "venu@gmail.com",
+      "password": "Venu@123",
+      "role": "customer",
+      "loyaltyPoints": 44,
+      "createdAt": "2026-01-06T01:38:01.374Z",
+      "id": 12
+    },
+    {
+      "name": "Dinesh",
+      "mobileNumber": "1234567890",
+      "email": "dinesh@gmail.com",
+      "password": "Dinesh@123",
+      "role": "customer",
+      "loyaltyPoints": 77,
+      "createdAt": "2026-01-06T05:38:59.000Z",
+      "id": 13
+    },
+    {
+      "name": "Aman",
+      "mobileNumber": "7893939141",
       "email": "aman@gmail.com",
       "password": "Aman@123",
-      "name": "AMAN",
-      "mobileNumber": "0987654234",
       "role": "customer",
-      "createdAt": "2026-01-02T05:28:23.514Z",
-      "id": 12
+      "loyaltyPoints": 45,
+      "createdAt": "2026-01-06T05:58:03.291Z",
+      "id": 14
+    },
+    {
+      "name": "afd",
+      "mobileNumber": "1234567890",
+      "email": "aman2@gmail.com",
+      "password": "Bha@123",
+      "role": "customer",
+      "loyaltyPoints": 0,
+      "createdAt": "2026-01-06T06:44:38.254Z",
+      "id": 15
+    },
+    {
+      "name": "aman",
+      "mobileNumber": "1234567890",
+      "email": "aman3@gmail.com",
+      "password": "JaiBabu@123",
+      "role": "customer",
+      "loyaltyPoints": 0,
+      "createdAt": "2026-01-06T06:58:37.863Z",
+      "id": 16
     }
   ]
 }

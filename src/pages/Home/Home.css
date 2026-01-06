@@ -11,8 +11,8 @@
 .hero-section .text-gradient {
   background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  color: transparent;
 }
 
 .min-vh-50 {
@@ -24,8 +24,13 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 .products-section {
@@ -91,4 +96,15 @@
 .filters-section .form-select:focus {
   border-color: #667eea;
   box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Custom Toggle Style */
+.form-check-input:checked {
+  background-color: #667eea;
+  border-color: #667eea;
+}
+
+.form-check-input {
+  width: 2.5em;
+  height: 1.25em;
 }
