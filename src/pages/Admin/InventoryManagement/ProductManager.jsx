@@ -19,40 +19,72 @@ function ProductManager() {
     rating: '4.5'
   });
 
-  const categories = ['Electronics', 'Accessories'];
+  // Helper: format numeric price to display string (₹0.00)
+  const formatPrice = (value) => {
+    const n = Number(value);
+    return Number.isNaN(n) ? '₹0.00' : `₹${n.toFixed(2)}`;
+  };
 
+  // Helper: basic required-field check for the form
+  const isFormComplete = (data) => {
+    return Boolean(data.name && data.price !== '' && data.description && data.stock !== '');
+  };
+
+  // Helper: reset the form to initial defaults
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      price: '',
+      description: '',
+      category: 'Electronics',
+      stock: '',
+      image: '',
+      rating: '4.5'
+    });
+  };
+
+  // Available categories used both for filtering and the add/edit form
+  const categories = ['Electronics', 'Accessories', 'Apparel'];
+
+  // Compute filtered product list based on search term and selected category
   const filteredProducts = useMemo(() => {
     return products.filter(p => {
-      const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
+      // Guard against incomplete product entries
+      const name = p?.name || '';
+      const matchesSearch = name.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = categoryFilter === 'All' || p.category === categoryFilter;
       return matchesSearch && matchesCategory;
     });
   }, [products, searchTerm, categoryFilter]);
 
+  /**
+   * Open the add/edit modal.
+   * If `product` is provided we populate the form for editing,
+   * otherwise we reset the form for adding a new product.
+   */
   const handleOpenModal = (product = null) => {
     if (product) {
       setEditingProduct(product);
       setFormData(product);
     } else {
       setEditingProduct(null);
-      setFormData({
-        name: '',
-        price: '',
-        description: '',
-        category: 'Electronics',
-        stock: '',
-        image: '',
-        rating: '4.5'
-      });
+      resetForm();
     }
     setShowModal(true);
   };
 
+  /**
+   * Close modal and clear editing state.
+   */
   const handleCloseModal = () => {
     setShowModal(false);
     setEditingProduct(null);
   };
 
+  /**
+   * Generic form input handler. Updates the `formData` state
+   * for controlled form fields.
+   */
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -60,33 +92,38 @@ function ProductManager() {
     });
   };
 
+  /**
+   * Submit handler for add/update product form.
+   * Validates required fields, converts numeric fields,
+   * then calls `addProduct` or `updateProduct` from context.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.price || !formData.description || !formData.stock) {
+    if (!isFormComplete(formData)) {
       alert('Please fill all required fields');
       return;
     }
 
+    const payload = {
+      ...formData,
+      price: parseFloat(formData.price),
+      stock: parseInt(formData.stock, 10),
+      rating: parseFloat(formData.rating)
+    };
+
     if (editingProduct) {
-      updateProduct(editingProduct.id, {
-        ...formData,
-        price: parseFloat(formData.price),
-        stock: parseInt(formData.stock),
-        rating: parseFloat(formData.rating)
-      });
+      updateProduct(editingProduct.id, payload);
     } else {
-      addProduct({
-        ...formData,
-        price: parseFloat(formData.price),
-        stock: parseInt(formData.stock),
-        rating: parseFloat(formData.rating)
-      });
+      addProduct(payload);
     }
 
     handleCloseModal();
   };
 
+  /**
+   * Delete product after user confirmation.
+   */
   const handleDelete = (productId) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       deleteProduct(productId);
@@ -177,7 +214,7 @@ function ProductManager() {
                       </td>
                       <td>{product.category}</td>
                       <td className="fw-bold text-primary">
-                        ${product.price.toFixed(2)}
+                        ₹{product.price.toFixed(2)}
                       </td>
                       <td>
                         <input
@@ -244,7 +281,7 @@ function ProductManager() {
       {/* Add/Edit Modal */}
       {showModal && (
         <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <div className="modal-dialog modal-lg modal-dialog-centered">
+          <div className="modal-dialog modal-dialog-centered small-modal">
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">
@@ -284,7 +321,7 @@ function ProductManager() {
                   <div className="row">
                     <div className="col-md-6">
                       <div className="mb-3">
-                        <label className="form-label">Price ($) *</label>
+                        <label className="form-label">Price (₹) *</label>
                         <input
                           type="number"
                           name="price"

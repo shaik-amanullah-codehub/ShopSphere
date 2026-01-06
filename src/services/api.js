@@ -107,8 +107,9 @@ export const productAPI = {
    * @param {Object} productData - Updated product details
    * @returns {Promise} Updated product
    */
+  // Use PATCH to perform partial updates so fields are not unintentionally replaced
   updateProduct: (id, productData) =>
-    apiClient.put(`/products/${id}`, productData),
+    apiClient.patch(`/products/${id}`, productData),
 
   /**
    * Delete product (Admin only)
