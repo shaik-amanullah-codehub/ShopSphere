@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
-import { BarChart3, Package, ShoppingCart, Sliders, LogOut, Menu, X } from 'lucide-react';
+import { BarChart3, Package, ShoppingCart, Sliders, LogOut, Menu, X, Megaphone } from 'lucide-react';
 import './AdminLayout.css';
 
 function AdminLayout({ children }) {
@@ -25,10 +25,15 @@ function AdminLayout({ children }) {
     navigate('/login');
   };
 
+  /**
+   * navigationItems updated to include Campaigns Module [cite: 13]
+   * Placed between Orders and Settings as requested 
+   */
   const navigationItems = [
     { label: 'Dashboard', icon: BarChart3, path: '/admin' },
     { label: 'Inventory', icon: Package, path: '/admin/inventory' },
     { label: 'Orders', icon: ShoppingCart, path: '/admin/orders' },
+    { label: 'Campaigns', icon: Megaphone, path: '/admin/campaigns' }, // New Module [cite: 66]
     { label: 'Settings', icon: Sliders, path: '/admin/settings' }
   ];
 

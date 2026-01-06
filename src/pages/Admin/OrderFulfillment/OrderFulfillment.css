@@ -2,37 +2,37 @@
   background: #f8f9fa;
   min-height: 100vh;
 }
-
+ 
 .order-card {
   transition: all 0.3s ease;
   border-radius: 10px;
 }
-
+ 
 .order-card:hover {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
   transform: translateX(4px);
 }
-
+ 
 .order-id-badge {
   background: #f0f2f5;
   padding: 10px;
   border-radius: 8px;
   border-left: 4px solid #667eea;
 }
-
+ 
 .stat-mini {
   border-radius: 10px;
 }
-
+ 
 .stat-mini:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1) !important;
 }
-
+ 
 .custom-tabs {
   border-bottom: 2px solid #dee2e6;
 }
-
+ 
 .custom-tabs .nav-link {
   color: #667eea;
   border: none;
@@ -40,27 +40,27 @@
   font-weight: 500;
   transition: all 0.3s ease;
 }
-
+ 
 .custom-tabs .nav-link:hover {
   color: #764ba2;
   border-bottom-color: #667eea;
 }
-
+ 
 .custom-tabs .nav-link.active {
   color: #667eea;
   border-bottom-color: #667eea;
   background: transparent;
 }
-
+ 
 .amount {
   font-size: 1.1rem;
 }
-
+ 
 @media (max-width: 768px) {
   .order-card .row {
     text-align: center;
   }
-
+ 
   .order-card .col-md-2,
   .order-card .col-md-3 {
     margin-bottom: 10px;

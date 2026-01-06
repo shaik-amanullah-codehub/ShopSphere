@@ -90,72 +90,7 @@
     }
   ],
   "orders": [
-    {
-      "id": "ORD-1767168150331",
-      "userId": 5,
-      "items": [
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 24.019199999999998,
-      "status": "delivered",
-      "trackingStatus": "Picked & Packed",
-      "createdAt": "2025-12-31T08:02:30.331Z",
-      "updatedAt": "2025-12-31T09:19:17.974Z",
-      "shippingAddress": {
-        "fullName": "Shaik Aman",
-        "email": "aman1@gmail.com",
-        "address": "pune cts",
-        "city": "pune",
-        "state": "Maharashtra",
-        "zipCode": "522228",
-        "phone": "07670975808"
-      },
-      "paymentMethod": "card"
-    },
-    {
-      "id": "ORD-1767168332694",
-      "userId": 5,
-      "items": [
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 161.9892,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2025-12-31T08:05:32.694Z",
-      "updatedAt": "2025-12-31T08:05:32.694Z",
-      "shippingAddress": {
-        "fullName": "Shaik Aman",
-        "email": "aman1@gmail.com",
-        "address": "pune cts",
-        "city": "pune",
-        "state": "Maharashtra",
-        "zipCode": "522228",
-        "phone": "07670975808"
-      },
-      "paymentMethod": "card"
-    }
+    
   ],
   "customers": [
     {
@@ -165,38 +100,39 @@
       "name": "Admin User",
       "role": "admin",
       "createdAt": "2025-01-01T00:00:00Z"
+    }
+  ],
+  "campaigns": [
+    {
+      "id": "CMP-1767527450697",
+      "name": "New Year Sale",
+      "targetAudience": "Fashion & Apparel",
+      "budget": 50000,
+      "startDate": "2026-01-04",
+      "endDate": "2026-01-10",
+      "status": "Active",
+      "roi": "0%"
     },
     {
-      "id": 2,
-      "email": "john@example.com",
-      "password": "john@123",
-      "name": "John Doe",
-      "role": "customer",
-      "createdAt": "2025-01-05T10:30:00Z"
+      "id": "CMP-1767527903681",
+      "name": "Sankranthi Fest",
+      "targetAudience": "All Customers",
+      "budget": 30000,
+      "startDate": "2026-01-10",
+      "endDate": "2026-01-14",
+      "status": "Active",
+      "active": true,
+      "roi": "0%"
     },
     {
-      "id": 3,
-      "email": "sarah@example.com",
-      "password": "sarah@456",
-      "name": "Sarah Smith",
-      "role": "customer",
-      "createdAt": "2025-01-10T14:20:00Z"
-    },
-    {
-      "id": 4,
-      "email": "mike@example.com",
-      "password": "mike@789",
-      "name": "Mike Johnson",
-      "role": "customer",
-      "createdAt": "2025-01-15T08:45:00Z"
-    },
-    {
-      "email": "aman1@gmail.com",
-      "password": "aman123",
-      "name": "Shaik Aman",
-      "role": "customer",
-      "createdAt": "2025-12-31T08:02:04.345Z",
-      "id": 5
+      "id": "CMP-1767532444737",
+      "name": "year",
+      "targetAudience": "All Customers",
+      "budget": 100,
+      "startDate": "2026-01-04",
+      "endDate": "2026-01-04",
+      "status": "Completed",
+      "active": true
     }
   ]
 }

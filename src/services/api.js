@@ -165,6 +165,35 @@ export const orderAPI = {
     apiClient.delete(`/orders/${id}`)
 };
 
+export const campaignAPI = {
+  /**
+   * Fetch all campaigns
+   * @returns {Promise} Campaign list
+   */
+  getAllCampaigns: () =>
+    apiClient.get('/campaigns'),
+
+  /**
+   * Create new campaign (Admin only)
+   * @param {Object} campaignData - Campaign details
+   * @returns {Promise} Created campaign
+   */
+  createCampaign: (campaignData) =>
+    apiClient.post('/campaigns', campaignData),
+
+  /**
+   * Delete a campaign
+   * @param {string} id - Campaign ID
+   * @returns {Promise} Deletion confirmation
+   */
+
+  updateCampaign: (id, campaignData) =>
+    apiClient.put(`/campaigns/${id}`, campaignData),
+
+  deleteCampaign: (id) =>
+    apiClient.delete(`/campaigns/${id}`)
+};
+
 /**
  * CUSTOMER/AUTH API ENDPOINTS
  */

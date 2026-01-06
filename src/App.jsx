@@ -17,6 +17,8 @@ import AdminLayout from './pages/Admin/AdminLayout';
 import Dashboard from './pages/Admin/Dashboard/Dashboard';
 import ProductManager from './pages/Admin/InventoryManagement/ProductManager';
 import OrderFulfillment from './pages/Admin/OrderFulfillment/OrderFulfillment';
+// Import the new Campaign Management component
+import CampaignManagement from './pages/Admin/Campiagns/CampaignManagement';
 
 import './App.css';
 
@@ -59,6 +61,16 @@ function App() {
             element={
               <AdminLayout>
                 <OrderFulfillment />
+              </AdminLayout>
+            }
+          />
+
+          {/* New Marketing Campaign & Reporting Route */}
+          <Route
+            path="/admin/campaigns"
+            element={
+              <AdminLayout>
+                <CampaignManagement />
               </AdminLayout>
             }
           />
