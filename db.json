@@ -1,5 +1,6 @@
 {
   "products": [
+<<<<<<< HEAD
     {
       "id": 1,
       "name": "Wireless Headphones",
@@ -88,6 +89,16 @@
       "rating": 4.7,
       "createdAt": "2025-01-01T00:00:00Z"
     }
+=======
+   { "id": 1, "name": "Wireless Headphones", "category": "Electronics", "price": 2999, "rating": 4.5, "stock": 15, "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800", "desc": "Experience immersive sound with active noise cancellation." },
+  { "id": 2, "name": "Smart Watch", "category": "Electronics", "price": 3999, "rating": 4.8, "stock": 4, "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800", "desc": "Advanced health tracking with oxygen sensors." },
+  { "id": 3, "name": "Casual Sneakers", "category": "Fashion", "price": 1999, "rating": 4.2, "stock": 0, "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800", "desc": "Breathable sneakers." },
+  { "id": 4, "name": "Leather Wallet", "category": "Fashion", "price": 899, "rating": 4.0, "stock": 20, "image": "https://images.unsplash.com/photo-1627123424574-724758594e93?w=800", "desc": "Handcrafted leather." },
+  { "id": 5, "name": "USB-C Cable", "category": "Accessories", "price": 299, "rating": 4.5, "stock": 50, "image": "https://images.unsplash.com/photo-1595756630452-736bc8ef3693?w=800", "desc": "Fast charging cable." },
+  { "id": 6, "name": "Portable SSD", "category": "Electronics", "price": 6999, "rating": 4.8, "stock": 2, "image": "https://images.unsplash.com/photo-1577538926210-fc6cc624fde2?w=800", "desc": "1TB ultra-fast storage." },
+  { "id": 7, "name": "Laptop Stand", "category": "Accessories", "price": 999, "rating": 4.2, "stock": 10, "image": "https://images.unsplash.com/photo-1629317480826-910f729d1709?w=800", "desc": "Ergonomic stand." },
+  { "id": 8, "name": "Phone Mount", "category": "Accessories", "price": 199, "rating": 4.0, "stock": 8, "image": "https://images.unsplash.com/photo-1516245556508-7d60d4ff0f39?w=800", "desc": "Universal mount." }
+>>>>>>> 7fd13b11db042d7dfd96f4e5c07b9c2c8f3ffb02
   ],
   "orders": [
     {
