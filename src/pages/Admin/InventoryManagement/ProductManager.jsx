@@ -65,7 +65,13 @@ function ProductManager() {
   const handleOpenModal = (product = null) => {
     if (product) {
       setEditingProduct(product);
-      setFormData(product);
+      // Normalize numeric fields to strings so controlled inputs accept exact edits
+      setFormData({
+        ...product,
+        price: product.price != null ? String(product.price) : '',
+        stock: product.stock != null ? String(product.stock) : '',
+        rating: product.rating != null ? String(product.rating) : '4.5'
+      });
     } else {
       setEditingProduct(null);
       resetForm();
@@ -227,6 +233,7 @@ function ProductManager() {
                           style={{ width: '80px' }}
                           min="0"
                           className="form-control form-control-sm"
+                          onWheel={(e) => e.currentTarget.blur()}
                         />
                       </td>
                       <td>
@@ -332,6 +339,7 @@ function ProductManager() {
                           min="0"
                           required
                           className="form-control"
+                          onWheel={(e) => e.currentTarget.blur()}
                         />
                       </div>
                     </div>
@@ -347,6 +355,7 @@ function ProductManager() {
                           min="0"
                           required
                           className="form-control"
+                          onWheel={(e) => e.currentTarget.blur()}
                         />
                       </div>
                     </div>
@@ -363,6 +372,7 @@ function ProductManager() {
                       max="5"
                       step="0.1"
                       className="form-control"
+                      onWheel={(e) => e.currentTarget.blur()}
                     />
                   </div>
 
