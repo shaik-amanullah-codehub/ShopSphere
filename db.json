@@ -1,81 +1,88 @@
 {
   "products": [
-   { "id": 1, "name": "Wireless Headphones", "category": "Electronics", "price": 2999, "rating": 4.5, "stock": 15, "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800", "desc": "Experience immersive sound with active noise cancellation." },
-  { "id": 2, "name": "Smart Watch", "category": "Electronics", "price": 3999, "rating": 4.8, "stock": 4, "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800", "desc": "Advanced health tracking with oxygen sensors." },
-  { "id": 3, "name": "Casual Sneakers", "category": "Fashion", "price": 1999, "rating": 4.2, "stock": 0, "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800", "desc": "Breathable sneakers." },
-  { "id": 4, "name": "Leather Wallet", "category": "Fashion", "price": 899, "rating": 4.0, "stock": 20, "image": "https://images.unsplash.com/photo-1627123424574-724758594e93?w=800", "desc": "Handcrafted leather." },
-  { "id": 5, "name": "USB-C Cable", "category": "Accessories", "price": 299, "rating": 4.5, "stock": 50, "image": "https://images.unsplash.com/photo-1595756630452-736bc8ef3693?w=800", "desc": "Fast charging cable." },
-  { "id": 6, "name": "Portable SSD", "category": "Electronics", "price": 6999, "rating": 4.8, "stock": 2, "image": "https://images.unsplash.com/photo-1577538926210-fc6cc624fde2?w=800", "desc": "1TB ultra-fast storage." },
-  { "id": 7, "name": "Laptop Stand", "category": "Accessories", "price": 999, "rating": 4.2, "stock": 10, "image": "https://images.unsplash.com/photo-1629317480826-910f729d1709?w=800", "desc": "Ergonomic stand." },
-  { "id": 8, "name": "Phone Mount", "category": "Accessories", "price": 199, "rating": 4.0, "stock": 8, "image": "https://images.unsplash.com/photo-1516245556508-7d60d4ff0f39?w=800", "desc": "Universal mount." }
-  ],
-  "orders": [
     {
-      "id": "ORD-1767168150331",
-      "userId": 5,
-      "items": [
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 24.019199999999998,
-      "status": "delivered",
-      "trackingStatus": "Picked & Packed",
-      "createdAt": "2025-12-31T08:02:30.331Z",
-      "updatedAt": "2025-12-31T09:19:17.974Z",
-      "shippingAddress": {
-        "fullName": "Shaik Aman",
-        "email": "aman1@gmail.com",
-        "address": "pune cts",
-        "city": "pune",
-        "state": "Maharashtra",
-        "zipCode": "522228",
-        "phone": "07670975808"
-      },
-      "paymentMethod": "card"
+      "id": 1,
+      "name": "Wireless Headphones",
+      "category": "Electronics",
+      "price": 2999,
+      "rating": 4.5,
+      "stock": 15,
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800",
+      "desc": "Experience immersive sound with active noise cancellation."
     },
     {
-      "id": "ORD-1767168332694",
-      "userId": 5,
-      "items": [
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 161.9892,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2025-12-31T08:05:32.694Z",
-      "updatedAt": "2025-12-31T08:05:32.694Z",
-      "shippingAddress": {
-        "fullName": "Shaik Aman",
-        "email": "aman1@gmail.com",
-        "address": "pune cts",
-        "city": "pune",
-        "state": "Maharashtra",
-        "zipCode": "522228",
-        "phone": "07670975808"
-      },
-      "paymentMethod": "card"
+      "id": 2,
+      "name": "Smart Watch",
+      "category": "Electronics",
+      "price": 3999,
+      "rating": 4.8,
+      "stock": 4,
+      "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800",
+      "desc": "Advanced health tracking with oxygen sensors."
+    },
+    {
+      "id": 3,
+      "name": "Casual Sneakers",
+      "category": "Fashion",
+      "price": 1999,
+      "rating": 4.2,
+      "stock": 0,
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800",
+      "desc": "Breathable sneakers."
+    },
+    {
+      "id": 4,
+      "name": "Leather Wallet",
+      "category": "Fashion",
+      "price": 899,
+      "rating": 4,
+      "stock": 20,
+      "image": "https://images.unsplash.com/photo-1620109176813-e91290f6c795?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE1fHx8ZW58MHx8fHx8?w=800",
+      "desc": "Handcrafted leather."
+    },
+    {
+      "id": 5,
+      "name": "USB-C Cable",
+      "category": "Accessories",
+      "price": 299,
+      "rating": 4.5,
+      "stock": 50,
+      "image": "https://images.unsplash.com/photo-1595756630452-736bc8ef3693?w=800",
+      "desc": "Fast charging cable."
+    },
+    {
+      "id": 6,
+      "name": "Portable SSD",
+      "category": "Electronics",
+      "price": 6999,
+      "rating": 4.8,
+      "stock": 2,
+      "image": "https://images.unsplash.com/photo-1577538926210-fc6cc624fde2?w=800",
+      "desc": "1TB ultra-fast storage."
+    },
+    {
+      "id": 7,
+      "name": "Laptop Stand",
+      "category": "Accessories",
+      "price": 999,
+      "rating": 4.2,
+      "stock": 10,
+      "image": "https://images.unsplash.com/photo-1629317480826-910f729d1709?w=800",
+      "desc": "Ergonomic stand."
+    },
+    {
+      "id": 8,
+      "name": "Phone Mount",
+      "category": "Accessories",
+      "price": 199,
+      "rating": 4,
+      "stock": 8,
+      "image": "https://images.unsplash.com/photo-1516245556508-7d60d4ff0f39?w=800",
+      "desc": "Universal mount."
     }
+  ],
+  "orders": [
+      
   ],
   "customers": [
     {
@@ -85,38 +92,6 @@
       "name": "Admin User",
       "role": "admin",
       "createdAt": "2025-01-01T00:00:00Z"
-    },
-    {
-      "id": 2,
-      "email": "john@example.com",
-      "password": "john@123",
-      "name": "John Doe",
-      "role": "customer",
-      "createdAt": "2025-01-05T10:30:00Z"
-    },
-    {
-      "id": 3,
-      "email": "sarah@example.com",
-      "password": "sarah@456",
-      "name": "Sarah Smith",
-      "role": "customer",
-      "createdAt": "2025-01-10T14:20:00Z"
-    },
-    {
-      "id": 4,
-      "email": "mike@example.com",
-      "password": "mike@789",
-      "name": "Mike Johnson",
-      "role": "customer",
-      "createdAt": "2025-01-15T08:45:00Z"
-    },
-    {
-      "email": "aman1@gmail.com",
-      "password": "aman123",
-      "name": "Shaik Aman",
-      "role": "customer",
-      "createdAt": "2025-12-31T08:02:04.345Z",
-      "id": 5
     }
   ]
 }

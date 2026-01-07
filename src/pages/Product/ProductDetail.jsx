@@ -1,239 +1,185 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
-import { Star, ShoppingCart, Truck, Lock, RotateCcw } from 'lucide-react';
+import { 
+  Star, ShoppingCart, ChevronLeft, 
+  Truck, ShieldCheck, RotateCcw, Plus, Minus, Lock 
+} from 'lucide-react';
 import './ProductDetail.css';
 
 function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { products, addToCart } = useApp();
-  const [quantity, setQuantity] = useState(1);
-  const [addedToCart, setAddedToCart] = useState(false);
-
+  
+  const { products, cart, addToCart, removeFromCart } = useApp();
+  
   const product = products.find(p => p.id === parseInt(id));
 
-  if (!product) {
-    return (
-      <div className="container py-5">
-        <div className="alert alert-warning">Product not found</div>
-        <button onClick={() => navigate('/')} className="btn btn-primary">
-          Back to Shop
-        </button>
-      </div>
-    );
-  }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
-  const handleAddToCart = () => {
-    addToCart(product, quantity);
-    setAddedToCart(true);
-    setTimeout(() => setAddedToCart(false), 2000);
-  };
+  if (!product) return <div className="error-page">Product not found</div>;
 
-  const handleQuantityChange = (e) => {
-    const value = parseInt(e.target.value);
-    if (value > 0 && value <= product.stock) {
-      setQuantity(value);
-    }
-  };
+  const cartItem = cart?.find(item => item.id === product.id);
+  const currentQty = cartItem ? cartItem.quantity : 0;
+  const isOutOfStock = product.stock === 0;
+
+  const relatedProducts = products.filter(
+    (item) => item.category === product.category && item.id !== product.id
+  ).slice(0, 4);
 
   return (
     <div className="product-detail-page py-5">
       <div className="container">
-        {addedToCart && (
-          <div className="alert alert-success alert-dismissible fade show" role="alert">
-            ✓ Added to cart successfully!
-            <button type="button" className="btn-close" onClick={() => setAddedToCart(false)}></button>
-          </div>
-        )}
-
-        <button
-          className="btn btn-outline-secondary mb-4"
-          onClick={() => navigate('/')}
-        >
-          ← Back to Products
+        <button className="back-btn mb-4" onClick={() => navigate('/')}>
+          <ChevronLeft size={18}/> Back to Shop
         </button>
-
-        <div className="row g-4">
-          {/* Product Image */}
+        
+        <div className="row g-5">
           <div className="col-lg-5">
-            <div className="card border-0 shadow-sm">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="product-detail-image"
-              />
+            <div className="detail-image-box shadow-sm mb-4">
+              <img src={product.image} alt={product.name} className="img-fluid rounded-4" />
             </div>
 
-            {/* Product Highlights */}
-            <div className="row g-3 mt-4">
-              <div className="col-xs-6">
-                <div className="card highlight-card text-center p-3 border-0 shadow-sm">
-                  <Truck className="text-primary mx-auto mb-2" size={32} />
-                  <small className="fw-bold">FREE SHIPPING</small>
-                  <p className="text-secondary small">On orders over $50</p>
-                </div>
+            <div className="highlight-grid">
+              <div className="highlight-item">
+                <Truck className="text-indigo mb-2" size={24} />
+                <p className="small fw-bold mb-0">FREE SHIPPING</p>
               </div>
-              <div className="col-xs-6">
-                <div className="card highlight-card text-center p-3 border-0 shadow-sm">
-                  <RotateCcw className="text-primary mx-auto mb-2" size={32} />
-                  <small className="fw-bold">30 DAY RETURNS</small>
-                  <p className="text-secondary small">Easy returns policy</p>
-                </div>
+              <div className="highlight-item">
+                <RotateCcw className="text-indigo mb-2" size={24} />
+                <p className="small fw-bold mb-0">30 DAY RETURN</p>
               </div>
-              <div className="col-xs-6">
-                <div className="card highlight-card text-center p-3 border-0 shadow-sm">
-                  <Lock className="text-primary mx-auto mb-2" size={32} />
-                  <small className="fw-bold">SECURE CHECKOUT</small>
-                  <p className="text-secondary small">SSL encrypted</p>
-                </div>
-              </div>
-              <div className="col-xs-6">
-                <div className="card highlight-card text-center p-3 border-0 shadow-sm">
-                  <Star className="text-primary mx-auto mb-2" size={32} />
-                  <small className="fw-bold">TRUSTED</small>
-                  <p className="text-secondary small">10K+ happy customers</p>
-                </div>
+              <div className="highlight-item">
+                <ShieldCheck className="text-indigo mb-2" size={24} />
+                <p className="small fw-bold mb-0">MOST TRUSTED BRAND</p>
               </div>
             </div>
           </div>
 
-          {/* Product Info */}
           <div className="col-lg-7">
-            <div className="product-info">
-              <div className="mb-3">
-                <span className="badge bg-light text-dark me-2">
-                  {product.category}
+            <div className="info-section">
+              <div className="mb-2">
+                <span className="badge-tag me-2">{product.category}</span>
+                <span className={`badge ${!isOutOfStock ? 'bg-success' : 'bg-danger'}`}>
+                  {!isOutOfStock ? 'In Stock' : 'Out of Stock'}
                 </span>
-                {product.stock > 0 ? (
-                  <span className="badge bg-success">In Stock</span>
+              </div>
+
+              <h1 className="display-5 fw-bold">{product.name}</h1>
+              
+              <div className="rating-row">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={18} fill={i < Math.floor(product.rating) ? "#ffc107" : "none"} color="#ffc107" />
+                ))}
+                <span className="rating-text ms-2">{product.rating} (Reviews)</span>
+              </div>
+
+              <div className="price-tag my-3">
+                <h2 className="current-price mb-0">₹{product.price}</h2>
+                <span className="old-price text-muted">₹{(product.price * 1.2).toFixed(0)}</span>
+              </div>
+
+              <p className="detail-desc text-secondary">{product.description || product.desc}</p>
+
+              <div className="detail-actions mt-4">
+                {currentQty > 0 ? (
+                  <div className="qty-selector-container">
+                    <button className="qty-btn" onClick={() => removeFromCart(product.id)}><Minus size={20}/></button>
+                    <span className="qty-count px-4 fw-bold">{currentQty}</span>
+                    <button 
+                      className="qty-btn" 
+                      disabled={currentQty >= product.stock} 
+                      onClick={() => addToCart(product)}
+                    ><Plus size={20}/></button>
+                  </div>
                 ) : (
-                  <span className="badge bg-danger">Out of Stock</span>
+                  <button 
+                    className="btn-cart" 
+                    disabled={isOutOfStock} 
+                    onClick={() => addToCart(product)}
+                    style={{ opacity: isOutOfStock ? 0.6 : 1, cursor: isOutOfStock ? 'not-allowed' : 'pointer' }}
+                  >
+                    <ShoppingCart size={20} /> {isOutOfStock ? "Sold Out" : "Add to Cart"}
+                  </button>
                 )}
               </div>
 
-              <h1 className="display-5 fw-bold mb-3">{product.name}</h1>
-
-              {/* Rating */}
-              <div className="d-flex align-items-center mb-4">
-                <div className="d-flex me-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={20}
-                      className={i < Math.floor(product.rating) ? 'text-warning' : 'text-secondary'}
-                      fill={i < Math.floor(product.rating) ? 'currentColor' : 'none'}
-                    />
-                  ))}
-                </div>
-                <span className="text-secondary">
-                  {product.rating} out of 5 ({Math.floor(Math.random() * 500) + 100} reviews)
-                </span>
-              </div>
-
-              <p className="lead text-secondary mb-4">{product.description}</p>
-
-              {/* Price */}
-              <div className="price-section mb-4">
-                <div className="d-flex align-items-baseline gap-3">
-                  <h2 className="display-6 fw-bold text-primary mb-0">
-                    ${product.price}
-                  </h2>
-                  <span className="text-secondary text-decoration-line-through">
-                    ${(product.price * 1.2).toFixed(2)}
-                  </span>
-                  <span className="badge bg-danger">Save 20%</span>
-                </div>
-              </div>
-
-              {/* Product Details */}
-              <div className="card bg-light border-0 mb-4 p-3">
-                <p className="mb-2"><strong>Stock Available:</strong> {product.stock} units</p>
-                <p className="mb-0"><strong>Category:</strong> {product.category}</p>
-              </div>
-
-              {/* Quantity and Add to Cart */}
-              <div className="action-section mb-4">
-                <div className="mb-3">
-                  <label className="form-label fw-bold">Quantity</label>
-                  <select
-                    value={quantity}
-                    onChange={handleQuantityChange}
-                    disabled={product.stock === 0}
-                    className="form-select py-2"
-                  >
-                    {[...Array(Math.min(product.stock, 10))].map((_, i) => (
-                      <option key={i + 1} value={i + 1}>
-                        {i + 1} {i === 0 ? 'item' : 'items'}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="d-grid gap-2">
-                  <button
-                    className="btn btn-primary btn-lg py-3 fw-bold d-flex align-items-center justify-content-center gap-2"
-                    onClick={handleAddToCart}
-                    disabled={product.stock === 0}
-                  >
-                    <ShoppingCart size={24} />
-                    Add to Cart - ${(product.price * quantity).toFixed(2)}
-                  </button>
-                  <button
-                    className="btn btn-outline-secondary btn-lg py-3 fw-bold"
-                  >
-                    Add to Wishlist ♡
-                  </button>
-                </div>
-              </div>
-
-              {/* Additional Info */}
-              <div className="card border-0 bg-light p-3">
-                <h6 className="fw-bold mb-3">Why choose this product?</h6>
-                <ul className="mb-0">
-                  <li>Premium quality and reliability</li>
-                  <li>Best price guarantee</li>
-                  <li>Fast and secure shipping</li>
-                  <li>Excellent customer support</li>
-                  <li>Money-back satisfaction guarantee</li>
-                </ul>
-              </div>
+              
             </div>
           </div>
         </div>
 
-        {/* Related Products */}
-        <section className="mt-5 pt-5 border-top">
-          <h3 className="fw-bold mb-4">Related Products</h3>
-          <div className="row g-4">
-            {products
-              .filter(p => p.category === product.category && p.id !== product.id)
-              .slice(0, 4)
-              .map(relatedProduct => (
-                <div key={relatedProduct.id} className="col-xs-12 col-sm-6 col-lg-3">
-                  <div
-                    className="card product-card border-0 shadow-sm cursor-pointer"
-                    onClick={() => navigate(`/product/${relatedProduct.id}`)}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <img
-                      src={relatedProduct.image}
-                      alt={relatedProduct.name}
-                      className="card-img-top"
-                      style={{ height: '200px', objectFit: 'cover' }}
-                    />
-                    <div className="card-body">
-                      <h6 className="card-title">{relatedProduct.name}</h6>
-                      <div className="d-flex justify-content-between align-items-center">
-                        <strong className="text-primary">${relatedProduct.price}</strong>
-                        <Star size={16} className="text-warning" fill="currentColor" />
+        {relatedProducts.length > 0 && (
+          <section className="related-section mt-5 pt-5 border-top">
+            <h3 className="fw-bold mb-4">Related Products</h3>
+            <div className="product-grid">
+              {relatedProducts.map((item) => {
+                const itemInCart = cart?.find(c => c.id === item.id);
+                const itemQty = itemInCart ? itemInCart.quantity : 0;
+                const relatedOutOfStock = item.stock === 0;
+
+                return (
+                  <div key={item.id} className="product-card" onClick={() => navigate(`/product/${item.id}`)}>
+                    <div className="image-container">
+                      <div className="category-ribbon">{item.category}</div>
+                      <div className={`stock-ribbon ${relatedOutOfStock ? "out" : item.stock < 5 ? "low" : ""}`}>
+                        {relatedOutOfStock ? "Out of Stock" : `${item.stock} in Stock`}
+                      </div>
+                      <img src={item.image} alt={item.name} />
+                    </div>
+
+                    <div className="card-info">
+                      <h3>{item.name}</h3>
+                      <div className="rating">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star 
+                            key={star} 
+                            size={14} 
+                            fill={star <= item.rating ? "#ffc107" : "none"} 
+                            color={star <= item.rating ? "#ffc107" : "#e2e8f0"} 
+                          />
+                        ))}
+                        <span className="rating-number">{item.rating}</span>
+                      </div>
+                      <p className="price">₹ {item.price}</p>
+
+                      <div className="card-actions">
+                        {itemQty > 0 ? (
+                          <div className="quantity-controls" onClick={(e) => e.stopPropagation()}>
+                            <button className="qty-btn" type="button" onClick={() => removeFromCart(item.id)}>
+                              <Minus size={16} color="#0f172a" strokeWidth={3} />
+                            </button>
+                            <span className="qty-count">{itemQty}</span>
+                            <button 
+                              className="qty-btn" 
+                              type="button"
+                              disabled={itemQty >= item.stock} 
+                              onClick={() => addToCart(item)}
+                            >
+                              <Plus size={16} color="#0f172a" strokeWidth={3} />
+                            </button>
+                          </div>
+                        ) : (
+                          <button 
+                            className="add-cart-btn" 
+                            disabled={relatedOutOfStock}
+                            onClick={(e) => { e.stopPropagation(); addToCart(item); }}
+                            style={{ opacity: relatedOutOfStock ? 0.6 : 1, cursor: relatedOutOfStock ? 'not-allowed' : 'pointer' }}
+                          >
+                            <ShoppingCart size={18} color="white" strokeWidth={2.5} />
+                            <span>{relatedOutOfStock ? "Sold Out" : "Add"}</span>
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-          </div>
-        </section>
+                );
+              })}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );
