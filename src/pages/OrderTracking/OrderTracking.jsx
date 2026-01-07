@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
-import { ArrowLeft, MapPin, Phone, Mail, CheckCircle, Clock, AlertCircle } from 'lucide-react';
+// Added 'Gift' icon to imports
+import { ArrowLeft, MapPin, Phone, Mail, CheckCircle, Clock, AlertCircle, Gift } from 'lucide-react';
 import './OrderTracking.css';
 
 function OrderTracking() {
@@ -58,6 +59,9 @@ function OrderTracking() {
         return 'secondary';
     }
   };
+
+  // Calculate points for this specific order
+  const pointsEarned = Math.floor(order.total / 10);
 
   return (
     <div className="order-tracking-page py-5 bg-light">
@@ -266,6 +270,15 @@ function OrderTracking() {
                       : '0.00'}
                   </strong>
                 </div>
+
+                {/* --- ADDED: Points Earned Row --- */}
+                <div className="summary-item d-flex justify-content-between py-2 border-bottom bg-light px-2 rounded mt-2">
+                  <span className="text-success d-flex align-items-center gap-2">
+                    <Gift size={16} /> Points Earned
+                  </span>
+                  <strong className="text-success">+{pointsEarned}</strong>
+                </div>
+
                 <div className="summary-item d-flex justify-content-between py-3 text-primary fw-bold">
                   <span>Total</span>
                   <span style={{ fontSize: '1.2rem' }}>
