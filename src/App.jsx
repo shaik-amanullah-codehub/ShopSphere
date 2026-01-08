@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import CustomNavbar from './components/Navbar';
+import Footer from './components/Footer'; // 1. Import Footer
 
 // Customer Pages
 import Home from './pages/Home/Home';
@@ -24,48 +25,56 @@ function App() {
   return (
     <Router>
       <AppProvider>
-        <CustomNavbar />
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+        {/* The Navbar and Footer stay outside Routes to be visible everywhere */}
+        <div className="app-layout">
+          <CustomNavbar />
+          
+          <div className="main-content">
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
 
-          {/* Customer Routes */}
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/order/:orderId" element={<OrderTracking />} />
+              {/* Customer Routes */}
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/order/:orderId" element={<OrderTracking />} />
 
-          {/* Admin Routes */}
-          <Route
-            path="/admin"
-            element={
-              <AdminLayout>
-                <Dashboard />
-              </AdminLayout>
-            }
-          />
-          <Route
-            path="/admin/inventory"
-            element={
-              <AdminLayout>
-                <ProductManager />
-              </AdminLayout>
-            }
-          />
-          <Route
-            path="/admin/orders"
-            element={
-              <AdminLayout>
-                <OrderFulfillment />
-              </AdminLayout>
-            }
-          />
+              {/* Admin Routes */}
+              <Route
+                path="/admin"
+                element={
+                  <AdminLayout>
+                    <Dashboard />
+                  </AdminLayout>
+                }
+              />
+              <Route
+                path="/admin/inventory"
+                element={
+                  <AdminLayout>
+                    <ProductManager />
+                  </AdminLayout>
+                }
+              />
+              <Route
+                path="/admin/orders"
+                element={
+                  <AdminLayout>
+                    <OrderFulfillment />
+                  </AdminLayout>
+                }
+              />
 
-          {/* Catch all */}
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+              {/* Catch all */}
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </div>
+
+          <Footer /> {/* 2. Place Footer here */}
+        </div>
       </AppProvider>
     </Router>
   );

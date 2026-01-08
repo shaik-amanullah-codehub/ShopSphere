@@ -4,9 +4,9 @@
  * Global state management.
  * * CRITICAL FIXES APPLIED:
  * 1. placeOrder: Now fetches the FULL user record before updating points.
- * This prevents "PUT" requests from wiping the password/email from db.json.
  * 2. Login/Signup: Preserves database integrity.
  * 3. Logout: Safe local-only logout.
+ * 4. addToCart: Now handles decrementing and auto-removal.
  */
 
 import React, {
@@ -79,7 +79,6 @@ export const AppProvider = ({ children }) => {
         const parsedUser = JSON.parse(savedUser);
         setCurrentUser(parsedUser);
 
-        // Priority: User Object > Separate Key
         if (parsedUser.loyaltyPoints !== undefined) {
           setLoyaltyPoints(parsedUser.loyaltyPoints);
         } else if (savedPoints) {
@@ -192,7 +191,6 @@ export const AppProvider = ({ children }) => {
   );
 
   // ===== AUTHENTICATION METHODS =====
-
   const login = useCallback(async (email, password) => {
     setIsLoading(true);
     setError(null);
@@ -205,7 +203,6 @@ export const AppProvider = ({ children }) => {
 
       if (!customer) throw new Error("Invalid email or password");
 
-      // We use ...customer to keep ALL fields safe (including password/id)
       const userData = {
         ...customer,
         loyaltyPoints: customer.loyaltyPoints || 0,
@@ -253,7 +250,6 @@ export const AppProvider = ({ children }) => {
 
       const createResponse = await authAPI.register(newCustomer);
       const createdUser = createResponse.data;
-
       const loginData = { ...createdUser, loyaltyPoints: 0 };
 
       setCurrentUser(loginData);
@@ -269,15 +265,20 @@ export const AppProvider = ({ children }) => {
     }
   }, []);
 
-  // ===== CART METHODS =====
+  // ===== CART METHODS (FIXED) =====
   const addToCart = useCallback((product, qty = 1) => {
     setCart((prev) => {
       const exist = prev.find((i) => i.id === product.id);
-      return exist
-        ? prev.map((i) =>
-            i.id === product.id ? { ...i, quantity: i.quantity + qty } : i
-          )
-        : [...prev, { ...product, quantity: qty }];
+      if (exist) {
+        const newQuantity = exist.quantity + qty;
+        if (newQuantity <= 0) {
+          return prev.filter((i) => i.id !== product.id);
+        }
+        return prev.map((i) =>
+          i.id === product.id ? { ...i, quantity: newQuantity } : i
+        );
+      }
+      return qty > 0 ? [...prev, { ...product, quantity: qty }] : prev;
     });
   }, []);
 
@@ -314,10 +315,6 @@ export const AppProvider = ({ children }) => {
     }
   }, [currentUser]);
 
-  /**
-   * Place new order
-   * CRITICAL FIX: Safe Update Logic to prevent DB data loss
-   */
   const placeOrder = useCallback(
     async (orderData) => {
       setIsLoading(true);
@@ -339,36 +336,20 @@ export const AppProvider = ({ children }) => {
         const response = await orderAPI.createOrder(newOrder);
         setOrders((prev) => [...prev, response.data]);
 
-        // --- SAFE LOYALTY POINTS UPDATE ---
         const earnedPoints = Math.floor(orderData.total / 10);
 
         if (currentUser && currentUser.id) {
-          // 1. Fetch the FULL user object from DB (contains password, etc.)
-          // This ensures we have the complete record before updating.
           const userResponse = await authAPI.getAllCustomers();
           const fullUserRecord = userResponse.data.find(
             (u) => u.id === currentUser.id
           );
 
           if (fullUserRecord) {
-            const newTotalPoints =
-              (fullUserRecord.loyaltyPoints || 0) + earnedPoints;
-
-            // 2. Create a COMPLETE updated object (Old Data + New Points)
-            const updatedUserPayload = {
-              ...fullUserRecord,
-              loyaltyPoints: newTotalPoints,
-            };
-
-            // 3. Send the COMPLETE object to the server
-            // This works safely whether your API uses PUT (replace) or PATCH (update)
+            const newTotalPoints = (fullUserRecord.loyaltyPoints || 0) + earnedPoints;
+            const updatedUserPayload = { ...fullUserRecord, loyaltyPoints: newTotalPoints };
             await authAPI.updateCustomer(currentUser.id, updatedUserPayload);
 
-            // 4. Update Local State
-            setCurrentUser((prev) => ({
-              ...prev,
-              loyaltyPoints: newTotalPoints,
-            }));
+            setCurrentUser((prev) => ({ ...prev, loyaltyPoints: newTotalPoints }));
             setLoyaltyPoints(newTotalPoints);
           }
         }

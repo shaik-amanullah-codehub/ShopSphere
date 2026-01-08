@@ -494,14 +494,18 @@ function Profile() {
                         <p className="fw-bold mb-1 text-dark">
                           {currentUser.name}
                         </p>
-                        <p className="text-muted mb-1 small">
-                          {selectedOrder.shippingAddress.address}
-                        </p>
-                        <p className="text-muted mb-0 small">
-                          {selectedOrder.shippingAddress.line1},{" "}
-                          {selectedOrder.shippingAddress.state} -{" "}
-                          {selectedOrder.shippingAddress.pinCode}
-                        </p>
+                        {selectedOrder?.shippingAddress && (
+                          <>
+                            <p className="text-muted mb-1 small">
+                              {selectedOrder.shippingAddress.address}
+                            </p>
+                            <p className="text-muted mb-0 small">
+                              {selectedOrder.shippingAddress.line1},{" "}
+                              {selectedOrder.shippingAddress.state} -{" "}
+                              {selectedOrder.shippingAddress.pinCode}
+                            </p>
+                          </>
+                        )}
                         <p className="text-primary mt-2 mb-0 small fw-bold">
                           <span className="text-muted fw-normal">Phone:</span>{" "}
                           {currentUser.mobileNumber}

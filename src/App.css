@@ -164,3 +164,12 @@ body {
 .read-the-docs {
   color: #888;
 }
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Forces the layout to be at least the height of the screen */
+}
+
+.main-content {
+  flex: 1; /* This pushes the footer down if the page content is short */
+}

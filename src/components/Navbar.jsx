@@ -11,6 +11,9 @@ function CustomNavbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
 
+  
+  const totalItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
+
   const handleLogout = () => {
     logout();
     navigate("/login");
@@ -62,7 +65,6 @@ function CustomNavbar() {
 
             {currentUser ? (
               <>
-                {/* Profile Item in Navbar.js */}
                 <li
                   className="nav-item position-relative"
                   onMouseEnter={() => setShowProfile(true)}
@@ -80,6 +82,7 @@ function CustomNavbar() {
                     Profile
                   </a>
                 </li>
+                
                 <li className="nav-item">
                   <a
                     onClick={() => {
@@ -91,9 +94,10 @@ function CustomNavbar() {
                   >
                     <ShoppingCart size={18} />
                     Cart
-                    {cart.length > 0 && (
-                      <span className="badge bg-danger position-absolute top-0 start-100">
-                        {cart.length}
+                    
+                    {totalItemsCount > 0 && (
+                      <span className="badge bg-danger">
+                        {totalItemsCount}
                       </span>
                     )}
                   </a>
@@ -115,7 +119,7 @@ function CustomNavbar() {
                     className="btn btn-outline-danger btn-sm d-flex align-items-center gap-1"
                     onClick={handleLogout}
                   >
-                    <LogOut size={16} />
+                    <LogOut size={15} />
                     Logout
                   </button>
                 </li>

@@ -91,129 +91,8 @@
   ],
   "orders": [
     {
-      "id": "ORD-1767678372846",
-      "userId": 13,
-      "items": [
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 6,
-          "name": "Phone Case",
-          "price": 24.99,
-          "image": "https://images.unsplash.com/photo-1592286927505-1def25115558?w=500&h=500&fit=crop",
-          "description": "Protective phone case with impact resistance",
-          "category": "Accessories",
-          "stock": 80,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 8,
-          "name": "USB Hub",
-          "price": 39.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "7-port USB hub with fast charging capability",
-          "category": "Electronics",
-          "stock": 45,
-          "rating": 4.7,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 250.75600000000003,
-      "status": "pending",
-      "trackingStatus": "Order Placed",
-      "createdAt": "2026-01-06T05:46:12.846Z",
-      "updatedAt": "2026-01-06T05:46:12.846Z",
-      "shippingAddress": {
-        "id": 1,
-        "name": "TechHaven Downtown",
-        "address": "12, MG Road, Central District, Mumbai - 400001",
-        "distance": "1.2 km"
-      },
-      "paymentMethod": "cod"
-    },
-    {
-      "id": "ORD-1767679112951",
-      "userId": 14,
-      "items": [
-        {
-          "id": 2,
-          "name": "Smart Watch",
-          "price": 149.99,
-          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
-          "description": "Advanced fitness tracking smart watch with heart rate monitor",
-          "category": "Electronics",
-          "stock": 25,
-          "rating": 4.6,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 2
-        },
-        {
-          "id": 3,
-          "name": "USB-C Cable",
-          "price": 12.99,
-          "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop",
-          "description": "Fast charging USB-C cable with data transfer capability",
-          "category": "Accessories",
-          "stock": 100,
-          "rating": 4.5,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        },
-        {
-          "id": 4,
-          "name": "Wireless Mouse",
-          "price": 45.99,
-          "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop",
-          "description": "Ergonomic wireless mouse with precision tracking",
-          "category": "Electronics",
-          "stock": 30,
-          "rating": 4.7,
-          "createdAt": "2025-01-01T00:00:00Z",
-          "quantity": 1
-        }
-      ],
-      "total": 444.85600000000005,
-      "status": "delivered",
-      "trackingStatus": "Delivered",
-      "createdAt": "2026-01-06T05:58:32.951Z",
-      "updatedAt": "2026-01-06T06:03:51.915Z",
-      "shippingAddress": {
-        "name": "bob",
-        "line1": "13/b,Krishna reddy nagar,kurnool,Andhra Pradesh",
-        "city": "Kurnool",
-        "state": "AndhraPradesh",
-        "pincode": "518003"
-      },
-      "paymentMethod": "cod"
-    },
-    {
-      "id": "ORD-1767679331003",
-      "userId": 14,
+      "id": "ORD-1767858825653",
+      "userId": 2,
       "items": [
         {
           "id": 3,
@@ -229,15 +108,15 @@
         }
       ],
       "total": 14.289,
-      "status": "shipped",
-      "trackingStatus": "Out for Delivery",
-      "createdAt": "2026-01-06T06:02:11.003Z",
-      "updatedAt": "2026-01-06T06:03:41.582Z",
+      "status": "pending",
+      "trackingStatus": "Order Placed",
+      "createdAt": "2026-01-08T07:53:45.653Z",
+      "updatedAt": "2026-01-08T07:53:45.653Z",
       "shippingAddress": {
-        "id": 3,
-        "name": "TechHaven Express",
-        "address": "Plot 88, Phoenix Marketcity, Kurla, Mumbai - 400070",
-        "distance": "8.4 km"
+        "id": 1,
+        "name": "TechHaven Downtown",
+        "address": "12, MG Road, Central District, Mumbai - 400001",
+        "distance": "1.2 km"
       },
       "paymentMethod": "cod"
     }
@@ -252,119 +131,14 @@
       "createdAt": "2025-01-01T00:00:00Z"
     },
     {
-      "id": 2,
-      "email": "john@example.com",
-      "password": "john@123",
-      "name": "John Doe",
-      "role": "customer",
-      "createdAt": "2025-01-05T10:30:00Z"
-    },
-    {
-      "id": 3,
-      "email": "sarah@example.com",
-      "password": "sarah@456",
-      "name": "Sarah Smith",
-      "role": "customer",
-      "createdAt": "2025-01-10T14:20:00Z"
-    },
-    {
-      "id": 4,
-      "email": "mike@example.com",
-      "password": "mike@789",
-      "name": "Mike Johnson",
-      "role": "customer",
-      "createdAt": "2025-01-15T08:45:00Z"
-    },
-    {
-      "email": "aman1@gmail.com",
-      "password": "aman123",
-      "name": "Shaik Aman",
-      "role": "customer",
-      "createdAt": "2025-12-31T08:02:04.345Z",
-      "id": 5
-    },
-    {
-      "email": "uppudinesh197@gmail.com",
-      "password": "Dinesh@9858",
-      "name": "Dinesh Uppu",
-      "role": "customer",
-      "createdAt": "2026-01-02T04:51:14.311Z",
-      "id": 6
-    },
-    {
-      "email": "bob@gmail.com",
-      "password": "bob123",
-      "name": "bob",
-      "mobileNumber": "7893939141",
-      "role": "customer",
-      "createdAt": "2026-01-05T08:41:35.030Z",
-      "id": 7
-    },
-    {
-      "loyaltyPoints": 27,
-      "id": 8
-    },
-    {
-      "loyaltyPoints": 37,
-      "id": 9
-    },
-    {
-      "loyaltyPoints": 49,
-      "id": 10
-    },
-    {
-      "loyaltyPoints": 22,
-      "id": 11
-    },
-    {
-      "name": "venu",
-      "mobileNumber": "1234567890",
-      "email": "venu@gmail.com",
-      "password": "Venu@123",
-      "role": "customer",
-      "loyaltyPoints": 44,
-      "createdAt": "2026-01-06T01:38:01.374Z",
-      "id": 12
-    },
-    {
-      "name": "Dinesh",
-      "mobileNumber": "1234567890",
-      "email": "dinesh@gmail.com",
-      "password": "Dinesh@123",
-      "role": "customer",
-      "loyaltyPoints": 77,
-      "createdAt": "2026-01-06T05:38:59.000Z",
-      "id": 13
-    },
-    {
-      "name": "Aman",
-      "mobileNumber": "7893939141",
-      "email": "aman@gmail.com",
+      "name": "Aman Bob",
+      "mobileNumber": "7575848447",
+      "email": "ab@bob.com",
       "password": "Aman@123",
       "role": "customer",
-      "loyaltyPoints": 45,
-      "createdAt": "2026-01-06T05:58:03.291Z",
-      "id": 14
-    },
-    {
-      "name": "afd",
-      "mobileNumber": "1234567890",
-      "email": "aman2@gmail.com",
-      "password": "Bha@123",
-      "role": "customer",
-      "loyaltyPoints": 0,
-      "createdAt": "2026-01-06T06:44:38.254Z",
-      "id": 15
-    },
-    {
-      "name": "aman",
-      "mobileNumber": "1234567890",
-      "email": "aman3@gmail.com",
-      "password": "JaiBabu@123",
-      "role": "customer",
-      "loyaltyPoints": 0,
-      "createdAt": "2026-01-06T06:58:37.863Z",
-      "id": 16
+      "loyaltyPoints": 1,
+      "createdAt": "2026-01-08T07:53:24.481Z",
+      "id": 2
     }
   ]
 }
