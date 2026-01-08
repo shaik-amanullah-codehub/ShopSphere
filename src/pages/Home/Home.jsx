@@ -17,16 +17,16 @@ function Home() {
   const { products, cart, addToCart, removeFromCart } = useApp();
   const navigate = useNavigate();
 
- 
+  // for Filters
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [sortBy, setSortBy] = useState('default');
   const [forYouMode, setForYouMode] = useState(false);
 
- 
+  // unique categories for the dropdown
   const categories = ['All', ...new Set(products.map(p => p.category))];
 
- 
+  // get preferred categories
   const getPreferredCategories = () => {
     const saved = localStorage.getItem("userPreferences");
     if (!saved) return [];
@@ -34,13 +34,12 @@ function Home() {
     return prefs.filter(p => p.interested).map(p => p.category);
   };
 
- 
+  // Combined Filtering Logic
   let filteredProducts = products.filter(p => {
     const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
     
     if (forYouMode) {
       const preferred = getPreferredCategories();
-      
       const matchesPref = preferred.length === 0 || preferred.includes(p.category);
       return matchesSearch && matchesPref;
     } else {
@@ -49,7 +48,7 @@ function Home() {
     }
   });
 
-  
+  // Sorting Logic
   if (sortBy === "priceLowHigh") filteredProducts.sort((a, b) => a.price - b.price);
   else if (sortBy === "priceHighLow") filteredProducts.sort((a, b) => b.price - a.price);
   else if (sortBy === "ratingHighLow") filteredProducts.sort((a, b) => b.rating - a.rating);
@@ -72,7 +71,7 @@ function Home() {
       </header>
 
       <div className="home-container" id="shop-start">
-        
+        {/* Filter & Search Bar */}
         <div className="filter-wrapper">
           <div className="search-box">
             <Search size={20} className="search-icon" />
@@ -85,7 +84,7 @@ function Home() {
           </div>
           
           <div className="filter-actions">
-            
+            {/* For You Toggle Button */}
             <button 
               className={`for-you-btn ${forYouMode ? 'active' : ''}`}
               onClick={() => {
@@ -123,13 +122,8 @@ function Home() {
         </div>
 
         
-        {forYouMode && (
-          <div className="pref-notice">
-            ✨ Tailored for you based on your <span onClick={() => navigate('/profile')}>Interests</span>
-          </div>
-        )}
 
-        
+        {/* Product Grid */}
         <div className="product-grid">
           {filteredProducts.map((product) => {
             const cartItem = cart?.find(item => item.id === product.id);
@@ -164,7 +158,11 @@ function Home() {
                   <div className="card-actions">
                     {quantity > 0 ? (
                       <div className="quantity-controls" onClick={(e) => e.stopPropagation()}>
-                        <button className="qty-btn" type="button" onClick={() => removeFromCart(product.id)}>
+                        <button 
+                          className="qty-btn" 
+                          type="button" 
+                          onClick={() => addToCart(product, -1)}
+                        >
                           <Minus size={16} color="#0f172a" strokeWidth={3} />
                         </button>
                         <span className="qty-count">{quantity}</span>
@@ -172,7 +170,7 @@ function Home() {
                           className="qty-btn" 
                           type="button"
                           disabled={quantity >= product.stock} 
-                          onClick={() => addToCart(product)}
+                          onClick={() => addToCart(product, 1)}
                         >
                           <Plus size={16} color="#0f172a" strokeWidth={3} />
                         </button>
@@ -195,7 +193,7 @@ function Home() {
           })}
         </div>
         
-        
+        {/* Empty State */}
         {filteredProducts.length === 0 && (
           <div className="text-center py-5">
             <h3>No products found</h3>

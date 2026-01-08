@@ -1,32 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { 
   Star, ShoppingCart, ChevronLeft, 
-  Truck, ShieldCheck, RotateCcw, Plus, Minus, Lock 
+  Truck, ShieldCheck, RotateCcw, Plus, Minus 
 } from 'lucide-react';
 import './ProductDetail.css';
 
 function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  
-  const { products, cart, addToCart, removeFromCart } = useApp();
-  
-  const product = products.find(p => p.id === parseInt(id));
+  const { products, cart, addToCart } = useApp();
+  const [product, setProduct] = useState(null);
 
   useEffect(() => {
+    const found = products.find(p => String(p.id) === String(id));
+    setProduct(found);
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [id, products]);
 
   if (!product) return <div className="error-page">Product not found</div>;
 
-  const cartItem = cart?.find(item => item.id === product.id);
+  const cartItem = cart?.find(item => String(item.id) === String(product.id));
   const currentQty = cartItem ? cartItem.quantity : 0;
   const isOutOfStock = product.stock === 0;
 
   const relatedProducts = products.filter(
-    (item) => item.category === product.category && item.id !== product.id
+    (item) => item.category === product.category && String(item.id) !== String(product.id)
   ).slice(0, 4);
 
   return (
@@ -53,7 +53,7 @@ function ProductDetail() {
               </div>
               <div className="highlight-item">
                 <ShieldCheck className="text-indigo mb-2" size={24} />
-                <p className="small fw-bold mb-0">MOST TRUSTED BRAND</p>
+                <p className="small fw-bold mb-0">TRUSTED BRAND</p>
               </div>
             </div>
           </div>
@@ -86,27 +86,33 @@ function ProductDetail() {
               <div className="detail-actions mt-4">
                 {currentQty > 0 ? (
                   <div className="qty-selector-container">
-                    <button className="qty-btn" onClick={() => removeFromCart(product.id)}><Minus size={20}/></button>
+                    <button className="qty-btn" onClick={() => addToCart(product, -1)}>
+                      <Minus size={20}/>
+                    </button>
                     <span className="qty-count px-4 fw-bold">{currentQty}</span>
                     <button 
                       className="qty-btn" 
                       disabled={currentQty >= product.stock} 
-                      onClick={() => addToCart(product)}
-                    ><Plus size={20}/></button>
+                      onClick={() => addToCart(product, 1)}
+                    >
+                      <Plus size={20}/>
+                    </button>
                   </div>
                 ) : (
                   <button 
                     className="btn-cart" 
                     disabled={isOutOfStock} 
                     onClick={() => addToCart(product)}
-                    style={{ opacity: isOutOfStock ? 0.6 : 1, cursor: isOutOfStock ? 'not-allowed' : 'pointer' }}
+                    style={{ 
+                        backgroundColor: isOutOfStock ? '#939dabff' : '', 
+                        cursor: isOutOfStock ? 'not-allowed' : 'pointer' 
+                    }}
                   >
-                    <ShoppingCart size={20} /> {isOutOfStock ? "Sold Out" : "Add to Cart"}
+                    <ShoppingCart size={20} className="me-2" /> 
+                    {isOutOfStock ? "Sold Out" : "Add to Cart"}
                   </button>
                 )}
               </div>
-
-              
             </div>
           </div>
         </div>
@@ -116,39 +122,22 @@ function ProductDetail() {
             <h3 className="fw-bold mb-4">Related Products</h3>
             <div className="product-grid">
               {relatedProducts.map((item) => {
-                const itemInCart = cart?.find(c => c.id === item.id);
+                const itemInCart = cart?.find(c => String(c.id) === String(item.id));
                 const itemQty = itemInCart ? itemInCart.quantity : 0;
                 const relatedOutOfStock = item.stock === 0;
 
                 return (
                   <div key={item.id} className="product-card" onClick={() => navigate(`/product/${item.id}`)}>
                     <div className="image-container">
-                      <div className="category-ribbon">{item.category}</div>
-                      <div className={`stock-ribbon ${relatedOutOfStock ? "out" : item.stock < 5 ? "low" : ""}`}>
-                        {relatedOutOfStock ? "Out of Stock" : `${item.stock} in Stock`}
-                      </div>
                       <img src={item.image} alt={item.name} />
                     </div>
-
                     <div className="card-info">
                       <h3>{item.name}</h3>
-                      <div className="rating">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <Star 
-                            key={star} 
-                            size={14} 
-                            fill={star <= item.rating ? "#ffc107" : "none"} 
-                            color={star <= item.rating ? "#ffc107" : "#e2e8f0"} 
-                          />
-                        ))}
-                        <span className="rating-number">{item.rating}</span>
-                      </div>
                       <p className="price">₹ {item.price}</p>
-
                       <div className="card-actions">
                         {itemQty > 0 ? (
                           <div className="quantity-controls" onClick={(e) => e.stopPropagation()}>
-                            <button className="qty-btn" type="button" onClick={() => removeFromCart(item.id)}>
+                            <button className="qty-btn" type="button" onClick={() => addToCart(item, -1)}>
                               <Minus size={16} color="#0f172a" strokeWidth={3} />
                             </button>
                             <span className="qty-count">{itemQty}</span>
@@ -156,7 +145,7 @@ function ProductDetail() {
                               className="qty-btn" 
                               type="button"
                               disabled={itemQty >= item.stock} 
-                              onClick={() => addToCart(item)}
+                              onClick={() => addToCart(item, 1)}
                             >
                               <Plus size={16} color="#0f172a" strokeWidth={3} />
                             </button>
@@ -166,10 +155,18 @@ function ProductDetail() {
                             className="add-cart-btn" 
                             disabled={relatedOutOfStock}
                             onClick={(e) => { e.stopPropagation(); addToCart(item); }}
-                            style={{ opacity: relatedOutOfStock ? 0.6 : 1, cursor: relatedOutOfStock ? 'not-allowed' : 'pointer' }}
+                            style={{ 
+                                backgroundColor: relatedOutOfStock ? '#939dabff' : '', 
+                                color: relatedOutOfStock ? '#ebeff3ff' : '',
+                                cursor: relatedOutOfStock ? 'not-allowed' : 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '8px'
+                            }}
                           >
-                            <ShoppingCart size={18} color="white" strokeWidth={2.5} />
-                            <span>{relatedOutOfStock ? "Sold Out" : "Add"}</span>
+                            <ShoppingCart size={18} />
+                            <span>{relatedOutOfStock ? "Sold Out" : "Add to Cart"}</span>
                           </button>
                         )}
                       </div>

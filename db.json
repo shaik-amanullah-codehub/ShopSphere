@@ -82,7 +82,28 @@
     }
   ],
   "orders": [
-      
+    {
+      "id": "ORD-1767805796552",
+      "userId": 7,
+      "items": [
+        {
+          "id": 2,
+          "name": "Smart Watch",
+          "category": "Electronics",
+          "price": 3999,
+          "rating": 4.8,
+          "stock": 4,
+          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800",
+          "desc": "Advanced health tracking with oxygen sensors.",
+          "quantity": 1
+        }
+      ],
+      "total": 4398.9,
+      "status": "pending",
+      "trackingStatus": "Order Placed",
+      "createdAt": "2026-01-07T17:09:56.552Z",
+      "updatedAt": "2026-01-07T17:09:56.552Z"
+    }
   ],
   "customers": [
     {
