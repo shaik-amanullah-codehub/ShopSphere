@@ -1,30 +1,33 @@
-import React, { useState, useMemo } from 'react';
-import { useApp } from '../../../context/AppContext';
-import { Plus, Edit, Trash2, Search, AlertCircle } from 'lucide-react';
-import './ProductManager.css';
+import React, { useState, useMemo } from "react";
+import { useApp } from "../../../context/AppContext";
+import { Plus, Edit, Trash2, Search, AlertCircle } from "lucide-react";
+import "./ProductManager.css";
 
 function ProductManager() {
   const { products, addProduct, updateProduct, deleteProduct } = useApp();
   const [showModal, setShowModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('All');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("All");
   const [formData, setFormData] = useState({
-    name: '',
-    price: '',
-    description: '',
-    category: 'Electronics',
-    stock: '',
-    image: '',
-    rating: '4.5'
+    name: "",
+    price: "",
+    description: "",
+    category: "Electronics",
+    stock: "",
+    image: "",
+    rating: "4.5",
   });
 
-  const categories = ['Electronics', 'Accessories'];
+  const categories = ["Electronics", "Accessories"];
 
   const filteredProducts = useMemo(() => {
-    return products.filter(p => {
-      const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = categoryFilter === 'All' || p.category === categoryFilter;
+    return products.filter((p) => {
+      const matchesSearch = p.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesCategory =
+        categoryFilter === "All" || p.category === categoryFilter;
       return matchesSearch && matchesCategory;
     });
   }, [products, searchTerm, categoryFilter]);
@@ -36,13 +39,13 @@ function ProductManager() {
     } else {
       setEditingProduct(null);
       setFormData({
-        name: '',
-        price: '',
-        description: '',
-        category: 'Electronics',
-        stock: '',
-        image: '',
-        rating: '4.5'
+        name: "",
+        price: "",
+        description: "",
+        category: "Electronics",
+        stock: "",
+        image: "",
+        rating: "4.5",
       });
     }
     setShowModal(true);
@@ -56,15 +59,20 @@ function ProductManager() {
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.price || !formData.description || !formData.stock) {
-      alert('Please fill all required fields');
+    if (
+      !formData.name ||
+      !formData.price ||
+      !formData.description ||
+      !formData.stock
+    ) {
+      alert("Please fill all required fields");
       return;
     }
 
@@ -73,14 +81,14 @@ function ProductManager() {
         ...formData,
         price: parseFloat(formData.price),
         stock: parseInt(formData.stock),
-        rating: parseFloat(formData.rating)
+        rating: parseFloat(formData.rating),
       });
     } else {
       addProduct({
         ...formData,
         price: parseFloat(formData.price),
         stock: parseInt(formData.stock),
-        rating: parseFloat(formData.rating)
+        rating: parseFloat(formData.rating),
       });
     }
 
@@ -88,13 +96,13 @@ function ProductManager() {
   };
 
   const handleDelete = (productId) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
+    if (window.confirm("Are you sure you want to delete this product?")) {
       deleteProduct(productId);
     }
   };
 
   return (
-    <div style={{ padding: '0 40px' }} className="inventory-page">
+    <div style={{ padding: "0 40px" }} className="inventory-page">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="fw-bold">Inventory Management</h1>
         <button
@@ -129,8 +137,10 @@ function ProductManager() {
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
             <option value="All">All Categories</option>
-            {categories.map(cat => (
-              <option key={cat} value={cat}>{cat}</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
             ))}
           </select>
         </div>
@@ -154,7 +164,7 @@ function ProductManager() {
               </thead>
               <tbody>
                 {filteredProducts.length > 0 ? (
-                  filteredProducts.map(product => (
+                  filteredProducts.map((product) => (
                     <tr key={product.id} className="align-middle">
                       <td>
                         <div className="d-flex align-items-center">
@@ -162,16 +172,18 @@ function ProductManager() {
                             src={product.image}
                             alt={product.name}
                             style={{
-                              width: '40px',
-                              height: '40px',
-                              objectFit: 'cover',
-                              borderRadius: '6px',
-                              marginRight: '10px'
+                              width: "40px",
+                              height: "40px",
+                              objectFit: "cover",
+                              borderRadius: "6px",
+                              marginRight: "10px",
                             }}
                           />
                           <div>
                             <p className="mb-0 fw-bold">{product.name}</p>
-                            <small className="text-secondary">{product.description.substring(0, 30)}...</small>
+                            <small className="text-secondary">
+                              {product.description.substring(0, 30)}...
+                            </small>
                           </div>
                         </div>
                       </td>
@@ -187,7 +199,7 @@ function ProductManager() {
                             const newStock = parseInt(e.target.value) || 0;
                             updateProduct(product.id, { stock: newStock });
                           }}
-                          style={{ width: '80px' }}
+                          style={{ width: "80px" }}
                           min="0"
                           className="form-control form-control-sm"
                         />
@@ -199,13 +211,19 @@ function ProductManager() {
                       </td>
                       <td>
                         <span
-                          className={`badge ${product.stock > 10 ? 'bg-success' : product.stock > 0 ? 'bg-warning' : 'bg-danger'}`}
+                          className={`badge ${
+                            product.stock > 10
+                              ? "bg-success"
+                              : product.stock > 0
+                              ? "bg-warning"
+                              : "bg-danger"
+                          }`}
                         >
                           {product.stock > 10
-                            ? 'In Stock'
+                            ? "In Stock"
                             : product.stock > 0
-                              ? 'Low Stock'
-                              : 'Out of Stock'}
+                            ? "Low Stock"
+                            : "Out of Stock"}
                         </span>
                       </td>
                       <td>
@@ -230,7 +248,10 @@ function ProductManager() {
                 ) : (
                   <tr>
                     <td colSpan="7" className="text-center py-4">
-                      <AlertCircle size={32} className="text-secondary mb-2 opacity-50 d-block mx-auto" />
+                      <AlertCircle
+                        size={32}
+                        className="text-secondary mb-2 opacity-50 d-block mx-auto"
+                      />
                       <p className="text-secondary">No products found</p>
                     </td>
                   </tr>
@@ -243,14 +264,21 @@ function ProductManager() {
 
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+        <div
+          className="modal show d-block"
+          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
           <div className="modal-dialog modal-lg modal-dialog-centered">
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">
-                  {editingProduct ? 'Edit Product' : 'Add New Product'}
+                  {editingProduct ? "Edit Product" : "Add New Product"}
                 </h5>
-                <button type="button" className="btn-close" onClick={handleCloseModal}></button>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={handleCloseModal}
+                ></button>
               </div>
               <div className="modal-body">
                 <form onSubmit={handleSubmit}>
@@ -275,8 +303,10 @@ function ProductManager() {
                       onChange={handleInputChange}
                       className="form-select"
                     >
-                      {categories.map(cat => (
-                        <option key={cat} value={cat}>{cat}</option>
+                      {categories.map((cat) => (
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -356,11 +386,19 @@ function ProductManager() {
                 </form>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={handleCloseModal}
+                >
                   Cancel
                 </button>
-                <button type="button" className="btn btn-primary" onClick={handleSubmit}>
-                  {editingProduct ? 'Update Product' : 'Add Product'}
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleSubmit}
+                >
+                  {editingProduct ? "Update Product" : "Add Product"}
                 </button>
               </div>
             </div>

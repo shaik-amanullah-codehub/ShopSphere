@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
-import { Star, ShoppingCart, Truck, Lock, RotateCcw } from 'lucide-react';
-import './ProductDetail.css';
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useApp } from "../../context/AppContext";
+import { Star, ShoppingCart, Truck, Lock, RotateCcw } from "lucide-react";
+import "./ProductDetail.css";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -11,13 +11,13 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
 
-  const product = products.find(p => p.id === parseInt(id));
+  const product = products.find((p) => p.id === parseInt(id));
 
   if (!product) {
     return (
       <div className="container py-5">
         <div className="alert alert-warning">Product not found</div>
-        <button onClick={() => navigate('/')} className="btn btn-primary">
+        <button onClick={() => navigate("/")} className="btn btn-primary">
           Back to Shop
         </button>
       </div>
@@ -41,15 +41,22 @@ function ProductDetail() {
     <div className="product-detail-page py-5">
       <div className="container">
         {addedToCart && (
-          <div className="alert alert-success alert-dismissible fade show" role="alert">
+          <div
+            className="alert alert-success alert-dismissible fade show"
+            role="alert"
+          >
             ✓ Added to cart successfully!
-            <button type="button" className="btn-close" onClick={() => setAddedToCart(false)}></button>
+            <button
+              type="button"
+              className="btn-close"
+              onClick={() => setAddedToCart(false)}
+            ></button>
           </div>
         )}
 
         <button
           className="btn btn-outline-secondary mb-4"
-          onClick={() => navigate('/')}
+          onClick={() => navigate("/")}
         >
           ← Back to Products
         </button>
@@ -121,13 +128,20 @@ function ProductDetail() {
                     <Star
                       key={i}
                       size={20}
-                      className={i < Math.floor(product.rating) ? 'text-warning' : 'text-secondary'}
-                      fill={i < Math.floor(product.rating) ? 'currentColor' : 'none'}
+                      className={
+                        i < Math.floor(product.rating)
+                          ? "text-warning"
+                          : "text-secondary"
+                      }
+                      fill={
+                        i < Math.floor(product.rating) ? "currentColor" : "none"
+                      }
                     />
                   ))}
                 </div>
                 <span className="text-secondary">
-                  {product.rating} out of 5 ({Math.floor(Math.random() * 500) + 100} reviews)
+                  {product.rating} out of 5 (
+                  {Math.floor(Math.random() * 500) + 100} reviews)
                 </span>
               </div>
 
@@ -148,8 +162,12 @@ function ProductDetail() {
 
               {/* Product Details */}
               <div className="card bg-light border-0 mb-4 p-3">
-                <p className="mb-2"><strong>Stock Available:</strong> {product.stock} units</p>
-                <p className="mb-0"><strong>Category:</strong> {product.category}</p>
+                <p className="mb-2">
+                  <strong>Stock Available:</strong> {product.stock} units
+                </p>
+                <p className="mb-0">
+                  <strong>Category:</strong> {product.category}
+                </p>
               </div>
 
               {/* Quantity and Add to Cart */}
@@ -164,7 +182,7 @@ function ProductDetail() {
                   >
                     {[...Array(Math.min(product.stock, 10))].map((_, i) => (
                       <option key={i + 1} value={i + 1}>
-                        {i + 1} {i === 0 ? 'item' : 'items'}
+                        {i + 1} {i === 0 ? "item" : "items"}
                       </option>
                     ))}
                   </select>
@@ -179,9 +197,7 @@ function ProductDetail() {
                     <ShoppingCart size={24} />
                     Add to Cart - ${(product.price * quantity).toFixed(2)}
                   </button>
-                  <button
-                    className="btn btn-outline-secondary btn-lg py-3 fw-bold"
-                  >
+                  <button className="btn btn-outline-secondary btn-lg py-3 fw-bold">
                     Add to Wishlist ♡
                   </button>
                 </div>
@@ -207,26 +223,37 @@ function ProductDetail() {
           <h3 className="fw-bold mb-4">Related Products</h3>
           <div className="row g-4">
             {products
-              .filter(p => p.category === product.category && p.id !== product.id)
+              .filter(
+                (p) => p.category === product.category && p.id !== product.id
+              )
               .slice(0, 4)
-              .map(relatedProduct => (
-                <div key={relatedProduct.id} className="col-xs-12 col-sm-6 col-lg-3">
+              .map((relatedProduct) => (
+                <div
+                  key={relatedProduct.id}
+                  className="col-xs-12 col-sm-6 col-lg-3"
+                >
                   <div
                     className="card product-card border-0 shadow-sm cursor-pointer"
                     onClick={() => navigate(`/product/${relatedProduct.id}`)}
-                    style={{ cursor: 'pointer' }}
+                    style={{ cursor: "pointer" }}
                   >
                     <img
                       src={relatedProduct.image}
                       alt={relatedProduct.name}
                       className="card-img-top"
-                      style={{ height: '200px', objectFit: 'cover' }}
+                      style={{ height: "200px", objectFit: "cover" }}
                     />
                     <div className="card-body">
                       <h6 className="card-title">{relatedProduct.name}</h6>
                       <div className="d-flex justify-content-between align-items-center">
-                        <strong className="text-primary">${relatedProduct.price}</strong>
-                        <Star size={16} className="text-warning" fill="currentColor" />
+                        <strong className="text-primary">
+                          ${relatedProduct.price}
+                        </strong>
+                        <Star
+                          size={16}
+                          className="text-warning"
+                          fill="currentColor"
+                        />
                       </div>
                     </div>
                   </div>
