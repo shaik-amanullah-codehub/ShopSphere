@@ -18,10 +18,27 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
 }
 
+/* LOYALTY CARD STYLES */
 .loyalty-card {
   background: linear-gradient(135deg, #fff5e1 0%, #ffe8cc 100%);
   border-left: 4px solid #ffc107;
   border-radius: 12px;
+}
+
+/* NEW: Reward Cards Styles */
+.reward-card {
+  transition: all 0.2s ease-in-out;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.reward-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: #ffc107;
+}
+
+.bg-warning-subtle {
+  background-color: rgba(255, 193, 7, 0.2);
 }
 
 /* PREFERENCES */

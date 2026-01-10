@@ -12,7 +12,7 @@ import {
   Calendar,
   CheckCircle,
   CreditCard,
-  TrendingUp, // Added icon for milestone
+  TrendingUp,
 } from "lucide-react";
 import "./Profile.css";
 
@@ -207,7 +207,7 @@ function Profile() {
 
                 <div className="alert alert-light border mt-3 mb-0 py-2 d-flex align-items-center">
                   <small className="text-muted">
-                    💡 <strong>Tip:</strong> You earn 1 Point for every ₹10
+                    💡 <strong>Tip:</strong> You earn 25 Points for every ₹100
                     spent on purchases.
                   </small>
                 </div>
@@ -534,7 +534,7 @@ function Profile() {
                       <Gift size={16} /> Points Earned
                     </span>
                     <span className="text-success fw-bold">
-                      +{Math.floor(selectedOrder.total / 10)}
+                      +{Math.floor(selectedOrder.total * 0.25)}
                     </span>
                   </div>
 

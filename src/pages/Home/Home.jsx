@@ -1,295 +1,383 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useApp } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
-import { ShoppingCart, Star, Filter } from "lucide-react";
+import {
+  ShoppingCart,
+  Star,
+  Plus,
+  Minus,
+  ArrowRight,
+  Search,
+  SlidersHorizontal,
+  Sparkles,
+  Loader2,
+  AlertCircle,
+  // Footer Icons
+  Mail,
+  Phone,
+  Send,
+  Facebook,
+  Instagram,
+  Twitter,
+} from "lucide-react";
 import "./Home.css";
 
 function Home() {
-  const { products, addToCart, productsLoading, error } = useApp();
+  const { products, cart, addToCart, productsLoading, error } = useApp();
   const navigate = useNavigate();
 
-  // Local State
+  // --- Home State ---
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
-  const [sortBy, setSortBy] = useState("newest");
-  const [showRecommended, setShowRecommended] = useState(false);
+  const [sortBy, setSortBy] = useState("default");
+  const [forYouMode, setForYouMode] = useState(false);
 
-  // State for user preferences loaded from profile
-  const [activePreferences, setActivePreferences] = useState([]);
-
-  // Load preferences from local storage on mount
-  useEffect(() => {
-    const saved = localStorage.getItem("userPreferences");
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      // Filter only categories where 'interested' is true
-      const interestedCategories = parsed
-        .filter((p) => p.interested)
-        .map((p) => p.category);
-      setActivePreferences(interestedCategories);
-    } else {
-      // Default fallback if nothing saved yet
-      setActivePreferences(["Electronics", "Accessories"]);
-    }
-  }, [showRecommended]); // Reload when toggle changes to ensure freshness
-
-  // Derived State
-  const categories = ["All", ...new Set(products.map((p) => p.category))];
-
-  // Filter Logic
-  let filteredProducts = products.filter((p) => {
-    const matchesSearch =
-      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.description.toLowerCase().includes(searchTerm.toLowerCase());
-
-    // If standard category filter is used
-    const matchesCategory =
-      categoryFilter === "All" || p.category === categoryFilter;
-
-    // Preference Filter (The "For You" Logic)
-    // If toggle is ON, the product category must be in the activePreferences array
-    const matchesPreference = showRecommended
-      ? activePreferences.includes(p.category)
-      : true;
-
-    return matchesSearch && matchesCategory && matchesPreference;
+  // --- Footer State ---
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
   });
 
-  // Sort Logic
-  if (sortBy === "price-low")
+  // --- Derived State ---
+  const categories = ["All", ...new Set(products.map((p) => p.category))];
+
+  // --- Helper: Get preferences ---
+  const getPreferredCategories = () => {
+    try {
+      const saved = localStorage.getItem("userPreferences");
+      if (!saved) return [];
+      const prefs = JSON.parse(saved);
+      return prefs.filter((p) => p.interested).map((p) => p.category);
+    } catch (e) {
+      console.error("Error parsing preferences", e);
+      return [];
+    }
+  };
+
+  // --- Footer Handler ---
+  const handleFooterSubmit = (e) => {
+    e.preventDefault();
+    alert(`Thank you ${formData.name}! Your message has been sent.`);
+    setFormData({ name: "", email: "", message: "" });
+  };
+
+  // --- Filter Logic ---
+  let filteredProducts = products.filter((p) => {
+    const matchesSearch = p.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    if (forYouMode) {
+      const preferred = getPreferredCategories();
+      const matchesPref =
+        preferred.length === 0 || preferred.includes(p.category);
+      return matchesSearch && matchesPref;
+    } else {
+      const matchesCategory =
+        categoryFilter === "All" || p.category === categoryFilter;
+      return matchesSearch && matchesCategory;
+    }
+  });
+
+  // --- Sort Logic ---
+  if (sortBy === "priceLowHigh")
     filteredProducts.sort((a, b) => a.price - b.price);
-  else if (sortBy === "price-high")
+  else if (sortBy === "priceHighLow")
     filteredProducts.sort((a, b) => b.price - a.price);
-  else if (sortBy === "rating")
+  else if (sortBy === "ratingHighLow")
     filteredProducts.sort((a, b) => b.rating - a.rating);
+  else if (sortBy === "ratingLowHigh")
+    filteredProducts.sort((a, b) => a.rating - b.rating);
 
   return (
     <div className="home-page">
       {/* Hero Section */}
-      <div className="hero-section">
-        <div className="container">
-          <div className="row align-items-center min-vh-50">
-            <div className="col-lg-6 mb-4 mb-lg-0">
-              <h1 className="display-3 fw-bold mb-4">
-                Welcome to <span className="text-gradient">Shop Sphere</span>
-              </h1>
-              <p className="lead mb-4">
-                Discover premium electronics and accessories at unbeatable
-                prices. Fast shipping, secure checkout, and 30-day returns.
-              </p>
-              <div className="d-flex gap-3">
-                <button
-                  className="btn btn-primary btn-lg fw-bold"
-                  onClick={() =>
-                    window.scrollTo(
-                      0,
-                      document.getElementById("products").offsetTop
-                    )
-                  }
-                >
-                  Shop Now
-                </button>
-                <button className="btn btn-outline-primary btn-lg fw-bold">
-                  Learn More
-                </button>
-              </div>
+      <header className="hero-section">
+        <div className="hero-content-wrapper">
+          <h1 className="text-gradient">Shop Sphere</h1>
+          <p>Premium Quality. Fast Delivery. Secure Payments.</p>
+          <button
+            className="btn-main"
+            onClick={() =>
+              document
+                .getElementById("shop-start")
+                .scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            <span>Shop Now</span>
+            <ArrowRight size={18} />
+          </button>
+        </div>
+      </header>
+
+      <div className="home-container" id="shop-start">
+        {/* Filter & Search Bar */}
+        <div className="filter-wrapper">
+          <div className="search-box">
+            <Search size={20} className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search for items..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+
+          <div className="filter-actions">
+            <button
+              className={`for-you-btn ${forYouMode ? "active" : ""}`}
+              onClick={() => {
+                setForYouMode(!forYouMode);
+                setCategoryFilter("All");
+              }}
+              title="Show products based on your profile interests"
+            >
+              <Sparkles size={16} />
+              <span>For You</span>
+            </button>
+
+            <div
+              className="select-wrapper"
+              style={{ opacity: forYouMode ? 0.5 : 1 }}
+            >
+              <SlidersHorizontal size={16} className="select-icon" />
+              <select
+                value={categoryFilter}
+                disabled={forYouMode}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+              >
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat === "All" ? "All Categories" : cat}
+                  </option>
+                ))}
+              </select>
             </div>
-            <div className="col-lg-6">
-              <div className="hero-image">
-                <img
-                  src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop"
-                  alt="Shopping"
-                  className="img-fluid rounded-4 shadow-lg"
-                />
-              </div>
+
+            <div className="select-wrapper">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <option value="default">Sort By: Featured</option>
+                <option value="priceLowHigh">Price: Low to High</option>
+                <option value="priceHighLow">Price: High to Low</option>
+                <option value="ratingHighLow">Rating: High to Low</option>
+              </select>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Products Section */}
-      <section id="products" className="products-section py-5">
-        <div className="container">
-          <h2 className="text-center mb-5 fw-bold display-5">Our Products</h2>
-
-          {productsLoading && (
-            <div className="alert alert-info text-center">
-              Loading products...
-            </div>
-          )}
-          {error && (
-            <div className="alert alert-danger text-center">
-              Error loading products: {error}
-            </div>
-          )}
-
-          {/* Filters & Controls */}
-          <div className="filters-section mb-4 bg-light p-4 rounded-3">
-            <div className="row g-3 align-items-end">
-              {/* Search */}
-              <div className="col-md-3">
-                <label className="form-label fw-bold">Search</label>
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="form-control"
-                />
-              </div>
-
-              {/* Category */}
-              <div className="col-md-3">
-                <label className="form-label fw-bold">Category</label>
-                <select
-                  value={categoryFilter}
-                  onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="form-select"
-                >
-                  {categories.map((cat) => (
-                    <option key={cat} value={cat}>
-                      {cat}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Sort */}
-              <div className="col-md-3">
-                <label className="form-label fw-bold">Sort By</label>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="form-select"
-                >
-                  <option value="newest">Newest</option>
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="price-high">Price: High to Low</option>
-                  <option value="rating">Top Rated</option>
-                </select>
-              </div>
-
-              {/* Preferences Toggle */}
-              <div className="col-md-3">
-                <div className="form-check form-switch p-3 border rounded bg-white d-flex align-items-center gap-2">
-                  <input
-                    className="form-check-input m-0"
-                    type="checkbox"
-                    id="recommendToggle"
-                    checked={showRecommended}
-                    onChange={(e) => setShowRecommended(e.target.checked)}
-                    style={{ cursor: "pointer" }}
-                  />
-                  <label
-                    className="form-check-label fw-bold small m-0"
-                    htmlFor="recommendToggle"
-                    style={{ cursor: "pointer" }}
-                  >
-                    For You <Filter size={14} className="ms-1 text-primary" />
-                  </label>
-                </div>
-              </div>
-            </div>
+        {/* Loading & Error States */}
+        {productsLoading && (
+          <div className="state-message">
+            <Loader2 className="animate-spin text-primary" size={40} />
+            <p>Loading your products...</p>
           </div>
+        )}
 
-          {/* Grid */}
-          <div className="row g-4">
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map((product) => (
+        {error && (
+          <div className="state-message text-danger">
+            <AlertCircle size={40} />
+            <p>Error loading products: {error}</p>
+          </div>
+        )}
+
+        {/* Product Grid */}
+        {!productsLoading && !error && (
+          <div className="product-grid">
+            {filteredProducts.map((product) => {
+              const cartItem = cart?.find((item) => item.id === product.id);
+              const quantity = cartItem ? cartItem.quantity : 0;
+              const isOutOfStock = product.stock === 0;
+
+              return (
                 <div
                   key={product.id}
-                  className="col-xs-12 col-sm-6 col-lg-3 d-flex"
+                  className="product-card"
+                  onClick={() => navigate(`/product/${product.id}`)}
                 >
-                  <div className="card product-card shadow-sm border-0 w-100 h-100">
-                    <div className="product-image-container">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="card-img-top product-image"
-                      />
-                      <span className="badge bg-danger stock-badge">
-                        {product.stock > 0
-                          ? `${product.stock} in stock`
-                          : "Out of stock"}
-                      </span>
+                  <div className="image-container">
+                    <div className="category-ribbon">{product.category}</div>
+                    <div
+                      className={`stock-ribbon ${
+                        isOutOfStock ? "out" : product.stock < 5 ? "low" : ""
+                      }`}
+                    >
+                      {isOutOfStock
+                        ? "Out of Stock"
+                        : `${product.stock} in Stock`}
                     </div>
+                    <img src={product.image} alt={product.name} />
+                  </div>
 
-                    <div className="card-body d-flex flex-column">
-                      <span className="badge bg-light text-dark mb-2 w-fit">
-                        {product.category}
-                      </span>
-                      <h5 className="card-title mb-2">{product.name}</h5>
-                      <p className="card-text text-secondary small flex-grow-1">
-                        {product.description}
-                      </p>
+                  <div className="card-info">
+                    <h3>{product.name}</h3>
+                    <div className="rating">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star
+                          key={star}
+                          size={14}
+                          fill={star <= product.rating ? "#ffc107" : "none"}
+                          color={star <= product.rating ? "#ffc107" : "#e2e8f0"}
+                        />
+                      ))}
+                      <span className="rating-number">{product.rating}</span>
+                    </div>
+                    <p className="price">₹ {product.price}</p>
 
-                      <div className="d-flex align-items-center mb-3">
-                        <div className="d-flex">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              size={16}
-                              className={
-                                i < Math.floor(product.rating)
-                                  ? "text-warning"
-                                  : "text-secondary"
-                              }
-                              fill={
-                                i < Math.floor(product.rating)
-                                  ? "currentColor"
-                                  : "none"
-                              }
-                            />
-                          ))}
-                        </div>
-                        <span className="ms-2 text-secondary small">
-                          ({product.rating})
-                        </span>
-                      </div>
-
-                      <div className="d-flex justify-content-between align-items-center">
-                        <h4 className="mb-0 text-primary fw-bold">
-                          ₹{product.price}
-                        </h4>
-                        <button
-                          className="btn btn-primary btn-sm d-flex align-items-center gap-2"
-                          onClick={() => addToCart(product)}
-                          disabled={product.stock === 0}
+                    <div className="card-actions">
+                      {quantity > 0 ? (
+                        <div
+                          className="quantity-controls"
+                          onClick={(e) => e.stopPropagation()}
                         >
-                          <ShoppingCart size={16} /> Add
-                        </button>
-                      </div>
+                          {/* MINUS BUTTON - Explicit White Color */}
+                          <button
+                            className="qty-btn"
+                            type="button"
+                            onClick={() => addToCart(product, -1)}
+                          >
+                            <Minus
+                              size={18}
+                              strokeWidth={2.5}
+                              color="#ffffff"
+                            />
+                          </button>
 
-                      <button
-                        className="btn btn-outline-primary btn-sm mt-2 w-100"
-                        onClick={() => navigate(`/product/${product.id}`)}
-                      >
-                        View Details
-                      </button>
+                          <span className="qty-count">{quantity}</span>
+
+                          {/* PLUS BUTTON - Explicit White Color */}
+                          <button
+                            className="qty-btn"
+                            type="button"
+                            disabled={quantity >= product.stock}
+                            onClick={() => addToCart(product, 1)}
+                          >
+                            <Plus size={18} strokeWidth={2.5} color="#ffffff" />
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          className="add-cart-btn"
+                          disabled={isOutOfStock}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            addToCart(product);
+                          }}
+                          style={{
+                            opacity: isOutOfStock ? 0.6 : 1,
+                            cursor: isOutOfStock ? "not-allowed" : "pointer",
+                          }}
+                        >
+                          <ShoppingCart
+                            size={18}
+                            color="white"
+                            strokeWidth={2.5}
+                          />
+                          <span>
+                            {isOutOfStock ? "Sold Out" : "Add to Cart"}
+                          </span>
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className="col-xs-12 text-center py-5">
-                <p className="text-secondary display-6">
-                  {showRecommended
-                    ? "No products match your profile preferences."
-                    : "No products found matching your criteria"}
-                </p>
-                {showRecommended && (
-                  <button
-                    className="btn btn-link"
-                    onClick={() => navigate("/profile")}
-                  >
-                    Update Preferences in Profile
-                  </button>
-                )}
+              );
+            })}
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!productsLoading && !error && filteredProducts.length === 0 && (
+          <div className="text-center py-5">
+            <h3 className="text-secondary">No products found</h3>
+            <p className="text-muted">
+              {forYouMode
+                ? "No products match your profile preferences."
+                : "Try adjusting your filters or search term."}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* --- INTEGRATED FOOTER SECTION --- */}
+      <footer className="main-footer">
+        <div className="footer-container">
+          <div className="footer-content">
+            <div className="contact-form-side">
+              <h2 className="footer-heading">Message Us</h2>
+              <form onSubmit={handleFooterSubmit} className="footer-form">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  required
+                />
+                <textarea
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
+                  required
+                ></textarea>
+                <button type="submit" className="btn-footer-send">
+                  Send <Send size={16} />
+                </button>
+              </form>
+            </div>
+
+            <div className="contact-info-side">
+              <div className="contact-block">
+                <h3 className="sub-heading">Call us on</h3>
+                <div className="contact-item">
+                  <Phone size={18} />
+                  <span>1234-567-890</span>
+                </div>
               </div>
-            )}
+              <div className="contact-block">
+                <h3 className="sub-heading">Email us on</h3>
+                <div className="contact-item">
+                  <Mail size={18} />
+                  <span>shopsphere@gmail.com</span>
+                </div>
+              </div>
+              <div className="contact-block">
+                <h3 className="sub-heading">Follow us on</h3>
+                <div className="footer-social-row">
+                  <a href="#" className="social-circle">
+                    <Twitter size={18} />
+                  </a>
+                  <a href="#" className="social-circle">
+                    <Instagram size={18} />
+                  </a>
+                  <a href="#" className="social-circle">
+                    <Facebook size={18} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="footer-bottom-bar">
+            <p>&copy; 2026 Shop Sphere</p>
           </div>
         </div>
-      </section>
+      </footer>
     </div>
   );
 }
